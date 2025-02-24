@@ -1,0 +1,51 @@
+body {
+    background: url('background.webp') no-repeat center center fixed;
+    background-size: cover;
+    color: #112a4a;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+.container {
+    max-width: 900px;
+    margin: 20px auto;
+    background: #f4f4f4;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+.header {
+    text-align: center;
+    font-size: 24px;
+    font-weight: bold;
+}
+.books {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+}
+.book-card {
+    background: white;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    width: 250px;
+    text-align: center;
+}
+.book-card img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 5px;
+}
+.footer {
+    text-align: center;
+    margin-top: 20px;
+    padding: 10px;
+    background: rgba(244, 244, 244, 0.9);
+}
+.footer a {
+    color: #112a4a;
+    text-decoration: none;
+    font-weight: bold;
+}

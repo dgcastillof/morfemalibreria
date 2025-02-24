@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Morfema - Librería</title>
+    <style>
+        body {
+            background: url('background.webp') no-repeat center center fixed;
+            background-size: cover;
+            color: #112a4a;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
+        .container {
+            max-width: 900px;
+            margin: 20px auto;
+            background: #f4f4f4;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+        .header {
+            text-align: center;
+            font-size: 28px;
+            font-weight: bold;
+        }
+        .logo-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+        }
+        .logo {
+            max-width: 100%;
+            height: auto;
+            max-height: 150px;
+            object-fit: cover;
+            object-position: center;
+        }
+        .subheader {
+            text-align: center;
+            font-size: 20px;
+            margin-bottom: 20px;
+        }
+        .search-box {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        .search-box input {
+            padding: 10px;
+            width: 80%;
+            border: 1px solid #112a4a;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        .books {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            justify-content: center;
+        }
+        .book-card {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        .book-card img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 5px;
+        }
+        .footer {
+            text-align: center;
+            margin-top: 20px;
+            padding: 10px;
+            background: rgba(244, 244, 244, 0.9);
+        }
+        .footer a {
+            color: #112a4a;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .pagination {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        .pagination button {
+            background: #112a4a;
+            color: white;
+            border: none;
+            padding: 10px;
+            margin: 5px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        .pagination button:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+        @media (max-width: 800px) {
+            .books {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        @media (max-width: 500px) {
+            .books {
+                grid-template-columns: repeat(1, 1fr);
+            }
+        }
+    </style>
+    <script>
+        let currentPage = 1;
+        const booksPerPage = 24;
+        let books = [];
+        let filteredBooks = [];
+        
+        async function fetchBooks() {
+            try {
+                const response = await fetch('books.json');
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+                books = await response.json();
+                books.sort((a, b) => a.titulo.localeCompare(b.titulo));
+                filteredBooks = books;
+                showPage(1);
+            } catch (error) {
+                console.error('Error cargando el archivo books.json:', error);
+            }
+        }
+        
+        function showPage(page) {
+            const booksContainer = document.querySelector('.books');
+            booksContainer.innerHTML = '';
+            
+            if (filteredBooks.length === 0) {
+                booksContainer.innerHTML = '<p>No hay libros disponibles.</p>';
+                return;
+            }
+            
+            const start = (page - 1) * booksPerPage;
+            const end = start + booksPerPage;
+            const totalPages = Math.ceil(filteredBooks.length / booksPerPage);
+            
+            filteredBooks.slice(start, end).forEach(book => {
+                const bookCard = document.createElement('div');
+                bookCard.className = 'book-card';
+                bookCard.innerHTML = `
+                    <img src="${book.imagen}" alt="${book.titulo}">
+                    <h3>${book.titulo}</h3>
+                    <p><strong>Autor:</strong> ${book.autor}</p>
+                    <p><strong>Idioma:</strong> ${book.idioma}</p>
+                    <p><strong>Estado:</strong> ${book.estado}</p>
+                    <p><strong>Precio:</strong> ${book.precio}</p>
+                `;
+                booksContainer.appendChild(bookCard);
+            });
+            
+            document.getElementById('prevPage').disabled = page === 1;
+            document.getElementById('nextPage').disabled = page === totalPages;
+            currentPage = page;
+        }
+        
+        function filterBooks() {
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            filteredBooks = books.filter(book =>
+                book.titulo.toLowerCase().includes(searchTerm) ||
+                book.autor.toLowerCase().includes(searchTerm)
+            );
+            showPage(1);
+        }
+        
+        document.addEventListener('DOMContentLoaded', fetchBooks);
+    </script>
+</head>
+<body>
+    <div class="container">
+        <div class="header">Morfema - Librería</div>
+        <div class="logo-container">
+            <img src="logo.png" alt="Morfema" class="logo">
+        </div>
+        <div class="subheader">Venta de libros usados</div>
+        <div class="search-box">
+            <input type="text" id="searchInput" placeholder="Buscar por título o autor..." oninput="filterBooks()">
+        </div>
+        <div class="books"></div>
+        <div class="pagination">
+            <button id="prevPage" onclick="showPage(currentPage - 1)">Anterior</button>
+            <button id="nextPage" onclick="showPage(currentPage + 1)">Siguiente</button>
+        </div>
+    </div>
+    <div class="footer">
+        Contacto: <a href="https://www.instagram.com/morfemalibreria" target="_blank">@morfemalibreria</a>
+    </div>
+</body>
+</html>
