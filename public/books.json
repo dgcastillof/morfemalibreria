@@ -37,5 +37,16 @@
     {"titulo": "Me alegro de que mi madre haya muerto", "idioma": "Español", "autor": "Jennette McCurdy", "estado": "Como nuevo", "precio": "$4800", "imagen": "fotos/me_alegro_de_que_mi_madre_haya_muerto.png"},
     {"titulo": "El último hombre blanco", "idioma": "Español", "autor": "Mohsin Hamid", "estado": "Como nuevo", "precio": "$4700", "imagen": "fotos/el_ultimo_hombre_blanco.png"},
     {"titulo": "Una herencia en juego", "idioma": "Español", "autor": "Jennifer Lynn Barnes", "estado": "Como nuevo", "precio": "$4900", "imagen": "fotos/una_herencia_en_juego.png"},
-    {"titulo": "Cómo evitar un desastre climático", "idioma": "Español", "autor": "Bill Gates", "estado": "Muy bueno", "precio": "$5000", "imagen": "fotos/como_evitar_un_desastre_climatico.png"}
+    {"titulo": "Cómo evitar un desastre climático", "idioma": "Español", "autor": "Bill Gates", "estado": "Muy bueno", "precio": "$5000", "imagen": "fotos/como_evitar_un_desastre_climatico.png"},
+    {"titulo": "A Game of Thrones", "idioma": "Inglés", "autor": "George R. R. Martin", "estado": "Como nuevo", "precio": "$5000", "imagen": "fotos/a_game_of_thrones.png"},
+    {"titulo": "El camino de los reyes", "idioma": "Español", "autor": "Brandon Sanderson", "estado": "Como nuevo", "precio": "$5000", "imagen": "fotos/el_camino_de_los_reyes.png"},
+    {"titulo": "El aliento de los dioses", "idioma": "Español", "autor": "Brandon Sanderson", "estado": "Muy bueno", "precio": "$5000", "imagen": "fotos/el_aliento_de_los_dioses.png"},
+    {"titulo": "Arcanum ilimitado", "idioma": "Español", "autor": "Brandon Sanderson", "estado": "Como nuevo", "precio": "$5000", "imagen": "fotos/arcanum_ilimitado.png"},
+    {"titulo": "Arena blanca", "idioma": "Español", "autor": "Brandon Sanderson", "estado": "Como nuevo", "precio": "$5000", "imagen": "fotos/arena_blanca.png"},
+    {"titulo": "Juramentada", "idioma": "Español", "autor": "Brandon Sanderson", "estado": "Como nuevo", "precio": "$5000", "imagen": "fotos/juramentada.png"},
+    {"titulo": "El ritmo de la guerra", "idioma": "Español", "autor": "Brandon Sanderson", "estado": "Muy bueno", "precio": "$5000", "imagen": "fotos/el_ritmo_de_la_guerra.png"},
+    {"titulo": "Palabras radiantes", "idioma": "Español", "autor": "Brandon Sanderson", "estado": "Como nuevo", "precio": "$5000", "imagen": "fotos/palabras_radiantes.png"},
+    {"titulo": "Babel", "idioma": "Inglés", "autor": "R. F. Kuang", "estado": "Como nuevo", "precio": "$5000", "imagen": "fotos/babel.png"},
+    {"titulo": "A Day of Fallen Night", "idioma": "Inglés", "autor": "Samantha Shannon", "estado": "Detalles", "precio": "$5000", "imagen": "fotos/a_day_of_fallen_night.png"},
+    {"titulo": "The Way of Kings", "idioma": "Inglés", "autor": "Brandon Sanderson", "estado": "Detalles", "precio": "$5000", "imagen": "fotos/the_way_of_kings.png"}
 ]
