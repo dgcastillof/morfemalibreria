@@ -4,118 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Morfema - Librería</title>
-    <style>
-        body {
-            background: url('background.webp') no-repeat center center fixed;
-            background-size: cover;
-            color: #112a4a;
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            overflow-x: hidden;
-        }
-        .container {
-            max-width: 900px;
-            margin: 20px auto;
-            background: #f4f4f4;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            position: relative;
-        }
-        .header {
-            text-align: center;
-            font-size: 28px;
-            font-weight: bold;
-        }
-        .logo-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            width: 100%;
-        }
-        .logo {
-            max-width: 100%;
-            height: auto;
-            max-height: 150px;
-            object-fit: cover;
-            object-position: center;
-        }
-        .subheader {
-            text-align: center;
-            font-size: 20px;
-            margin-bottom: 20px;
-        }
-        .search-box {
-            display: flex;
-            justify-content: center;
-            margin-bottom: 20px;
-        }
-        .search-box input {
-            padding: 10px;
-            width: 80%;
-            border: 1px solid #112a4a;
-            border-radius: 5px;
-            font-size: 16px;
-        }
-        .books {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 20px;
-            justify-content: center;
-        }
-        .book-card {
-            background: white;
-            padding: 15px;
-            border-radius: 8px;
-            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
-            text-align: center;
-        }
-        .book-card img {
-            max-width: 100%;
-            height: auto;
-            border-radius: 5px;
-        }
-        .footer {
-            text-align: center;
-            margin-top: 20px;
-            padding: 10px;
-            background: rgba(244, 244, 244, 0.9);
-        }
-        .footer a {
-            color: #112a4a;
-            text-decoration: none;
-            font-weight: bold;
-        }
-        .pagination {
-            display: flex;
-            justify-content: center;
-            margin-top: 20px;
-        }
-        .pagination button {
-            background: #112a4a;
-            color: white;
-            border: none;
-            padding: 10px;
-            margin: 5px;
-            cursor: pointer;
-            border-radius: 5px;
-        }
-        .pagination button:disabled {
-            background: #ccc;
-            cursor: not-allowed;
-        }
-        @media (max-width: 800px) {
-            .books {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
-        @media (max-width: 500px) {
-            .books {
-                grid-template-columns: repeat(1, 1fr);
-            }
-        }
-    </style>
+    <link rel="stylesheet" href="styles.css">
     <script>
         let currentPage = 1;
         const booksPerPage = 24;
@@ -154,7 +43,7 @@
                 const bookCard = document.createElement('div');
                 bookCard.className = 'book-card';
                 bookCard.innerHTML = `
-                    <img src="${book.imagen}" alt="${book.titulo}">
+                    <img src="${book.imagen}" alt="${book.titulo}" class="zoom-default">
                     <h3>${book.titulo}</h3>
                     <p><strong>Autor:</strong> ${book.autor}</p>
                     <p><strong>Idioma:</strong> ${book.idioma}</p>
@@ -167,8 +56,19 @@
             document.getElementById('prevPage').disabled = page === 1;
             document.getElementById('nextPage').disabled = page === totalPages;
             currentPage = page;
+    
+            // Espera un pequeño tiempo antes de hacer scroll
+            setTimeout(() => {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            }, 100);
+    
+            // Aplicar efecto de zoom
+            applyZoomEffect();
         }
-
+    
         function filterBooks() {
             const searchTerm = document.getElementById('searchInput').value.toLowerCase();
             filteredBooks = books.filter(book =>
@@ -178,8 +78,68 @@
             showPage(1);
         }
     
-        document.addEventListener('DOMContentLoaded', fetchBooks);
+        function applyZoomEffect() {
+        document.querySelectorAll(".book-card").forEach(card => {
+            const img = card.querySelector("img");
+            let isLupaActive = false;
+
+            // Crear el efecto de zoom dinámico
+            const zoomImg = document.createElement("div");
+            zoomImg.classList.add("zoom-img");
+            zoomImg.style.backgroundImage = `url(${img.src})`;
+            card.appendChild(zoomImg);
+
+            // Crear botón de salida
+            const closeButton = document.createElement("button");
+            closeButton.innerText = "Cerrar zoom";
+            closeButton.classList.add("zoom-close-btn");
+            closeButton.style.display = "none"; // Oculto por defecto
+            card.appendChild(closeButton);
+
+            // Efecto de zoom normal con hover
+            img.addEventListener("mouseenter", () => {
+                if (!isLupaActive) {
+                    img.classList.add("zoom-hover");
+                }
+            });
+
+            img.addEventListener("mouseleave", () => {
+                if (!isLupaActive) {
+                    img.classList.remove("zoom-hover");
+                }
+            });
+
+            // Activar el efecto de lupa al hacer click en la imagen
+            img.addEventListener("click", () => {
+                isLupaActive = true;
+                img.style.opacity = "0"; // Ocultar imagen original
+                zoomImg.style.display = "block";
+                closeButton.style.display = "block"; // Mostrar botón
+
+                card.addEventListener("mousemove", (e) => {
+                    const rect = card.getBoundingClientRect();
+                    const x = ((e.clientX - rect.left) / rect.width) * 100;
+                    const y = ((e.clientY - rect.top) / rect.height) * 100;
+                    zoomImg.style.backgroundPosition = `${x}% ${y}%`;
+                });
+            });
+
+            // Cerrar el zoom al hacer click en el botón
+            closeButton.addEventListener("click", (e) => {
+                e.stopPropagation(); // Evita que el click cierre y vuelva a abrir el zoom
+                isLupaActive = false;
+                img.style.opacity = "1"; // Mostrar la imagen original
+                zoomImg.style.display = "none";
+                closeButton.style.display = "none"; // Ocultar botón
+            });
+        });
+    }
+
+    
+        document.addEventListener("DOMContentLoaded", fetchBooks);
     </script>
+    
+    
 </head>
 <body>
     <div class="container">
