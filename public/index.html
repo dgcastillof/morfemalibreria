@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Morfema - Librería</title>
     <link rel="stylesheet" href="styles.css">
+    <link rel="icon" href="logo.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    
     <script>
         let currentPage = 1;
         const booksPerPage = 24;
@@ -57,7 +60,6 @@
             document.getElementById('nextPage').disabled = page === totalPages;
             currentPage = page;
     
-            // Espera un pequeño tiempo antes de hacer scroll
             setTimeout(() => {
                 window.scrollTo({
                     top: 0,
@@ -65,7 +67,6 @@
                 });
             }, 100);
     
-            // Aplicar efecto de zoom
             applyZoomEffect();
         }
     
@@ -79,67 +80,59 @@
         }
     
         function applyZoomEffect() {
-        document.querySelectorAll(".book-card").forEach(card => {
-            const img = card.querySelector("img");
-            let isLupaActive = false;
+            document.querySelectorAll(".book-card").forEach(card => {
+                const img = card.querySelector("img");
+                let isLupaActive = false;
 
-            // Crear el efecto de zoom dinámico
-            const zoomImg = document.createElement("div");
-            zoomImg.classList.add("zoom-img");
-            zoomImg.style.backgroundImage = `url(${img.src})`;
-            card.appendChild(zoomImg);
+                const zoomImg = document.createElement("div");
+                zoomImg.classList.add("zoom-img");
+                zoomImg.style.backgroundImage = `url(${img.src})`;
+                card.appendChild(zoomImg);
 
-            // Crear botón de salida
-            const closeButton = document.createElement("button");
-            closeButton.innerText = "Cerrar zoom";
-            closeButton.classList.add("zoom-close-btn");
-            closeButton.style.display = "none"; // Oculto por defecto
-            card.appendChild(closeButton);
+                const closeButton = document.createElement("button");
+                closeButton.innerText = "Cerrar zoom";
+                closeButton.classList.add("zoom-close-btn");
+                closeButton.style.display = "none";
+                card.appendChild(closeButton);
 
-            // Efecto de zoom normal con hover
-            img.addEventListener("mouseenter", () => {
-                if (!isLupaActive) {
-                    img.classList.add("zoom-hover");
-                }
-            });
+                img.addEventListener("mouseenter", () => {
+                    if (!isLupaActive) {
+                        img.classList.add("zoom-hover");
+                    }
+                });
 
-            img.addEventListener("mouseleave", () => {
-                if (!isLupaActive) {
-                    img.classList.remove("zoom-hover");
-                }
-            });
+                img.addEventListener("mouseleave", () => {
+                    if (!isLupaActive) {
+                        img.classList.remove("zoom-hover");
+                    }
+                });
 
-            // Activar el efecto de lupa al hacer click en la imagen
-            img.addEventListener("click", () => {
-                isLupaActive = true;
-                img.style.opacity = "0"; // Ocultar imagen original
-                zoomImg.style.display = "block";
-                closeButton.style.display = "block"; // Mostrar botón
+                img.addEventListener("click", () => {
+                    isLupaActive = true;
+                    img.style.opacity = "0";
+                    zoomImg.style.display = "block";
+                    closeButton.style.display = "block";
 
-                card.addEventListener("mousemove", (e) => {
-                    const rect = card.getBoundingClientRect();
-                    const x = ((e.clientX - rect.left) / rect.width) * 100;
-                    const y = ((e.clientY - rect.top) / rect.height) * 100;
-                    zoomImg.style.backgroundPosition = `${x}% ${y}%`;
+                    card.addEventListener("mousemove", (e) => {
+                        const rect = card.getBoundingClientRect();
+                        const x = ((e.clientX - rect.left) / rect.width) * 100;
+                        const y = ((e.clientY - rect.top) / rect.height) * 100;
+                        zoomImg.style.backgroundPosition = `${x}% ${y}%`;
+                    });
+                });
+
+                closeButton.addEventListener("click", (e) => {
+                    e.stopPropagation();
+                    isLupaActive = false;
+                    img.style.opacity = "1";
+                    zoomImg.style.display = "none";
+                    closeButton.style.display = "none";
                 });
             });
+        }
 
-            // Cerrar el zoom al hacer click en el botón
-            closeButton.addEventListener("click", (e) => {
-                e.stopPropagation(); // Evita que el click cierre y vuelva a abrir el zoom
-                isLupaActive = false;
-                img.style.opacity = "1"; // Mostrar la imagen original
-                zoomImg.style.display = "none";
-                closeButton.style.display = "none"; // Ocultar botón
-            });
-        });
-    }
-
-    
         document.addEventListener("DOMContentLoaded", fetchBooks);
     </script>
-    
-    
 </head>
 <body>
     <div class="container">
@@ -157,8 +150,15 @@
             <button id="nextPage" onclick="showPage(currentPage + 1)">Siguiente</button>
         </div>
     </div>
+    
     <div class="footer">
-        Contacto: <a href="https://www.instagram.com/morfemalibreria" target="_blank">@morfemalibreria</a>
+        <p>Contacto:</p>
+        <a href="https://www.instagram.com/morfemalibreria" target="_blank">
+            <i class="fab fa-instagram"></i> Instagram
+        </a>
+        <a href="https://wa.me/541135752748" target="_blank">
+            <i class="fab fa-whatsapp"></i> WhatsApp
+        </a>
     </div>
 </body>
 </html>
