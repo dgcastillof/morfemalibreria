@@ -69,6 +69,93 @@ body {
     height: auto;
     border-radius: 5px;
 }
+.precio-librerias {
+    font-size: 14px;
+}
+.filters-container-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 15px;
+}
+
+.filters-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    max-width: 800px;
+    width: 100%;
+    flex-wrap: wrap;
+}
+
+.filter-select, .filter-button {
+    padding: 8px;
+    border-radius: 5px;
+    font-size: 14px;
+    cursor: pointer;
+    flex: 1;
+    min-width: 150px;
+}
+
+.filter-select {
+    border: 1px solid #ccc;
+    background: #f4f4f4;
+}
+
+.filter-button {
+    border: none;
+    background-color: #112a4a;
+    color: white;
+    transition: background 0.3s;
+}
+
+.filter-button:hover {
+    background-color: #0d1f3d;
+}
+
+/* Aplica un efecto grisado a los libros vendidos */
+.book-card.sold {
+    opacity: 0.5;
+    position: relative;
+}
+
+.book-card.sold img {
+    filter: grayscale(100%);
+    pointer-events: none; /* Desactiva interacciones en la imagen */
+}
+
+/* Deshabilitar el zoom en libros vendidos */
+.book-card.sold .zoom-img,
+.book-card.sold .zoom-close-btn {
+    display: none !important;
+}
+
+/* Badge rojo de "VENDIDO" */
+.book-img-wrapper {
+    position: relative;
+}
+
+.sold-badge {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background: red;
+    color: white;
+    padding: 5px 10px;
+    font-size: 14px;
+    font-weight: bold;
+    border-radius: 5px;
+    text-transform: uppercase;
+}
+
+@media (max-width: 600px) {
+    .filters-container {
+        flex-direction: column;
+        align-items: stretch;
+    }
+}
 .footer {
     text-align: center;
     margin-top: 20px;

@@ -44,17 +44,24 @@
     
             filteredBooks.slice(start, end).forEach(book => {
                 const bookCard = document.createElement('div');
-                bookCard.className = 'book-card';
+                bookCard.className = `book-card ${book.vendido ? 'sold' : ''}`; // Agregar clase 'sold' si está vendido
+
                 bookCard.innerHTML = `
-                    <img src="${book.imagen}" alt="${book.titulo}" class="zoom-default">
+                    <div class="book-img-wrapper">
+                        <img src="${book.imagen}" alt="${book.titulo}" class="zoom-default">
+                        ${book.vendido ? '<span class="sold-badge">VENDIDO</span>' : ''}
+                    </div>
                     <h3>${book.titulo}</h3>
                     <p><strong>Autor:</strong> ${book.autor}</p>
                     <p><strong>Idioma:</strong> ${book.idioma}</p>
                     <p><strong>Estado:</strong> ${book.estado}</p>
+                    <p class="precio-librerias"><strong>Precio en librerías:</strong> <s>${book.precio_libreria}</s></p>
                     <p><strong>Precio:</strong> ${book.precio}</p>
                 `;
+
                 booksContainer.appendChild(bookCard);
             });
+
     
             document.getElementById('prevPage').disabled = page === 1;
             document.getElementById('nextPage').disabled = page === totalPages;
@@ -81,6 +88,8 @@
     
         function applyZoomEffect() {
             document.querySelectorAll(".book-card").forEach(card => {
+                if (card.classList.contains("sold")) return; // Si está vendido, no aplicar zoom
+                
                 const img = card.querySelector("img");
                 let isLupaActive = false;
 
@@ -132,6 +141,62 @@
         }
 
         document.addEventListener("DOMContentLoaded", fetchBooks);
+
+            function populateFilters() {
+            const idiomas = new Set();
+            const estados = new Set();
+            const autores = new Set();
+        
+            books.forEach(book => {
+                idiomas.add(book.idioma);
+                estados.add(book.estado);
+                autores.add(book.autor);
+            });
+        
+            populateDropdown('filterIdioma', idiomas);
+            populateDropdown('filterEstado', estados);
+            populateDropdown('filterAutor', autores);
+        }
+        
+        function populateDropdown(id, values) {
+            const select = document.getElementById(id);
+            values.forEach(value => {
+                const option = document.createElement('option');
+                option.value = value;
+                option.textContent = value;
+                select.appendChild(option);
+            });
+        }
+        
+        function filterBooks() {
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            const selectedIdioma = document.getElementById('filterIdioma').value;
+            const selectedEstado = document.getElementById('filterEstado').value;
+            const selectedAutor = document.getElementById('filterAutor').value;
+        
+            filteredBooks = books.filter(book => 
+                (book.titulo.toLowerCase().includes(searchTerm) || book.autor.toLowerCase().includes(searchTerm)) &&
+                (selectedIdioma === "" || book.idioma === selectedIdioma) &&
+                (selectedEstado === "" || book.estado === selectedEstado) &&
+                (selectedAutor === "" || book.autor === selectedAutor)
+            );
+        
+            showPage(1);
+        }
+        
+        function clearFilters() {
+            document.getElementById('filterIdioma').value = "";
+            document.getElementById('filterEstado').value = "";
+            document.getElementById('filterAutor').value = "";
+            document.getElementById('searchInput').value = "";
+            filterBooks();
+        }
+    
+        document.addEventListener("DOMContentLoaded", () => {
+            fetchBooks().then(() => {
+                populateFilters();
+            });
+        });
     </script>
 </head>
 <body>
@@ -141,6 +206,23 @@
             <img src="logo.png" alt="Morfema" class="logo">
         </div>
         <div class="subheader">Venta de libros usados</div>
+        <div class="filters-container-wrapper">
+            <div class="filters-container">
+                <select id="filterIdioma" class="filter-select" onchange="filterBooks()">
+                    <option value="">Todos los idiomas</option>
+                </select>
+                
+                <select id="filterEstado" class="filter-select" onchange="filterBooks()">
+                    <option value="">Todos los estados</option>
+                </select>
+                
+                <select id="filterAutor" class="filter-select" onchange="filterBooks()">
+                    <option value="">Todos los autores</option>
+                </select>
+                
+                <button class="filter-button" onclick="clearFilters()">Limpiar filtros</button>
+            </div>
+        </div>
         <div class="search-box">
             <input type="text" id="searchInput" placeholder="Buscar por título o autor..." oninput="filterBooks()">
         </div>
