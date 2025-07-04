@@ -7,6 +7,24 @@ body {
     padding: 0;
     overflow-x: hidden;
 }
+.navbar {
+    background: rgba(244, 244, 244, 0.9);
+    display: flex;
+    justify-content: center;
+    padding: 10px 0;
+    margin-bottom: 10px;
+}
+
+.navbar a {
+    color: #112a4a;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.navbar a:hover {
+    text-decoration: underline;
+}
 .container {
     max-width: 900px;
     margin: 20px auto;
