@@ -32,9 +32,12 @@
         function showPage(page) {
             const booksContainer = document.querySelector('.books');
             booksContainer.innerHTML = '';
-    
+
             if (filteredBooks.length === 0) {
                 booksContainer.innerHTML = '<p>No hay libros disponibles.</p>';
+                document.getElementById('pageNumbers').innerHTML = '';
+                document.getElementById('prevPage').disabled = true;
+                document.getElementById('nextPage').disabled = true;
                 return;
             }
     
@@ -62,6 +65,19 @@
             });
 
     
+            const pageNumbersContainer = document.getElementById('pageNumbers');
+            pageNumbersContainer.innerHTML = '';
+            for (let i = 1; i <= totalPages; i++) {
+                const btn = document.createElement('button');
+                btn.textContent = i;
+                btn.className = 'page-number';
+                if (i === page) {
+                    btn.classList.add('active');
+                }
+                btn.addEventListener('click', () => showPage(i));
+                pageNumbersContainer.appendChild(btn);
+            }
+
             document.getElementById('prevPage').disabled = page === 1;
             document.getElementById('nextPage').disabled = page === totalPages;
             currentPage = page;
@@ -228,6 +244,7 @@
         <div class="books"></div>
         <div class="pagination">
             <button id="prevPage" onclick="showPage(currentPage - 1)">Anterior</button>
+            <div id="pageNumbers"></div>
             <button id="nextPage" onclick="showPage(currentPage + 1)">Siguiente</button>
         </div>
     </div>
