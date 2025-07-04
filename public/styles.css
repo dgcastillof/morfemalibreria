@@ -182,6 +182,20 @@ body {
     background: #ccc;
     cursor: not-allowed;
 }
+
+.pagination .page-number {
+    background: #112a4a;
+    color: white;
+    border: none;
+    padding: 10px;
+    margin: 5px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.pagination .page-number.active {
+    background: #0d1f3d;
+}
 /* Zoom normal al hacer hover */
 .zoom-hover {
     transform: scale(1.5);
