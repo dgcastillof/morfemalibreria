@@ -69,9 +69,6 @@ body {
     height: auto;
     border-radius: 5px;
 }
-.precio-librerias {
-    font-size: 14px;
-}
 .filters-container-wrapper {
     display: flex;
     justify-content: center;
