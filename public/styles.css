@@ -230,11 +230,15 @@ body {
 
 .book-detail {
     text-align: center;
+    max-width: 600px;
+    margin: auto;
 }
 
 .book-detail img {
-    max-width: 250px;
+    max-width: 350px;
     width: 100%;
     height: auto;
     border-radius: 5px;
+    display: block;
+    margin: 0 auto 20px auto;
 }

@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Morfema - Libro</title>
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <link rel="icon" href="logo.png">
     <script>
         async function fetchBook() {
@@ -19,6 +20,8 @@
                 const book = books[index];
                 if (book) {
                     renderBook(book);
+                } else {
+                    document.getElementById('bookContainer').textContent = 'Libro no encontrado.';
                 }
             } catch (error) {
                 console.error('Error cargando los datos del libro:', error);
