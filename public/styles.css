@@ -141,11 +141,6 @@ body {
     pointer-events: none; /* Desactiva interacciones en la imagen */
 }
 
-/* Deshabilitar el zoom en libros vendidos */
-.book-card.sold .zoom-img,
-.book-card.sold .zoom-close-btn {
-    display: none !important;
-}
 
 /* Badge rojo de "VENDIDO" */
 .book-img-wrapper {
@@ -214,54 +209,6 @@ body {
 .pagination .page-number.active {
     background: #0d1f3d;
 }
-/* Zoom normal al hacer hover */
-.zoom-hover {
-    transform: scale(1.5);
-    transition: transform 0.3s ease-in-out;
-}
-
-/* Estructura del zoom dinámico */
-.book-card {
-    position: relative;
-    overflow: hidden;
-}
-
-.book-card img {
-    width: 100%;
-    height: auto;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-/* Efecto de lupa (invisible hasta activarse) */
-.book-card .zoom-img {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-size: 200%; /* Ajusta el zoom (200% es el doble) */
-    background-repeat: no-repeat;
-    background-position: center;
-    display: none;
-    border-radius: 5px;
-}
-/* Estilo del botón para salir del zoom */
-.zoom-close-btn {
-    position: absolute;
-    top: 5px;
-    right: 5px;
-    background: rgba(255, 255, 255, 0.8);
-    border: none;
-    padding: 5px 10px;
-    cursor: pointer;
-    border-radius: 5px;
-    font-size: 12px;
-}
-
-.zoom-close-btn:hover {
-    background: rgba(255, 255, 255, 1);
-}
 
 
 
@@ -274,4 +221,20 @@ body {
     .books {
         grid-template-columns: repeat(1, 1fr);
     }
+}
+.book-link {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+}
+
+.book-detail {
+    text-align: center;
+}
+
+.book-detail img {
+    max-width: 250px;
+    width: 100%;
+    height: auto;
+    border-radius: 5px;
 }

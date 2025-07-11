@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Morfema - Libro</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" href="logo.png">
+    <script>
+        async function fetchBook() {
+            try {
+                const response = await fetch('books.json');
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+                const books = await response.json();
+                const params = new URLSearchParams(window.location.search);
+                const index = parseInt(params.get('index'), 10);
+                const book = books[index];
+                if (book) {
+                    renderBook(book);
+                }
+            } catch (error) {
+                console.error('Error cargando los datos del libro:', error);
+            }
+        }
+
+        function renderBook(book) {
+            const container = document.getElementById('bookContainer');
+            container.innerHTML = `
+                <div class="book-detail">
+                    <div class="book-img-wrapper">
+                        <img src="${book.imagen}" alt="${book.titulo}">
+                        ${book.vendido ? '<span class="sold-badge">VENDIDO</span>' : ''}
+                    </div>
+                    <h3>${book.titulo}</h3>
+                    <p><strong>Autor:</strong> ${book.autor}</p>
+                    <p><strong>Idioma:</strong> ${book.idioma}</p>
+                    <p><strong>Estado:</strong> ${book.estado}</p>
+                    <p><strong>Precio:</strong> ${book.precio}</p>
+                </div>`;
+        }
+
+        document.addEventListener('DOMContentLoaded', fetchBook);
+    </script>
+</head>
+<body>
+    <nav class="navbar">
+        <a href="index.html">CATÁLOGO</a>
+    </nav>
+    <div class="container" id="bookContainer"></div>
+    <div class="footer">
+        <p>Contacto:</p>
+        <a href="https://www.instagram.com/morfemalibreria" target="_blank">
+            <i class="fab fa-instagram"></i> Instagram
+        </a>
+        <a href="https://wa.me/541135752748" target="_blank">
+            <i class="fab fa-whatsapp"></i> WhatsApp
+        </a>
+    </div>
+</body>
+</html>
