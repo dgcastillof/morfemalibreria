@@ -49,9 +49,14 @@
                 const bookCard = document.createElement('div');
                 bookCard.className = `book-card ${book.vendido ? 'sold' : ''}`; // Agregar clase 'sold' si está vendido
 
-                bookCard.innerHTML = `
+                const link = document.createElement('a');
+                const titleParam = encodeURIComponent(book.titulo);
+                link.href = `libro.html?titulo=${titleParam}`;
+                link.className = 'book-link';
+
+                link.innerHTML = `
                     <div class="book-img-wrapper">
-                        <img src="${book.imagen}" alt="${book.titulo}" class="zoom-default">
+                        <img src="${book.imagen}" alt="${book.titulo}">
                         ${book.vendido ? '<span class="sold-badge">VENDIDO</span>' : ''}
                     </div>
                     <h3>${book.titulo}</h3>
@@ -61,6 +66,7 @@
                     <p><strong>Precio:</strong> ${book.precio}</p>
                 `;
 
+                bookCard.appendChild(link);
                 booksContainer.appendChild(bookCard);
             });
 
@@ -89,75 +95,9 @@
                 });
             }, 100);
     
-            applyZoomEffect();
-        }
-    
-        function filterBooks() {
-            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
-            filteredBooks = books.filter(book =>
-                book.titulo.toLowerCase().includes(searchTerm) ||
-                book.autor.toLowerCase().includes(searchTerm)
-            );
-            showPage(1);
-        }
-    
-        function applyZoomEffect() {
-            document.querySelectorAll(".book-card").forEach(card => {
-                if (card.classList.contains("sold")) return; // Si está vendido, no aplicar zoom
-                
-                const img = card.querySelector("img");
-                let isLupaActive = false;
-
-                const zoomImg = document.createElement("div");
-                zoomImg.classList.add("zoom-img");
-                zoomImg.style.backgroundImage = `url(${img.src})`;
-                card.appendChild(zoomImg);
-
-                const closeButton = document.createElement("button");
-                closeButton.innerText = "Cerrar zoom";
-                closeButton.classList.add("zoom-close-btn");
-                closeButton.style.display = "none";
-                card.appendChild(closeButton);
-
-                img.addEventListener("mouseenter", () => {
-                    if (!isLupaActive) {
-                        img.classList.add("zoom-hover");
-                    }
-                });
-
-                img.addEventListener("mouseleave", () => {
-                    if (!isLupaActive) {
-                        img.classList.remove("zoom-hover");
-                    }
-                });
-
-                img.addEventListener("click", () => {
-                    isLupaActive = true;
-                    img.style.opacity = "0";
-                    zoomImg.style.display = "block";
-                    closeButton.style.display = "block";
-
-                    card.addEventListener("mousemove", (e) => {
-                        const rect = card.getBoundingClientRect();
-                        const x = ((e.clientX - rect.left) / rect.width) * 100;
-                        const y = ((e.clientY - rect.top) / rect.height) * 100;
-                        zoomImg.style.backgroundPosition = `${x}% ${y}%`;
-                    });
-                });
-
-                closeButton.addEventListener("click", (e) => {
-                    e.stopPropagation();
-                    isLupaActive = false;
-                    img.style.opacity = "1";
-                    zoomImg.style.display = "none";
-                    closeButton.style.display = "none";
-                });
-            });
         }
 
-        document.addEventListener("DOMContentLoaded", fetchBooks);
-
-            function populateFilters() {
+        function populateFilters() {
             const idiomas = new Set();
             const estados = new Set();
             const autores = new Set();
