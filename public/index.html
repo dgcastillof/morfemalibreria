@@ -49,9 +49,9 @@
                 const bookCard = document.createElement('div');
                 bookCard.className = `book-card ${book.vendido ? 'sold' : ''}`; // Agregar clase 'sold' si está vendido
 
-                const indexBook = books.indexOf(book);
                 const link = document.createElement('a');
-                link.href = `libro.html?index=${indexBook}`;
+                const titleParam = encodeURIComponent(book.titulo);
+                link.href = `libro.html?titulo=${titleParam}`;
                 link.className = 'book-link';
 
                 link.innerHTML = `

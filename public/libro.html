@@ -15,10 +15,9 @@
                     throw new Error(`HTTP error! Status: ${response.status}`);
                 }
                 const books = await response.json();
-                books.sort((a, b) => a.titulo.localeCompare(b.titulo));
                 const params = new URLSearchParams(window.location.search);
-                const index = parseInt(params.get('index'), 10);
-                const book = books[index];
+                const titleParam = params.get('titulo');
+                const book = books.find(b => b.titulo === titleParam);
                 if (book) {
                     renderBook(book);
                 } else {
