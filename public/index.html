@@ -97,17 +97,7 @@
     
         }
 
-        function filterBooks() {
-            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
-            filteredBooks = books.filter(book =>
-                book.titulo.toLowerCase().includes(searchTerm) ||
-                book.autor.toLowerCase().includes(searchTerm)
-            );
-            showPage(1);
-        }
-    
-
-            function populateFilters() {
+        function populateFilters() {
             const idiomas = new Set();
             const estados = new Set();
             const autores = new Set();
