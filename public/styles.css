@@ -242,3 +242,15 @@ body {
     display: block;
     margin: 0 auto 20px auto;
 }
+
+/* Placeholder sections */
+.placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    min-height: 300px;
+    font-size: 28px;
+    font-weight: bold;
+    text-align: center;
+}
