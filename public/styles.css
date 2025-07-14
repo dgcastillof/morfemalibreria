@@ -107,6 +107,11 @@ body {
     border-radius: 8px;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
     text-align: center;
+    width: 100%;
+}
+.book-card h3 {
+    overflow-wrap: anywhere;
+    margin: 10px 0;
 }
 .book-card img {
     max-width: 100%;
@@ -178,8 +183,8 @@ body {
 }
 
 .book-card .book-img-wrapper {
-    width: 180px;
-    height: 240px;
+    width: 100%;
+    aspect-ratio: 3 / 4;
 }
 
 .book-detail .book-img-wrapper {
@@ -302,6 +307,9 @@ body {
 @media (max-width: 500px) {
     .books {
         grid-template-columns: repeat(1, 1fr);
+    }
+    .book-card {
+        width: 90%;
     }
 }
 @media (max-width: 350px) {
