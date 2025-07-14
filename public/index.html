@@ -109,18 +109,28 @@
 
         function populateFilters() {
             const idiomas = new Set();
-            const estados = new Set();
             const autores = new Set();
         
             books.forEach(book => {
                 idiomas.add(book.idioma);
-                estados.add(book.estado);
                 autores.add(book.autor);
             });
-        
-            populateDropdown('filterIdioma', idiomas);
-            populateDropdown('filterEstado', estados);
-            populateDropdown('filterAutor', autores);
+
+            const idiomasArray = Array.from(idiomas);
+            idiomasArray.sort((a, b) => {
+                const order = { 'Espa\u00f1ol': 0, 'Ingl\u00e9s': 1 };
+                const idxA = order[a];
+                const idxB = order[b];
+                if (idxA !== undefined || idxB !== undefined) {
+                    return (idxA ?? 99) - (idxB ?? 99);
+                }
+                return a.localeCompare(b);
+            });
+
+            const autoresArray = Array.from(autores).sort((a, b) => a.localeCompare(b));
+
+            populateDropdown('filterIdioma', idiomasArray);
+            populateDropdown('filterAutor', autoresArray);
         }
         
         function populateDropdown(id, values) {
@@ -181,7 +191,8 @@
                 </select>
                 
                 <select id="filterEstado" class="filter-select" onchange="filterBooks()">
-                    <option value="">Todos los estados</option>
+                    <option value="">Todos</option>
+                    <option value="Como nuevo">Solo como nuevos</option>
                 </select>
                 
                 <select id="filterAutor" class="filter-select" onchange="filterBooks()">
