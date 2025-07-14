@@ -18,6 +18,17 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <link rel="icon" href="logo.png">
     <script>
+        function loadImage(imgElem) {
+            const src = imgElem.getAttribute('data-src');
+            if (!src) return;
+            const img = new Image();
+            img.src = src;
+            img.onload = () => {
+                imgElem.src = src;
+                imgElem.classList.add('loaded');
+            };
+        }
+
         async function fetchBook() {
             try {
                 const response = await fetch('books.json');
@@ -43,7 +54,7 @@
             container.innerHTML = `
                 <div class="book-detail">
                     <div class="book-img-wrapper">
-                        <img src="${book.imagen}" alt="${book.titulo}">
+                        <img src="placeholder.png" data-src="${book.imagen}" alt="${book.titulo}" class="lazy-img">
                         ${book.vendido ? '<span class="sold-badge">VENDIDO</span>' : ''}
                     </div>
                     <h3>${book.titulo}</h3>
@@ -52,6 +63,8 @@
                     <p><strong>Estado:</strong> ${book.estado}</p>
                     <p><strong>Precio:</strong> ${book.precio}</p>
                 </div>`;
+            const imgElem = container.querySelector('img.lazy-img');
+            loadImage(imgElem);
         }
 
         document.addEventListener('DOMContentLoaded', fetchBook);

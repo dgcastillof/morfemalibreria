@@ -23,6 +23,17 @@
         const booksPerPage = 24;
         let books = [];
         let filteredBooks = [];
+
+        function loadImage(imgElem) {
+            const src = imgElem.getAttribute('data-src');
+            if (!src) return;
+            const img = new Image();
+            img.src = src;
+            img.onload = () => {
+                imgElem.src = src;
+                imgElem.classList.add('loaded');
+            };
+        }
     
         async function fetchBooks() {
             try {
@@ -66,7 +77,7 @@
 
                 link.innerHTML = `
                     <div class="book-img-wrapper">
-                        <img src="${book.imagen}" alt="${book.titulo}">
+                        <img src="placeholder.png" data-src="${book.imagen}" alt="${book.titulo}" class="lazy-img" width="180" height="240">
                         ${book.vendido ? '<span class="sold-badge">VENDIDO</span>' : ''}
                     </div>
                     <h3>${book.titulo}</h3>
@@ -78,6 +89,8 @@
 
                 bookCard.appendChild(link);
                 booksContainer.appendChild(bookCard);
+                const imgElem = link.querySelector('img.lazy-img');
+                loadImage(imgElem);
             });
 
     
