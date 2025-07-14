@@ -1,18 +1,9 @@
-document.addEventListener('DOMContentLoaded', () => {
-    fetch('navbar.html')
-        .then(response => {
-            if (!response.ok) {
-                throw new Error(`HTTP error ${response.status}`);
-            }
-            return response.text();
-        })
-        .then(html => {
-            const placeholder = document.getElementById('navbar-placeholder');
-            if (placeholder) {
-                placeholder.innerHTML = html;
-            }
-        })
-        .catch(error => {
-            console.error('Error loading navbar:', error);
+window.addEventListener('DOMContentLoaded', () => {
+    const toggle = document.querySelector('.nav-toggle');
+    const links = document.querySelector('.nav-links');
+    if (toggle && links) {
+        toggle.addEventListener('click', () => {
+            links.classList.toggle('show');
         });
+    }
 });
