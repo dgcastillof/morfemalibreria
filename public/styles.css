@@ -12,14 +12,18 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 35px;
     padding: 10px 0;
     margin-bottom: 10px;
     position: relative;
 }
 .nav-links {
     display: flex;
-    gap: 35px;
+}
+.nav-links a {
+    padding: 0 15px;
+}
+.nav-links a + a {
+    border-left: 1px solid #112a4a;
 }
 .nav-toggle {
     display: none;
@@ -28,7 +32,12 @@ body {
     font-size: 24px;
     cursor: pointer;
     position: absolute;
-    left: 10px;
+    right: 10px;
+}
+.current-section {
+    display: none;
+    font-weight: bold;
+    font-size: 18px;
 }
 
 .navbar a {
@@ -211,6 +220,9 @@ body {
     .nav-toggle {
         display: block;
     }
+    .current-section {
+        display: block;
+    }
     .nav-links {
         display: none;
         flex-direction: column;
@@ -219,8 +231,18 @@ body {
         margin-top: 10px;
         text-align: center;
     }
+    .nav-links a {
+        padding: 10px 0;
+        border-left: none;
+    }
+    .nav-links a + a {
+        border-top: 1px solid #112a4a;
+    }
     .nav-links.show {
         display: flex;
+    }
+    .current-section.hide {
+        display: none;
     }
     .navbar {
         flex-direction: column;
