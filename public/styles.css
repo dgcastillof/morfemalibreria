@@ -11,6 +11,7 @@ body {
     background: rgba(244, 244, 244, 0.9);
     display: flex;
     justify-content: center;
+    gap: 20px;
     padding: 10px 0;
     margin-bottom: 10px;
 }
@@ -241,4 +242,16 @@ body {
     border-radius: 5px;
     display: block;
     margin: 0 auto 20px auto;
+}
+
+/* Placeholder sections */
+.placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    min-height: 300px;
+    font-size: 28px;
+    font-weight: bold;
+    text-align: center;
 }
