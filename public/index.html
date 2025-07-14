@@ -15,6 +15,7 @@
     <meta property="og:type" content="website">
     <link rel="canonical" href="https://morfemalibreria.web.app/">
     <link rel="stylesheet" href="styles.css">
+    <link rel="preload" href="placeholder.png" as="image">
     <link rel="icon" href="logo.png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     
@@ -23,6 +24,26 @@
         const booksPerPage = 24;
         let books = [];
         let filteredBooks = [];
+
+        function loadImage(imgElem) {
+            const src = imgElem.getAttribute('data-src');
+            if (!src) return;
+
+            function startLoading() {
+                const realImg = new Image();
+                realImg.src = src;
+                realImg.onload = () => {
+                    imgElem.src = src;
+                    imgElem.classList.add('loaded');
+                };
+            }
+
+            if (imgElem.complete) {
+                startLoading();
+            } else {
+                imgElem.addEventListener('load', startLoading, { once: true });
+            }
+        }
     
         async function fetchBooks() {
             try {
@@ -66,7 +87,7 @@
 
                 link.innerHTML = `
                     <div class="book-img-wrapper">
-                        <img src="${book.imagen}" alt="${book.titulo}">
+                        <img src="placeholder.png" data-src="${book.imagen}" alt="${book.titulo}" class="lazy-img" width="180" height="240" loading="lazy">
                         ${book.vendido ? '<span class="sold-badge">VENDIDO</span>' : ''}
                     </div>
                     <h3>${book.titulo}</h3>
@@ -78,6 +99,8 @@
 
                 bookCard.appendChild(link);
                 booksContainer.appendChild(bookCard);
+                const imgElem = link.querySelector('img.lazy-img');
+                loadImage(imgElem);
             });
 
     

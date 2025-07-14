@@ -146,6 +146,32 @@ body {
 /* Badge rojo de "VENDIDO" */
 .book-img-wrapper {
     position: relative;
+    background: url('placeholder.png') center center / cover no-repeat;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.book-card .book-img-wrapper {
+    width: 180px;
+    height: 240px;
+}
+
+.book-detail .book-img-wrapper {
+    max-width: 350px;
+    margin: 0 auto 20px auto;
+}
+
+.lazy-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+}
+
+.lazy-img.loaded {
+    opacity: 1;
 }
 
 .sold-badge {
