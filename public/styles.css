@@ -11,6 +11,7 @@ body {
     background: rgba(244, 244, 244, 0.9);
     display: flex;
     justify-content: center;
+    gap: 20px;
     padding: 10px 0;
     margin-bottom: 10px;
 }
