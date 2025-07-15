@@ -108,6 +108,7 @@ body {
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
     text-align: center;
     width: 100%;
+    box-sizing: border-box;
 }
 .book-card h3 {
     overflow-wrap: anywhere;
