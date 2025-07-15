@@ -127,7 +127,22 @@
                     behavior: 'smooth'
                 });
             }, 100);
-    
+            setTimeout(adjustTitles, 0);
+
+        }
+
+        function adjustTitles() {
+            document.querySelectorAll('.book-card h3').forEach(title => {
+                const style = window.getComputedStyle(title);
+                const lineHeight = parseFloat(style.lineHeight);
+                const maxHeight = lineHeight * 2;
+                title.style.minHeight = maxHeight + 'px';
+                let fontSize = parseFloat(style.fontSize);
+                while (title.scrollHeight > maxHeight && fontSize > 12) {
+                    fontSize -= 1;
+                    title.style.fontSize = fontSize + 'px';
+                }
+            });
         }
 
         function populateFilters() {
