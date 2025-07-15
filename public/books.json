@@ -177,7 +177,7 @@
         "estado": "Muy bueno",
         "precio": "$6500",
         "imagen": "fotos/este_es_el_mar.png",
-        "vendido": false
+        "vendido": true
     },
     {
         "titulo": "Esquirla del amanecer",
@@ -195,7 +195,7 @@
         "estado": "Como nuevo",
         "precio": "$27500",
         "imagen": "fotos/sombras_de_identidad.png",
-        "vendido": false
+        "vendido": true
     },
     {
         "titulo": "Aleación de ley",
@@ -303,7 +303,7 @@
         "estado": "Como nuevo",
         "precio": "$23000",
         "imagen": "fotos/donde_estas_mundo_bello.png",
-        "vendido": false
+        "vendido": true
     },
     {
         "titulo": "Los guardianes de almas",
@@ -438,7 +438,7 @@
         "estado": "Detalles",
         "precio": "$8500",
         "imagen": "fotos/a_day_of_fallen_night.png",
-        "vendido": false
+        "vendido": true
     },
     {
         "titulo": "The Way of Kings",
