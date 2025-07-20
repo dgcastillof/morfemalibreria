@@ -236,6 +236,18 @@ body {
     border-radius: 5px;
     text-transform: uppercase;
 }
+.new-badge {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background: #3cc9d4;
+    color: white;
+    padding: 5px 10px;
+    font-size: 14px;
+    font-weight: bold;
+    border-radius: 5px;
+    text-transform: uppercase;
+}
 
 @media (max-width: 600px) {
     .filters-container {
