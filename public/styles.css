@@ -115,7 +115,8 @@ body {
 .book-card h3 {
     overflow-wrap: anywhere;
     margin: 10px 0;
-    font-family: 'Lora', serif;
+    font-family: 'Poppins Bold', sans-serif;
+    font-size: 18px;
     font-weight: 700;
     line-height: 1.2;
     min-height: 2.4em;
