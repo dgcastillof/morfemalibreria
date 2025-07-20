@@ -65,6 +65,7 @@
                 <div class="book-detail">
                     <div class="book-img-wrapper">
                         <img src="placeholder.png" data-src="${book.imagen}" alt="${book.titulo}" class="lazy-img" loading="lazy">
+                        ${book.novedad ? '<span class="new-badge">NOVEDAD</span>' : ''}
                         ${book.vendido ? '<span class="sold-badge">VENDIDO</span>' : ''}
                     </div>
                     <h3>${book.titulo}</h3>
