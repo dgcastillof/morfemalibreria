@@ -493,5 +493,50 @@
         "precio": "$60000",
         "imagen": "fotos/box_the_wheel_of_time.png",
         "vendido": false
+    },
+    {
+        "titulo": "El regreso de Carrie Soto",
+        "idioma": "Español",
+        "autor": "Taylor Jenkins Reid",
+        "estado": "Como nuevo",
+        "precio": "$25000",
+        "imagen": "fotos/el_regreso_de_carrie_soto.png",
+        "vendido": false
+    },
+    {
+        "titulo": "Diarios de Alejandra Pizarnik",
+        "idioma": "Español",
+        "autor": "Alejandra Pizarnik",
+        "estado": "Como nuevo",
+        "precio": "$45000",
+        "imagen": "fotos/diarios_de_alejandra_pizarnik.png",
+        "vendido": false
+    },
+    {
+        "titulo": "Malibú Renace",
+        "idioma": "Español",
+        "autor": "Taylor Jenkins Reid",
+        "estado": "Como nuevo",
+        "precio": "$15000",
+        "imagen": "fotos/malibu_renace.png",
+        "vendido": false
+    },
+    {
+        "titulo": "Sandman - Volumen 1",
+        "idioma": "Español",
+        "autor": "Neil Gaiman",
+        "estado": "Detalles",
+        "precio": "$7000",
+        "imagen": "fotos/sandman_volumen_1.png",
+        "vendido": false
+    },
+    {
+        "titulo": "Un río encantado",
+        "idioma": "Español",
+        "autor": "Rebecca Ross",
+        "estado": "Como nuevo",
+        "precio": "$27500",
+        "imagen": "fotos/un_rio_encantado.png",
+        "vendido": false
     }
 ]
