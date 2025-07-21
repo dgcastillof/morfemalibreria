@@ -89,7 +89,7 @@
 
                 const link = document.createElement('a');
                 const titleParam = encodeURIComponent(book.titulo);
-                link.href = `libro.html?titulo=${titleParam}`;
+                link.href = `libro.html?id=${book.id}&titulo=${titleParam}`;
                 link.className = 'book-link';
 
                 link.innerHTML = `
