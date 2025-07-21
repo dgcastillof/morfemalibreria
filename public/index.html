@@ -4,12 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Morfema - Librería</title>
-    <meta name="description" content="Catálogo online de Morfema Librería con una gran selección de libros usados.">
+    <meta name="description" content="Librería dedicada a la compra y venta de libros usados en Buenos Aires">
     <meta name="keywords" content="libros usados,librería,comprar libros,Morfema">
     <meta name="author" content="Morfema Librería">
     <meta name="robots" content="index, follow">
     <meta property="og:title" content="Morfema - Librería">
-    <meta property="og:description" content="Explorá el catálogo de libros usados de Morfema.">
+    <meta property="og:description" content="Explorá las novedades de Morfema">
     <meta property="og:image" content="https://morfemalibreria.com.ar/logo400x400fondo.png">
     <meta property="og:url" content="https://morfemalibreria.com.ar/">
     <meta property="og:type" content="website">
@@ -18,201 +18,169 @@
     <link rel="preload" href="placeholder.png" as="image">
     <link rel="icon" href="favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-    
+    <style>
+        .carousel {
+            position: relative;
+            overflow: hidden;
+            width: 90%;
+            margin: 20px auto;
+        }
+        .carousel-track {
+            display: flex;
+            transition: transform 0.5s ease;
+            align-items: flex-start;
+        }
+        .carousel-slide {
+            flex: 0 0 auto;
+            margin: 0 10px;
+            display: flex;
+            justify-content: center;
+            transition: transform 0.3s, opacity 0.3s;
+        }
+        .carousel-slide.prev,
+        .carousel-slide.next {
+            transform: scale(0.8);
+            opacity: 0.6;
+        }
+        .carousel-slide.active {
+            transform: scale(1);
+            opacity: 1;
+        }
+        .carousel-slide .book-card {
+            max-width: 378px;
+            padding: 10px;
+            width: 378px;
+        }
+        .carousel-slide .book-card h3 {
+            font-size: 16px;
+        }
+        .carousel-slide .book-card p {
+            font-size: 12px;
+        }
+        .carousel-slide .book-card .book-img-wrapper {
+            width: 65%;
+            margin: 0 auto;
+        }
+        .carousel-button {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(17,42,74,0.8);
+            color: white;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            padding: 10px;
+        }
+        .carousel-button.prev { left: 10px; }
+        .carousel-button.next { right: 10px; }
+        .novedades-title {
+            background: #112a4a;
+            color: white;
+            padding: 8px 0;
+            text-align: center;
+            margin: 20px 0;
+        }
+        #catalog-link {
+            display: inline-block;
+            width: 378px;
+            text-decoration: none;
+        }
+    </style>
     <script>
-        let currentPage = 1;
-        const booksPerPage = 24;
-        let books = [];
-        let filteredBooks = [];
-
-        function loadImage(imgElem) {
-            const src = imgElem.getAttribute('data-src');
-            if (!src) return;
-
-            function startLoading() {
-                const realImg = new Image();
-                realImg.src = src;
-                realImg.onload = () => {
-                    imgElem.src = src;
-                    imgElem.classList.add('loaded');
-                };
-            }
-
-            if (imgElem.complete) {
-                startLoading();
-            } else {
-                imgElem.addEventListener('load', startLoading, { once: true });
-            }
-        }
-    
-        async function fetchBooks() {
+        let currentSlide = 0;
+        let novedades = [];
+        let slideWidth = 0;
+        let slideCount = 0;
+        async function cargarNovedades() {
             try {
-                const response = await fetch('books.json');
-                if (!response.ok) {
-                    throw new Error(`HTTP error! Status: ${response.status}`);
-                }
-                books = await response.json();
-                books.sort((a, b) => a.titulo.localeCompare(b.titulo));
-                filteredBooks = books;
-                showPage(1);
-            } catch (error) {
-                console.error('Error cargando el archivo books.json:', error);
-            }
-        }
-    
-        function showPage(page) {
-            const booksContainer = document.querySelector('.books');
-            booksContainer.innerHTML = '';
-
-            if (filteredBooks.length === 0) {
-                booksContainer.innerHTML = '<p>No hay libros disponibles.</p>';
-                document.getElementById('pageNumbers').innerHTML = '';
-                document.getElementById('prevPage').disabled = true;
-                document.getElementById('nextPage').disabled = true;
-                return;
-            }
-    
-            const start = (page - 1) * booksPerPage;
-            const end = start + booksPerPage;
-            const totalPages = Math.ceil(filteredBooks.length / booksPerPage);
-    
-            filteredBooks.slice(start, end).forEach(book => {
-                const bookCard = document.createElement('div');
-                bookCard.className = `book-card ${book.vendido ? 'sold' : ''}`; // Agregar clase 'sold' si está vendido
-
-                const link = document.createElement('a');
-                const titleParam = encodeURIComponent(book.titulo);
-                link.href = `libro.html?titulo=${titleParam}`;
-                link.className = 'book-link';
-
-                link.innerHTML = `
-                    <div class="book-img-wrapper">
-                        <img src="placeholder.png" data-src="${book.imagen}" alt="${book.titulo}" class="lazy-img" width="180" height="240" loading="lazy">
-                        ${book.novedad ? '<span class="new-badge">NOVEDAD</span>' : ''}
-                        ${book.vendido ? '<span class="sold-badge">VENDIDO</span>' : ''}
-                    </div>
-                    <h3>${book.titulo}</h3>
-                    <p><strong>Autor:</strong> ${book.autor}</p>
-                    <p><strong>Idioma:</strong> ${book.idioma}</p>
-                    <p><strong>Estado:</strong> ${book.estado}</p>
-                    <p><strong>Precio:</strong> ${book.precio}</p>
-                `;
-
-                bookCard.appendChild(link);
-                booksContainer.appendChild(bookCard);
-                const imgElem = link.querySelector('img.lazy-img');
-                loadImage(imgElem);
-            });
-
-    
-            const pageNumbersContainer = document.getElementById('pageNumbers');
-            pageNumbersContainer.innerHTML = '';
-            for (let i = 1; i <= totalPages; i++) {
-                const btn = document.createElement('button');
-                btn.textContent = i;
-                btn.className = 'page-number';
-                if (i === page) {
-                    btn.classList.add('active');
-                }
-                btn.addEventListener('click', () => showPage(i));
-                pageNumbersContainer.appendChild(btn);
-            }
-
-            document.getElementById('prevPage').disabled = page === 1;
-            document.getElementById('nextPage').disabled = page === totalPages;
-            currentPage = page;
-    
-            setTimeout(() => {
-                window.scrollTo({
-                    top: 0,
-                    behavior: 'smooth'
+                const resp = await fetch('books.json');
+                const libros = await resp.json();
+                novedades = libros.filter(b => b.novedad);
+                const track = document.querySelector('.carousel-track');
+                novedades.forEach(libro => {
+                    const slide = document.createElement('div');
+                    slide.className = 'carousel-slide';
+                    const titleParam = encodeURIComponent(libro.titulo);
+                    slide.innerHTML = `
+                        <a href="libro.html?titulo=${titleParam}" class="book-link">
+                            <div class="book-card ${libro.vendido ? 'sold' : ''}">
+                                <div class="book-img-wrapper">
+                                    <img src="${libro.imagen}" alt="${libro.titulo}" loading="lazy">
+                                    ${libro.novedad ? '<span class="new-badge">NOVEDAD</span>' : ''}
+                                    ${libro.vendido ? '<span class="sold-badge">VENDIDO</span>' : ''}
+                                </div>
+                                <h3>${libro.titulo}</h3>
+                                <p><strong>Autor:</strong> ${libro.autor}</p>
+                                <p><strong>Idioma:</strong> ${libro.idioma}</p>
+                                <p><strong>Estado:</strong> ${libro.estado}</p>
+                                <p><strong>Precio:</strong> ${libro.precio}</p>
+                            </div>
+                        </a>`;
+                    track.appendChild(slide);
                 });
-            }, 100);
-    
-        }
-
-        function populateFilters() {
-            const idiomas = new Set();
-            const autores = new Set();
-        
-            books.forEach(book => {
-                idiomas.add(book.idioma);
-                autores.add(book.autor);
-            });
-
-            const idiomasArray = Array.from(idiomas);
-            idiomasArray.sort((a, b) => {
-                const order = { 'Espa\u00f1ol': 0, 'Ingl\u00e9s': 1 };
-                const idxA = order[a];
-                const idxB = order[b];
-                if (idxA !== undefined || idxB !== undefined) {
-                    return (idxA ?? 99) - (idxB ?? 99);
+                if (novedades.length > 1) {
+                    const firstClone = track.firstElementChild.cloneNode(true);
+                    const lastClone = track.lastElementChild.cloneNode(true);
+                    track.insertBefore(lastClone, track.firstElementChild);
+                    track.appendChild(firstClone);
+                    currentSlide = 1;
                 }
-                return a.localeCompare(b);
-            });
-
-            const autoresArray = Array.from(autores).sort((a, b) => a.localeCompare(b));
-
-            populateDropdown('filterIdioma', idiomasArray);
-            populateDropdown('filterAutor', autoresArray);
+                slideCount = track.children.length;
+                const refSlide = track.children[currentSlide] || track.firstElementChild;
+                if (refSlide) {
+                    const cs = window.getComputedStyle(refSlide);
+                    slideWidth = refSlide.offsetWidth +
+                        parseInt(cs.marginLeft) + parseInt(cs.marginRight);
+                }
+                mostrarSlide(currentSlide, true);
+            } catch(err) {
+                console.error('Error cargando novedades', err);
+            }
         }
-        
-        function populateDropdown(id, values) {
-            const select = document.getElementById(id);
-            values.forEach(value => {
-                const option = document.createElement('option');
-                option.value = value;
-                option.textContent = value;
-                select.appendChild(option);
-            });
+        function mostrarSlide(index, noTransition) {
+            const track = document.querySelector('.carousel-track');
+            const slides = track.children;
+            if (slideCount === 0) return;
+            if (index < 0) index = slideCount - 1;
+            if (index >= slideCount) index = 0;
+            currentSlide = index;
+            const container = document.querySelector('.carousel');
+            const offset = (container.offsetWidth - slideWidth) / 2;
+            track.style.transition = noTransition ? 'none' : 'transform 0.5s ease';
+            track.style.transform = `translateX(${offset - index * slideWidth}px)`;
+            Array.from(slides).forEach(s => s.classList.remove('prev', 'next', 'active'));
+            const total = slideCount;
+            const prevIndex = (index === 0) ? total - 2 : index - 1;
+            const nextIndex = (index === total - 1) ? 1 : index + 1;
+            slides[index].classList.add('active');
+            slides[prevIndex].classList.add('prev');
+            slides[nextIndex].classList.add('next');
         }
-        
-        function filterBooks() {
-            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
-            const selectedIdioma = document.getElementById('filterIdioma').value;
-            const selectedEstado = document.getElementById('filterEstado').value;
-            const selectedAutor = document.getElementById('filterAutor').value;
-        
-            filteredBooks = books.filter(book => 
-                (book.titulo.toLowerCase().includes(searchTerm) || book.autor.toLowerCase().includes(searchTerm)) &&
-                (selectedIdioma === "" || book.idioma === selectedIdioma) &&
-                (selectedEstado === "" || book.estado === selectedEstado) &&
-                (selectedAutor === "" || book.autor === selectedAutor)
-            );
-        
-            showPage(1);
-        }
-        
-        function clearFilters() {
-            document.getElementById('filterIdioma').value = "";
-            document.getElementById('filterEstado').value = "";
-            document.getElementById('filterAutor').value = "";
-            document.getElementById('searchInput').value = "";
-            filterBooks();
-        }
-    
-        document.addEventListener("DOMContentLoaded", () => {
-            fetchBooks().then(() => {
-                populateFilters();
+        function siguiente() { mostrarSlide(currentSlide + 1); }
+        function anterior() { mostrarSlide(currentSlide - 1); }
+        document.addEventListener('DOMContentLoaded', cargarNovedades);
+        document.addEventListener('DOMContentLoaded', () => {
+            const track = document.querySelector('.carousel-track');
+            track.addEventListener('transitionend', () => {
+                if (currentSlide === 0) {
+                    currentSlide = slideCount - 2;
+                    mostrarSlide(currentSlide, true);
+                } else if (currentSlide === slideCount - 1) {
+                    currentSlide = 1;
+                    mostrarSlide(currentSlide, true);
+                }
             });
         });
-    </script>
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-4WKGMKCLQH"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-
-      gtag('config', 'G-4WKGMKCLQH');
     </script>
 </head>
 <body>
     <nav class="navbar">
-        <div class="current-section">CATÁLOGO USADOS</div>
+        <div class="current-section">INICIO</div>
         <button class="nav-toggle" aria-label="Menú">&#9776;</button>
         <div class="nav-links">
-            <a href="index.html">CATÁLOGO USADOS</a>
+            <a href="index.html">HOME</a>
+            <a href="catalogo.html">CATÁLOGO USADOS</a>
             <a href="vende.html">VENDÉ TUS LIBROS CON NOSOTROS</a>
             <a href="lee-gratis.html">LEÉ GRATIS</a>
             <a href="talleres.html">TALLERES</a>
@@ -224,35 +192,16 @@
             <img src="logo.png" alt="Morfema" class="logo">
         </div>
         <div class="subheader">Venta de libros usados</div>
-        <div class="filters-container-wrapper">
-            <div class="filters-container">
-                <select id="filterIdioma" class="filter-select" onchange="filterBooks()">
-                    <option value="">Todos los idiomas</option>
-                </select>
-                
-                <select id="filterEstado" class="filter-select" onchange="filterBooks()">
-                    <option value="">Todos los estados</option>
-                    <option value="Como nuevo">Solo como nuevos</option>
-                </select>
-                
-                <select id="filterAutor" class="filter-select" onchange="filterBooks()">
-                    <option value="">Todos los autores</option>
-                </select>
-                
-                <button class="filter-button" onclick="clearFilters()">Limpiar filtros</button>
-            </div>
+        <h2 class="novedades-title">NOVEDADES</h2>
+        <div class="carousel">
+            <div class="carousel-track"></div>
+            <button class="carousel-button prev" onclick="anterior()">&#10094;</button>
+            <button class="carousel-button next" onclick="siguiente()">&#10095;</button>
         </div>
-        <div class="search-box">
-            <input type="text" id="searchInput" placeholder="Buscar por título o autor..." oninput="filterBooks()">
-        </div>
-        <div class="books"></div>
-        <div class="pagination">
-            <button id="prevPage" onclick="showPage(currentPage - 1)">Anterior</button>
-            <div id="pageNumbers"></div>
-            <button id="nextPage" onclick="showPage(currentPage + 1)">Siguiente</button>
+        <div style="text-align:center;margin-top:20px;">
+            <a href="catalogo.html" class="filter-button" id="catalog-link">Ver el catálogo completo</a>
         </div>
     </div>
-    
     <div class="footer">
         <p>Contacto:</p>
         <a href="https://www.instagram.com/morfemalibreria" target="_blank">
