@@ -49,6 +49,7 @@
         .carousel-slide .book-card {
             max-width: 378px;
             padding: 10px;
+            width: 378px;
         }
         .carousel-slide .book-card h3 {
             font-size: 16px;
@@ -90,6 +91,7 @@
         let currentSlide = 0;
         let novedades = [];
         let slideWidth = 0;
+        let slideCount = 0;
         async function cargarNovedades() {
             try {
                 const resp = await fetch('books.json');
@@ -117,37 +119,58 @@
                         </a>`;
                     track.appendChild(slide);
                 });
-                const firstSlide = track.querySelector('.carousel-slide');
-                if (firstSlide) {
-                    const cs = window.getComputedStyle(firstSlide);
-                    slideWidth = firstSlide.offsetWidth +
+                if (novedades.length > 1) {
+                    const firstClone = track.firstElementChild.cloneNode(true);
+                    const lastClone = track.lastElementChild.cloneNode(true);
+                    track.insertBefore(lastClone, track.firstElementChild);
+                    track.appendChild(firstClone);
+                    currentSlide = 1;
+                }
+                slideCount = track.children.length;
+                const refSlide = track.children[currentSlide] || track.firstElementChild;
+                if (refSlide) {
+                    const cs = window.getComputedStyle(refSlide);
+                    slideWidth = refSlide.offsetWidth +
                         parseInt(cs.marginLeft) + parseInt(cs.marginRight);
                 }
-                mostrarSlide(0);
+                mostrarSlide(currentSlide, true);
             } catch(err) {
                 console.error('Error cargando novedades', err);
             }
-        }
-        function mostrarSlide(index) {
+        function mostrarSlide(index, noTransition) {
             const track = document.querySelector('.carousel-track');
-            const slides = document.querySelectorAll('.carousel-slide');
-            if (novedades.length === 0) return;
-            if (index < 0) index = novedades.length - 1;
-            if (index >= novedades.length) index = 0;
+            const slides = track.children;
+            if (slideCount === 0) return;
+            if (index < 0) index = slideCount - 1;
+            if (index >= slideCount) index = 0;
             currentSlide = index;
             const container = document.querySelector('.carousel');
             const offset = (container.offsetWidth - slideWidth) / 2;
+            track.style.transition = noTransition ? 'none' : 'transform 0.5s ease';
             track.style.transform = `translateX(${offset - index * slideWidth}px)`;
-            slides.forEach((s, i) => {
-                s.classList.remove('prev', 'next', 'active');
-                if (i === index) s.classList.add('active');
-                else if (i === index - 1 || (index === 0 && i === slides.length - 1)) s.classList.add('prev');
-                else if (i === index + 1 || (index === slides.length - 1 && i === 0)) s.classList.add('next');
-            });
+            Array.from(slides).forEach(s => s.classList.remove('prev', 'next', 'active'));
+            const total = slideCount;
+            const prevIndex = (index === 0) ? total - 2 : index - 1;
+            const nextIndex = (index === total - 1) ? 1 : index + 1;
+            slides[index].classList.add('active');
+            slides[prevIndex].classList.add('prev');
+            slides[nextIndex].classList.add('next');
         }
         function siguiente() { mostrarSlide(currentSlide + 1); }
         function anterior() { mostrarSlide(currentSlide - 1); }
         document.addEventListener('DOMContentLoaded', cargarNovedades);
+        document.addEventListener('DOMContentLoaded', () => {
+            const track = document.querySelector('.carousel-track');
+            track.addEventListener('transitionend', () => {
+                if (currentSlide === 0) {
+                    currentSlide = slideCount - 2;
+                    mostrarSlide(currentSlide, true);
+                } else if (currentSlide === slideCount - 1) {
+                    currentSlide = 1;
+                    mostrarSlide(currentSlide, true);
+                }
+            });
+        });
     </script>
 </head>
 <body>
