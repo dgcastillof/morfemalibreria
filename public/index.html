@@ -25,38 +25,39 @@
             width: 90%;
             margin: 20px auto;
         }
-        .carousel::before,
-        .carousel::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            bottom: 0;
-            width: 40px;
-            pointer-events: none;
-        }
-        .carousel::before {
-            left: 0;
-            background: linear-gradient(to right, rgba(244,244,244,0.9), rgba(244,244,244,0));
-        }
-        .carousel::after {
-            right: 0;
-            background: linear-gradient(to left, rgba(244,244,244,0.9), rgba(244,244,244,0));
-        }
         .carousel-track {
             display: flex;
             transition: transform 0.5s ease;
+            align-items: flex-start;
         }
         .carousel-slide {
-            min-width: 100%;
-            box-sizing: border-box;
+            flex: 0 0 auto;
+            margin: 0 10px;
             display: flex;
             justify-content: center;
+            transition: transform 0.3s, opacity 0.3s;
+        }
+        .carousel-slide.prev,
+        .carousel-slide.next {
+            transform: scale(0.8);
+            opacity: 0.6;
+        }
+        .carousel-slide.active {
+            transform: scale(1);
+            opacity: 1;
         }
         .carousel-slide .book-card {
             max-width: 378px;
+            padding: 10px;
+        }
+        .carousel-slide .book-card h3 {
+            font-size: 16px;
+        }
+        .carousel-slide .book-card p {
+            font-size: 12px;
         }
         .carousel-slide .book-card .book-img-wrapper {
-            width: 76%;
+            width: 65%;
             margin: 0 auto;
         }
         .carousel-button {
@@ -88,6 +89,7 @@
     <script>
         let currentSlide = 0;
         let novedades = [];
+        let slideWidth = 0;
         async function cargarNovedades() {
             try {
                 const resp = await fetch('books.json');
@@ -115,6 +117,12 @@
                         </a>`;
                     track.appendChild(slide);
                 });
+                const firstSlide = track.querySelector('.carousel-slide');
+                if (firstSlide) {
+                    const cs = window.getComputedStyle(firstSlide);
+                    slideWidth = firstSlide.offsetWidth +
+                        parseInt(cs.marginLeft) + parseInt(cs.marginRight);
+                }
                 mostrarSlide(0);
             } catch(err) {
                 console.error('Error cargando novedades', err);
@@ -122,11 +130,20 @@
         }
         function mostrarSlide(index) {
             const track = document.querySelector('.carousel-track');
+            const slides = document.querySelectorAll('.carousel-slide');
             if (novedades.length === 0) return;
             if (index < 0) index = novedades.length - 1;
             if (index >= novedades.length) index = 0;
             currentSlide = index;
-            track.style.transform = `translateX(-${index * 100}%)`;
+            const container = document.querySelector('.carousel');
+            const offset = (container.offsetWidth - slideWidth) / 2;
+            track.style.transform = `translateX(${offset - index * slideWidth}px)`;
+            slides.forEach((s, i) => {
+                s.classList.remove('prev', 'next', 'active');
+                if (i === index) s.classList.add('active');
+                else if (i === index - 1 || (index === 0 && i === slides.length - 1)) s.classList.add('prev');
+                else if (i === index + 1 || (index === slides.length - 1 && i === 0)) s.classList.add('next');
+            });
         }
         function siguiente() { mostrarSlide(currentSlide + 1); }
         function anterior() { mostrarSlide(currentSlide - 1); }
