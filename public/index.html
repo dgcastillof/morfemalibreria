@@ -32,6 +32,11 @@
         .carousel-slide {
             min-width: 100%;
             box-sizing: border-box;
+            display: flex;
+            justify-content: center;
+        }
+        .carousel-slide .book-card {
+            max-width: 230px;
         }
         .carousel-button {
             position: absolute;
@@ -46,6 +51,13 @@
         }
         .carousel-button.prev { left: 10px; }
         .carousel-button.next { right: 10px; }
+        .novedades-title {
+            background: #112a4a;
+            color: white;
+            padding: 8px 0;
+            text-align: center;
+            margin: 20px 0;
+        }
     </style>
     <script>
         let currentSlide = 0;
@@ -62,11 +74,17 @@
                     const titleParam = encodeURIComponent(libro.titulo);
                     slide.innerHTML = `
                         <a href="libro.html?titulo=${titleParam}" class="book-link">
-                            <div class="book-card">
+                            <div class="book-card ${libro.vendido ? 'sold' : ''}">
                                 <div class="book-img-wrapper">
                                     <img src="${libro.imagen}" alt="${libro.titulo}" loading="lazy">
+                                    ${libro.novedad ? '<span class="new-badge">NOVEDAD</span>' : ''}
+                                    ${libro.vendido ? '<span class="sold-badge">VENDIDO</span>' : ''}
                                 </div>
                                 <h3>${libro.titulo}</h3>
+                                <p><strong>Autor:</strong> ${libro.autor}</p>
+                                <p><strong>Idioma:</strong> ${libro.idioma}</p>
+                                <p><strong>Estado:</strong> ${libro.estado}</p>
+                                <p><strong>Precio:</strong> ${libro.precio}</p>
                             </div>
                         </a>`;
                     track.appendChild(slide);
@@ -94,6 +112,7 @@
         <div class="current-section">INICIO</div>
         <button class="nav-toggle" aria-label="Menú">&#9776;</button>
         <div class="nav-links">
+            <a href="index.html">HOME</a>
             <a href="catalogo.html">CATÁLOGO USADOS</a>
             <a href="vende.html">VENDÉ TUS LIBROS CON NOSOTROS</a>
             <a href="lee-gratis.html">LEÉ GRATIS</a>
@@ -106,7 +125,7 @@
             <img src="logo.png" alt="Morfema" class="logo">
         </div>
         <div class="subheader">Venta de libros usados</div>
-        <h2 style="text-align:center">NOVEDADES</h2>
+        <h2 class="novedades-title">NOVEDADES</h2>
         <div class="carousel">
             <div class="carousel-track"></div>
             <button class="carousel-button prev" onclick="anterior()">&#10094;</button>
