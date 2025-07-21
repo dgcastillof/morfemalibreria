@@ -1,5 +1,6 @@
 [
     {
+        "id": 1,
         "titulo": "Gallant",
         "idioma": "Español",
         "autor": "V. E. Schwab",
@@ -9,6 +10,7 @@
         "vendido": false
     },
     {
+        "id": 2,
         "titulo": "Lore",
         "idioma": "Español",
         "autor": "Alexandra Bracken",
@@ -18,6 +20,7 @@
         "vendido": false
     },
     {
+        "id": 3,
         "titulo": "Cinder",
         "idioma": "Español",
         "autor": "Marissa Meyer",
@@ -27,6 +30,7 @@
         "vendido": false
     },
     {
+        "id": 4,
         "titulo": "Ella que llegó a ser el sol",
         "idioma": "Español",
         "autor": "Shelley Parker-Chan",
@@ -36,6 +40,7 @@
         "vendido": false
     },
     {
+        "id": 5,
         "titulo": "Nuestra parte de noche",
         "idioma": "Español",
         "autor": "Mariana Enriquez",
@@ -45,6 +50,7 @@
         "vendido": true
     },
     {
+        "id": 6,
         "titulo": "La teoría de Joa",
         "idioma": "Español",
         "autor": "Agus Grimm Pitch",
@@ -54,6 +60,7 @@
         "vendido": false
     },
     {
+        "id": 7,
         "titulo": "Tierra del Fuego: la creación del fin del mundo",
         "idioma": "Español",
         "autor": "Guillermo Gucci",
@@ -63,6 +70,7 @@
         "vendido": false
     },
     {
+        "id": 8,
         "titulo": "Eclosión",
         "idioma": "Español",
         "autor": "Vera Spinetta",
@@ -72,6 +80,7 @@
         "vendido": false
     },
     {
+        "id": 9,
         "titulo": "Cadáver exquisito",
         "idioma": "Español",
         "autor": "Agustina Bazterrica",
@@ -81,6 +90,7 @@
         "vendido": true
     },
     {
+        "id": 10,
         "titulo": "Las indignas",
         "idioma": "Español",
         "autor": "Agustina Bazterrica",
@@ -90,6 +100,7 @@
         "vendido": false
     },
     {
+        "id": 11,
         "titulo": "Mitos, dogmas y epopeyas",
         "idioma": "Español",
         "autor": "Agustín A. Monteverde",
@@ -99,6 +110,7 @@
         "vendido": false
     },
     {
+        "id": 12,
         "titulo": "This Is How You Lose the Time War",
         "idioma": "Inglés",
         "autor": "Amal El-Mohtar, Max Gladstone",
@@ -108,6 +120,7 @@
         "vendido": true
     },
     {
+        "id": 13,
         "titulo": "Un mundo feliz",
         "idioma": "Español",
         "autor": "Aldous Huxley",
@@ -117,6 +130,7 @@
         "vendido": false
     },
     {
+        "id": 14,
         "titulo": "Aniquilación",
         "idioma": "Español",
         "autor": "Jeff Vandermeer",
@@ -126,6 +140,7 @@
         "vendido": false
     },
     {
+        "id": 15,
         "titulo": "El señor de los anillos II - Las dos torres",
         "idioma": "Español",
         "autor": "J. R. R. Tolkien",
@@ -135,6 +150,7 @@
         "vendido": false
     },
     {
+        "id": 16,
         "titulo": "El señor de los anillos I - La comunidad del anillo",
         "idioma": "Español",
         "autor": "J. R. R. Tolkien",
@@ -144,6 +160,7 @@
         "vendido": true
     },
     {
+        "id": 17,
         "titulo": "Entremuros",
         "idioma": "Español",
         "autor": "Robert Jackson Bennett",
@@ -153,6 +170,7 @@
         "vendido": false
     },
     {
+        "id": 18,
         "titulo": "Viuda de hierro",
         "idioma": "Español",
         "autor": "Xiran Jay Zhao",
@@ -162,6 +180,7 @@
         "vendido": false
     },
     {
+        "id": 19,
         "titulo": "Casa de tierra y sangre",
         "idioma": "Español",
         "autor": "Sarah J. Maas",
@@ -171,6 +190,7 @@
         "vendido": false
     },
     {
+        "id": 20,
         "titulo": "Éste es el mar",
         "idioma": "Español",
         "autor": "Mariana Enriquez",
@@ -180,6 +200,7 @@
         "vendido": true
     },
     {
+        "id": 21,
         "titulo": "Esquirla del amanecer",
         "idioma": "Español",
         "autor": "Brandon Sanderson",
@@ -189,6 +210,7 @@
         "vendido": false
     },
     {
+        "id": 22,
         "titulo": "Sombras de identidad",
         "idioma": "Español",
         "autor": "Brandon Sanderson",
@@ -198,6 +220,7 @@
         "vendido": true
     },
     {
+        "id": 23,
         "titulo": "Aleación de ley",
         "idioma": "Español",
         "autor": "Brandon Sanderson",
@@ -207,6 +230,7 @@
         "vendido": false
     },
     {
+        "id": 24,
         "titulo": "El metal perdido",
         "idioma": "Español",
         "autor": "Brandon Sanderson",
@@ -216,6 +240,7 @@
         "vendido": true
     },
     {
+        "id": 25,
         "titulo": "Brazales de duelo",
         "idioma": "Español",
         "autor": "Brandon Sanderson",
@@ -225,6 +250,7 @@
         "vendido": true
     },
     {
+        "id": 26,
         "titulo": "Firefight",
         "idioma": "Español",
         "autor": "Brandon Sanderson",
@@ -234,6 +260,7 @@
         "vendido": false
     },
     {
+        "id": 27,
         "titulo": "Steelheart",
         "idioma": "Español",
         "autor": "Brandon Sanderson",
@@ -243,6 +270,7 @@
         "vendido": false
     },
     {
+        "id": 28,
         "titulo": "Yumi y el pintor de pesadillas",
         "idioma": "Español",
         "autor": "Brandon Sanderson",
@@ -252,6 +280,7 @@
         "vendido": false
     },
     {
+        "id": 29,
         "titulo": "La novena casa",
         "idioma": "Español",
         "autor": "Leigh Bardugo",
@@ -261,6 +290,7 @@
         "vendido": false
     },
     {
+        "id": 30,
         "titulo": "Trenza del mar esmeralda",
         "idioma": "Español",
         "autor": "Brandon Sanderson",
@@ -270,6 +300,7 @@
         "vendido": false
     },
     {
+        "id": 31,
         "titulo": "El hombre iluminado",
         "idioma": "Español",
         "autor": "Brandon Sanderson",
@@ -279,6 +310,7 @@
         "vendido": false
     },
     {
+        "id": 32,
         "titulo": "La guía del mago frugal",
         "idioma": "Español",
         "autor": "Brandon Sanderson",
@@ -288,6 +320,7 @@
         "vendido": false
     },
     {
+        "id": 33,
         "titulo": "Cuestiones candentes",
         "idioma": "Español",
         "autor": "Margaret Atwood",
@@ -297,6 +330,7 @@
         "vendido": false
     },
     {
+        "id": 34,
         "titulo": "Dónde estás, mundo bello",
         "idioma": "Español",
         "autor": "Sally Rooney",
@@ -306,6 +340,7 @@
         "vendido": true
     },
     {
+        "id": 35,
         "titulo": "Los guardianes de almas",
         "idioma": "Español",
         "autor": "Raquel Brune",
@@ -315,6 +350,7 @@
         "vendido": false
     },
     {
+        "id": 36,
         "titulo": "Me alegro de que mi madre haya muerto",
         "idioma": "Español",
         "autor": "Jennette McCurdy",
@@ -324,6 +360,7 @@
         "vendido": false
     },
     {
+        "id": 37,
         "titulo": "El último hombre blanco",
         "idioma": "Español",
         "autor": "Mohsin Hamid",
@@ -333,6 +370,7 @@
         "vendido": false
     },
     {
+        "id": 38,
         "titulo": "Una herencia en juego",
         "idioma": "Español",
         "autor": "Jennifer Lynn Barnes",
@@ -342,6 +380,7 @@
         "vendido": false
     },
     {
+        "id": 39,
         "titulo": "Cómo evitar un desastre climático",
         "idioma": "Español",
         "autor": "Bill Gates",
@@ -351,6 +390,7 @@
         "vendido": false
     },
     {
+        "id": 40,
         "titulo": "A Game of Thrones",
         "idioma": "Inglés",
         "autor": "George R. R. Martin",
@@ -360,6 +400,7 @@
         "vendido": false
     },
     {
+        "id": 41,
         "titulo": "El camino de los reyes",
         "idioma": "Español",
         "autor": "Brandon Sanderson",
@@ -369,6 +410,7 @@
         "vendido": false
     },
     {
+        "id": 42,
         "titulo": "El aliento de los dioses",
         "idioma": "Español",
         "autor": "Brandon Sanderson",
@@ -378,6 +420,7 @@
         "vendido": false
     },
     {
+        "id": 43,
         "titulo": "Arcanum ilimitado",
         "idioma": "Español",
         "autor": "Brandon Sanderson",
@@ -387,6 +430,7 @@
         "vendido": false
     },
     {
+        "id": 44,
         "titulo": "Arena blanca",
         "idioma": "Español",
         "autor": "Brandon Sanderson",
@@ -396,6 +440,7 @@
         "vendido": true
     },
     {
+        "id": 45,
         "titulo": "Juramentada",
         "idioma": "Español",
         "autor": "Brandon Sanderson",
@@ -405,6 +450,7 @@
         "vendido": false
     },
     {
+        "id": 46,
         "titulo": "El ritmo de la guerra",
         "idioma": "Español",
         "autor": "Brandon Sanderson",
@@ -414,6 +460,7 @@
         "vendido": false
     },
     {
+        "id": 47,
         "titulo": "Palabras radiantes",
         "idioma": "Español",
         "autor": "Brandon Sanderson",
@@ -423,6 +470,7 @@
         "vendido": false
     },
     {
+        "id": 48,
         "titulo": "Babel",
         "idioma": "Inglés",
         "autor": "R. F. Kuang",
@@ -432,6 +480,7 @@
         "vendido": false
     },
     {
+        "id": 49,
         "titulo": "A Day of Fallen Night",
         "idioma": "Inglés",
         "autor": "Samantha Shannon",
@@ -441,6 +490,7 @@
         "vendido": true
     },
     {
+        "id": 50,
         "titulo": "The Way of Kings",
         "idioma": "Inglés",
         "autor": "Brandon Sanderson",
@@ -450,6 +500,7 @@
         "vendido": false
     },
     {
+        "id": 51,
         "titulo": "BOX: A Song of Ice and Fire",
         "idioma": "Inglés",
         "autor": "George R. R. Martin",
@@ -460,6 +511,7 @@
         "novedad": true
     },
     {
+        "id": 52,
         "titulo": "BOX: Dune",
         "idioma": "Inglés",
         "autor": "Frank Herbert",
@@ -470,6 +522,7 @@
         "novedad": true
     },
     {
+        "id": 53,
         "titulo": "BOX: Harry Potter",
         "idioma": "Inglés",
         "autor": "J.K. Rowling",
@@ -480,6 +533,7 @@
         "novedad": true
     },
     {
+        "id": 54,
         "titulo": "BOX: The Lord of the Rings",
         "idioma": "Inglés",
         "autor": "J.R.R. Tolkien",
@@ -490,6 +544,7 @@
         "novedad": true
     },
     {
+        "id": 55,
         "titulo": "BOX: The Wheel of Time (1-3)",
         "idioma": "Inglés",
         "autor": "Robert Jordan",
@@ -500,6 +555,7 @@
         "novedad": true
     },
     {
+        "id": 56,
         "titulo": "El regreso de Carrie Soto",
         "idioma": "Español",
         "autor": "Taylor Jenkins Reid",
@@ -510,6 +566,7 @@
         "novedad": true
     },
     {
+        "id": 57,
         "titulo": "Diarios",
         "idioma": "Español",
         "autor": "Alejandra Pizarnik",
@@ -520,6 +577,7 @@
         "novedad": true
     },
     {
+        "id": 58,
         "titulo": "Malibú Renace",
         "idioma": "Español",
         "autor": "Taylor Jenkins Reid",
@@ -530,6 +588,7 @@
         "novedad": true
     },
     {
+        "id": 59,
         "titulo": "Sandman - Volumen 1",
         "idioma": "Español",
         "autor": "Neil Gaiman",
@@ -540,6 +599,7 @@
         "novedad": true
     },
     {
+        "id": 60,
         "titulo": "Un río encantado",
         "idioma": "Español",
         "autor": "Rebecca Ross",

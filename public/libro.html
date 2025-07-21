@@ -54,10 +54,24 @@
                 }
                 const books = await response.json();
                 const params = new URLSearchParams(window.location.search);
-                const titleParam = params.get('titulo');
-                const book = books.find(b => b.titulo === titleParam);
+                const idParam = params.get('id');
+                let book;
+                if (idParam) {
+                    book = books.find(b => String(b.id) === idParam);
+                }
+                if (!book) {
+                    const titleParam = params.get('titulo');
+                    if (titleParam) {
+                        book = books.find(b => b.titulo === titleParam);
+                    }
+                }
                 if (book) {
                     renderBook(book);
+                    const url = `${window.location.origin}/libro.html?id=${book.id}&titulo=${encodeURIComponent(book.titulo)}`;
+                    const canonical = document.querySelector('link[rel="canonical"]');
+                    if (canonical) canonical.setAttribute('href', url);
+                    const ogUrl = document.querySelector('meta[property="og:url"]');
+                    if (ogUrl) ogUrl.setAttribute('content', url);
                 } else {
                     document.getElementById('bookContainer').textContent = 'Libro no encontrado.';
                 }

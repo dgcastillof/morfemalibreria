@@ -128,7 +128,7 @@
                     slide.className = 'carousel-slide';
                     const titleParam = encodeURIComponent(libro.titulo);
                     slide.innerHTML = `
-                        <a href="libro.html?titulo=${titleParam}" class="book-link">
+                        <a href="libro.html?id=${libro.id}&titulo=${titleParam}" class="book-link">
                             <div class="book-card ${libro.vendido ? 'sold' : ''}">
                                 <div class="book-img-wrapper">
                                     <img src="${libro.imagen}" alt="${libro.titulo}" loading="lazy">
@@ -194,7 +194,7 @@
                     slide.className = 'carousel-slide';
                     const titleParam = encodeURIComponent(libro.titulo);
                     slide.innerHTML = `
-                        <a href="libro.html?titulo=${titleParam}" class="book-link">
+                        <a href="libro.html?id=${libro.id}&titulo=${titleParam}" class="book-link">
                             <div class="book-card">
                                 <div class="book-img-wrapper">
                                     <img src="${libro.imagen}" alt="${libro.titulo}" loading="lazy">
