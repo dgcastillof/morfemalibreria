@@ -36,7 +36,11 @@
             justify-content: center;
         }
         .carousel-slide .book-card {
-            max-width: 230px;
+            max-width: 320px;
+        }
+        .carousel-slide .book-card .book-img-wrapper {
+            width: 85%;
+            margin: 0 auto;
         }
         .carousel-button {
             position: absolute;
@@ -57,6 +61,11 @@
             padding: 8px 0;
             text-align: center;
             margin: 20px 0;
+        }
+        #catalog-link {
+            display: inline-block;
+            width: 320px;
+            text-decoration: none;
         }
     </style>
     <script>
@@ -132,7 +141,7 @@
             <button class="carousel-button next" onclick="siguiente()">&#10095;</button>
         </div>
         <div style="text-align:center;margin-top:20px;">
-            <a href="catalogo.html" class="filter-button">Ver el catálogo completo</a>
+            <a href="catalogo.html" class="filter-button" id="catalog-link">Ver el catálogo completo</a>
         </div>
     </div>
     <div class="footer">

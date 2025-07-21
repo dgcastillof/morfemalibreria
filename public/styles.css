@@ -175,6 +175,7 @@ body {
     background-color: #112a4a;
     color: white;
     transition: background 0.3s;
+    text-decoration: none;
 }
 
 .filter-button:hover {
