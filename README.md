@@ -41,6 +41,41 @@ npm start
 
 Este comando inicia `http-server` en la carpeta `public`.
 
+## Configuración de Firebase
+
+El proyecto está asociado al proyecto de Firebase `morfemalibreria-b8c79` definido en `.firebaserc`:
+
+```json
+{
+  "projects": {
+    "default": "morfemalibreria-b8c79"
+  }
+}
+```
+
+El archivo `firebase.json` configura Firebase Hosting para publicar el contenido de la carpeta `public` e ignorar `firebase.json`, archivos ocultos y `node_modules`:
+
+```json
+{
+  "hosting": {
+    "public": "public",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ]
+  }
+}
+```
+
+Si tienes permisos sobre el proyecto actual puedes usarlo directamente. En caso contrario crea un proyecto nuevo en Firebase y reemplaza el ID anterior ejecutando:
+
+```bash
+firebase use --add
+```
+
+Luego selecciona tu proyecto y confirma la actualización de `.firebaserc`.
+
 ## Despliegue en Firebase Hosting
 
 1. Inicia sesión con tu cuenta de Firebase si no lo has hecho:
