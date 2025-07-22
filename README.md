@@ -36,3 +36,7 @@ firebase deploy --only hosting
 ```
 
 El archivo `firebase.json` define la configuración de Hosting.
+
+## Licencia
+
+Este proyecto se distribuye bajo la [Licencia MIT](LICENSE).
