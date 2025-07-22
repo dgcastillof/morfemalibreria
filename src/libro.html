@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="es">
+<html lang="es-AR">
   <head>
     <meta charset="UTF-8" />
     <script src="load-gtm.js"></script>
@@ -29,6 +29,17 @@
       content="https://morfemalibreria.com.ar/libro.html"
     />
     <meta property="og:type" content="book" />
+    <meta property="og:locale" content="es_AR" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Morfema - Libro" />
+    <meta
+      name="twitter:description"
+      content="Detalles del libro disponible en Morfema Librería"
+    />
+    <meta
+      name="twitter:image"
+      content="https://morfemalibreria.com.ar/logo400x400fondo.png"
+    />
     <link rel="canonical" href="/libro.html" />
     <link rel="stylesheet" href="styles.css" />
     <link rel="preload" href="placeholder.png" as="image" />
@@ -37,6 +48,7 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
     />
     <link rel="icon" href="favicon.ico" type="image/x-icon" />
+    <script type="application/ld+json" id="book-schema"></script>
     <script>
       function loadImage(imgElem) {
         const src = imgElem.getAttribute('data-src');
@@ -84,6 +96,16 @@
             if (canonical) canonical.setAttribute('href', url);
             const ogUrl = document.querySelector('meta[property="og:url"]');
             if (ogUrl) ogUrl.setAttribute('content', url);
+            const ld = {
+              '@context': 'https://schema.org',
+              '@type': 'Book',
+              name: book.titulo,
+              author: book.autor,
+              image: book.imagen,
+              url: url,
+            };
+            const ldScript = document.getElementById('book-schema');
+            if (ldScript) ldScript.textContent = JSON.stringify(ld);
           } else {
             document.getElementById('bookContainer').textContent =
               'Libro no encontrado.';
