@@ -4,10 +4,12 @@
   "scripts": {
     "test": "node test/test.js",
     "lint": "eslint public/**/*.js test/**/*.js",
-    "format": "prettier --write \"public/**/*.{js,css,html}\""
+    "format": "prettier --write \"public/**/*.{js,css,html}\"",
+    "start": "npx http-server public"
   },
   "devDependencies": {
     "eslint": "^8.0.0",
+    "http-server": "^14.1.1",
     "prettier": "^3.6.2"
   }
 }
