@@ -1,0 +1,31 @@
+<%- include('templates/layout', { title: 'Quiénes somos - Morfema', current:
+'QUIÉNES SOMOS', headExtra: `
+<link rel="canonical" href="/quienes-somos.html" />
+<!-- Google tag (gtag.js) -->
+<script
+  async
+  src="https://www.googletagmanager.com/gtag/js?id=G-4WKGMKCLQH"
+></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag() {
+    dataLayer.push(arguments);
+  }
+  gtag('js', new Date());
+  gtag('config', 'G-4WKGMKCLQH');
+</script>
+`, body: `
+<div class="container placeholder">Próximamente</div>
+<div class="footer">
+  <p>
+    Contacto:
+    <a
+      href="https://www.instagram.com/morfemalibreria"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      <i class="fab fa-instagram"></i> Instagram
+    </a>
+  </p>
+</div>
+` }) %>
