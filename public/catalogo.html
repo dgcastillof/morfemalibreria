@@ -1,92 +1,107 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
-<head>
-    <meta charset="UTF-8">
+  <head>
+    <meta charset="UTF-8" />
     <script src="load-gtm.js"></script>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Morfema - Librería</title>
-    <meta name="description" content="Catálogo online de Morfema Librería con una gran selección de libros usados.">
-    <meta name="keywords" content="libros usados,librería,comprar libros,Morfema">
-    <meta name="author" content="Morfema Librería">
-    <meta name="robots" content="index, follow">
-    <meta property="og:title" content="Morfema - Librería">
-    <meta property="og:description" content="Explorá el catálogo de libros usados de Morfema.">
-    <meta property="og:image" content="https://morfemalibreria.com.ar/logo400x400fondo.png">
-    <meta property="og:url" content="https://morfemalibreria.com.ar/">
-    <meta property="og:type" content="website">
-    <link rel="canonical" href="https://morfemalibreria.com.ar/">
-    <link rel="stylesheet" href="styles.css">
-    <link rel="preload" href="placeholder.png" as="image">
-    <link rel="icon" href="favicon.ico" type="image/x-icon">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-    
+    <meta
+      name="description"
+      content="Catálogo online de Morfema Librería con una gran selección de libros usados."
+    />
+    <meta
+      name="keywords"
+      content="libros usados,librería,comprar libros,Morfema"
+    />
+    <meta name="author" content="Morfema Librería" />
+    <meta name="robots" content="index, follow" />
+    <meta property="og:title" content="Morfema - Librería" />
+    <meta
+      property="og:description"
+      content="Explorá el catálogo de libros usados de Morfema."
+    />
+    <meta
+      property="og:image"
+      content="https://morfemalibreria.com.ar/logo400x400fondo.png"
+    />
+    <meta property="og:url" content="https://morfemalibreria.com.ar/" />
+    <meta property="og:type" content="website" />
+    <link rel="canonical" href="/catalogo.html" />
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="preload" href="placeholder.png" as="image" />
+    <link rel="icon" href="favicon.ico" type="image/x-icon" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+    />
+
     <script>
-        let currentPage = 1;
-        const booksPerPage = 24;
-        let books = [];
-        let filteredBooks = [];
+      let currentPage = 1;
+      const booksPerPage = 24;
+      let books = [];
+      let filteredBooks = [];
 
-        function loadImage(imgElem) {
-            const src = imgElem.getAttribute('data-src');
-            if (!src) return;
+      function loadImage(imgElem) {
+        const src = imgElem.getAttribute('data-src');
+        if (!src) return;
 
-            function startLoading() {
-                const realImg = new Image();
-                realImg.src = src;
-                realImg.onload = () => {
-                    imgElem.src = src;
-                    imgElem.classList.add('loaded');
-                };
-            }
-
-            if (imgElem.complete) {
-                startLoading();
-            } else {
-                imgElem.addEventListener('load', startLoading, { once: true });
-            }
+        function startLoading() {
+          const realImg = new Image();
+          realImg.src = src;
+          realImg.onload = () => {
+            imgElem.src = src;
+            imgElem.classList.add('loaded');
+          };
         }
-    
-        async function fetchBooks() {
-            try {
-                const response = await fetch('books.json');
-                if (!response.ok) {
-                    throw new Error(`HTTP error! Status: ${response.status}`);
-                }
-                books = await response.json();
-                books.sort((a, b) => a.titulo.localeCompare(b.titulo));
-                filteredBooks = books;
-                showPage(1);
-            } catch (error) {
-                console.error('Error cargando el archivo books.json:', error);
-            }
+
+        if (imgElem.complete) {
+          startLoading();
+        } else {
+          imgElem.addEventListener('load', startLoading, { once: true });
         }
-    
-        function showPage(page) {
-            const booksContainer = document.querySelector('.books');
-            booksContainer.innerHTML = '';
+      }
 
-            if (filteredBooks.length === 0) {
-                booksContainer.innerHTML = '<p>No hay libros disponibles.</p>';
-                document.getElementById('pageNumbers').innerHTML = '';
-                document.getElementById('prevPage').disabled = true;
-                document.getElementById('nextPage').disabled = true;
-                return;
-            }
-    
-            const start = (page - 1) * booksPerPage;
-            const end = start + booksPerPage;
-            const totalPages = Math.ceil(filteredBooks.length / booksPerPage);
-    
-            filteredBooks.slice(start, end).forEach(book => {
-                const bookCard = document.createElement('div');
-                bookCard.className = `book-card ${book.vendido ? 'sold' : ''}`; // Agregar clase 'sold' si está vendido
+      async function fetchBooks() {
+        try {
+          const response = await fetch('books.json');
+          if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+          }
+          books = await response.json();
+          books.sort((a, b) => a.titulo.localeCompare(b.titulo));
+          filteredBooks = books;
+          showPage(1);
+        } catch (error) {
+          console.error('Error cargando el archivo books.json:', error);
+        }
+      }
 
-                const link = document.createElement('a');
-                const titleParam = encodeURIComponent(book.titulo);
-                link.href = `libro.html?id=${book.id}&titulo=${titleParam}`;
-                link.className = 'book-link';
+      function showPage(page) {
+        const booksContainer = document.querySelector('.books');
+        booksContainer.innerHTML = '';
 
-                link.innerHTML = `
+        if (filteredBooks.length === 0) {
+          booksContainer.innerHTML = '<p>No hay libros disponibles.</p>';
+          document.getElementById('pageNumbers').innerHTML = '';
+          document.getElementById('prevPage').disabled = true;
+          document.getElementById('nextPage').disabled = true;
+          return;
+        }
+
+        const start = (page - 1) * booksPerPage;
+        const end = start + booksPerPage;
+        const totalPages = Math.ceil(filteredBooks.length / booksPerPage);
+
+        filteredBooks.slice(start, end).forEach((book) => {
+          const bookCard = document.createElement('div');
+          bookCard.className = `book-card ${book.vendido ? 'sold' : ''}`; // Agregar clase 'sold' si está vendido
+
+          const link = document.createElement('a');
+          const titleParam = encodeURIComponent(book.titulo);
+          link.href = `libro.html?id=${book.id}&titulo=${titleParam}`;
+          link.className = 'book-link';
+
+          link.innerHTML = `
                     <div class="book-img-wrapper">
                         <img src="placeholder.png" data-src="${book.imagen}" alt="${book.titulo}" class="lazy-img" width="180" height="240" loading="lazy">
                         ${book.novedad ? '<span class="new-badge">NOVEDAD</span>' : ''}
@@ -99,158 +114,201 @@
                     <p><strong>Precio:</strong> ${book.precio}</p>
                 `;
 
-                bookCard.appendChild(link);
-                booksContainer.appendChild(bookCard);
-                const imgElem = link.querySelector('img.lazy-img');
-                loadImage(imgElem);
-            });
-
-    
-            const pageNumbersContainer = document.getElementById('pageNumbers');
-            pageNumbersContainer.innerHTML = '';
-            for (let i = 1; i <= totalPages; i++) {
-                const btn = document.createElement('button');
-                btn.textContent = i;
-                btn.className = 'page-number';
-                if (i === page) {
-                    btn.classList.add('active');
-                }
-                btn.addEventListener('click', () => showPage(i));
-                pageNumbersContainer.appendChild(btn);
-            }
-
-            document.getElementById('prevPage').disabled = page === 1;
-            document.getElementById('nextPage').disabled = page === totalPages;
-            currentPage = page;
-    
-            setTimeout(() => {
-                window.scrollTo({
-                    top: 0,
-                    behavior: 'smooth'
-                });
-            }, 100);
-    
-        }
-
-        function populateFilters() {
-            const idiomas = new Set();
-            const autores = new Set();
-        
-            books.forEach(book => {
-                idiomas.add(book.idioma);
-                autores.add(book.autor);
-            });
-
-            const idiomasArray = Array.from(idiomas);
-            idiomasArray.sort((a, b) => {
-                const order = { 'Espa\u00f1ol': 0, 'Ingl\u00e9s': 1 };
-                const idxA = order[a];
-                const idxB = order[b];
-                if (idxA !== undefined || idxB !== undefined) {
-                    return (idxA ?? 99) - (idxB ?? 99);
-                }
-                return a.localeCompare(b);
-            });
-
-            const autoresArray = Array.from(autores).sort((a, b) => a.localeCompare(b));
-
-            populateDropdown('filterIdioma', idiomasArray);
-            populateDropdown('filterAutor', autoresArray);
-        }
-        
-        function populateDropdown(id, values) {
-            const select = document.getElementById(id);
-            values.forEach(value => {
-                const option = document.createElement('option');
-                option.value = value;
-                option.textContent = value;
-                select.appendChild(option);
-            });
-        }
-        
-        function filterBooks() {
-            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
-            const selectedIdioma = document.getElementById('filterIdioma').value;
-            const selectedEstado = document.getElementById('filterEstado').value;
-            const selectedAutor = document.getElementById('filterAutor').value;
-        
-            filteredBooks = books.filter(book => 
-                (book.titulo.toLowerCase().includes(searchTerm) || book.autor.toLowerCase().includes(searchTerm)) &&
-                (selectedIdioma === "" || book.idioma === selectedIdioma) &&
-                (selectedEstado === "" || book.estado === selectedEstado) &&
-                (selectedAutor === "" || book.autor === selectedAutor)
-            );
-        
-            showPage(1);
-        }
-        
-        function clearFilters() {
-            document.getElementById('filterIdioma').value = "";
-            document.getElementById('filterEstado').value = "";
-            document.getElementById('filterAutor').value = "";
-            document.getElementById('searchInput').value = "";
-            filterBooks();
-        }
-    
-        document.addEventListener("DOMContentLoaded", () => {
-            fetchBooks().then(() => {
-                populateFilters();
-            });
+          bookCard.appendChild(link);
+          booksContainer.appendChild(bookCard);
+          const imgElem = link.querySelector('img.lazy-img');
+          loadImage(imgElem);
         });
+
+        const pageNumbersContainer = document.getElementById('pageNumbers');
+        pageNumbersContainer.innerHTML = '';
+        for (let i = 1; i <= totalPages; i++) {
+          const btn = document.createElement('button');
+          btn.textContent = i;
+          btn.className = 'page-number';
+          if (i === page) {
+            btn.classList.add('active');
+          }
+          btn.addEventListener('click', () => showPage(i));
+          pageNumbersContainer.appendChild(btn);
+        }
+
+        document.getElementById('prevPage').disabled = page === 1;
+        document.getElementById('nextPage').disabled = page === totalPages;
+        currentPage = page;
+
+        setTimeout(() => {
+          window.scrollTo({
+            top: 0,
+            behavior: 'smooth',
+          });
+        }, 100);
+      }
+
+      function populateFilters() {
+        const idiomas = new Set();
+        const autores = new Set();
+
+        books.forEach((book) => {
+          idiomas.add(book.idioma);
+          autores.add(book.autor);
+        });
+
+        const idiomasArray = Array.from(idiomas);
+        idiomasArray.sort((a, b) => {
+          const order = { 'Espa\u00f1ol': 0, 'Ingl\u00e9s': 1 };
+          const idxA = order[a];
+          const idxB = order[b];
+          if (idxA !== undefined || idxB !== undefined) {
+            return (idxA ?? 99) - (idxB ?? 99);
+          }
+          return a.localeCompare(b);
+        });
+
+        const autoresArray = Array.from(autores).sort((a, b) =>
+          a.localeCompare(b),
+        );
+
+        populateDropdown('filterIdioma', idiomasArray);
+        populateDropdown('filterAutor', autoresArray);
+      }
+
+      function populateDropdown(id, values) {
+        const select = document.getElementById(id);
+        values.forEach((value) => {
+          const option = document.createElement('option');
+          option.value = value;
+          option.textContent = value;
+          select.appendChild(option);
+        });
+      }
+
+      function filterBooks() {
+        const searchTerm = document
+          .getElementById('searchInput')
+          .value.toLowerCase();
+        const selectedIdioma = document.getElementById('filterIdioma').value;
+        const selectedEstado = document.getElementById('filterEstado').value;
+        const selectedAutor = document.getElementById('filterAutor').value;
+
+        filteredBooks = books.filter(
+          (book) =>
+            (book.titulo.toLowerCase().includes(searchTerm) ||
+              book.autor.toLowerCase().includes(searchTerm)) &&
+            (selectedIdioma === '' || book.idioma === selectedIdioma) &&
+            (selectedEstado === '' || book.estado === selectedEstado) &&
+            (selectedAutor === '' || book.autor === selectedAutor),
+        );
+
+        showPage(1);
+      }
+
+      function clearFilters() {
+        document.getElementById('filterIdioma').value = '';
+        document.getElementById('filterEstado').value = '';
+        document.getElementById('filterAutor').value = '';
+        document.getElementById('searchInput').value = '';
+        filterBooks();
+      }
+
+      document.addEventListener('DOMContentLoaded', () => {
+        fetchBooks().then(() => {
+          populateFilters();
+        });
+      });
     </script>
     <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-4WKGMKCLQH"></script>
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=G-4WKGMKCLQH"
+    ></script>
     <script>
       window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
+      function gtag() {
+        dataLayer.push(arguments);
+      }
       gtag('js', new Date());
 
       gtag('config', 'G-4WKGMKCLQH');
     </script>
-</head>
-<body>
+  </head>
+  <body>
     <div id="navbar" data-current="CATÁLOGO USADOS"></div>
     <div class="container">
-        <div class="header">Morfema - Librería</div>
-        <div class="logo-container">
-            <img src="logo.png" alt="Morfema" class="logo" width="1080" height="460">
+      <div class="header">Morfema - Librería</div>
+      <div class="logo-container">
+        <img
+          src="logo.png"
+          alt="Morfema"
+          class="logo"
+          width="1080"
+          height="460"
+        />
+      </div>
+      <div class="filters-container-wrapper">
+        <div class="filters-container">
+          <select
+            id="filterIdioma"
+            class="filter-select"
+            onchange="filterBooks()"
+          >
+            <option value="">Todos los idiomas</option>
+          </select>
+
+          <select
+            id="filterEstado"
+            class="filter-select"
+            onchange="filterBooks()"
+          >
+            <option value="">Todos los estados</option>
+            <option value="Como nuevo">Solo como nuevos</option>
+          </select>
+
+          <select
+            id="filterAutor"
+            class="filter-select"
+            onchange="filterBooks()"
+          >
+            <option value="">Todos los autores</option>
+          </select>
+
+          <button class="filter-button" onclick="clearFilters()">
+            Limpiar filtros
+          </button>
         </div>
-        <div class="filters-container-wrapper">
-            <div class="filters-container">
-                <select id="filterIdioma" class="filter-select" onchange="filterBooks()">
-                    <option value="">Todos los idiomas</option>
-                </select>
-                
-                <select id="filterEstado" class="filter-select" onchange="filterBooks()">
-                    <option value="">Todos los estados</option>
-                    <option value="Como nuevo">Solo como nuevos</option>
-                </select>
-                
-                <select id="filterAutor" class="filter-select" onchange="filterBooks()">
-                    <option value="">Todos los autores</option>
-                </select>
-                
-                <button class="filter-button" onclick="clearFilters()">Limpiar filtros</button>
-            </div>
-        </div>
-        <div class="search-box">
-            <input type="text" id="searchInput" placeholder="Buscar por título o autor..." oninput="filterBooks()">
-        </div>
-        <div class="books"></div>
-        <div class="pagination">
-            <button id="prevPage" onclick="showPage(currentPage - 1)">Anterior</button>
-            <div id="pageNumbers"></div>
-            <button id="nextPage" onclick="showPage(currentPage + 1)">Siguiente</button>
-        </div>
+      </div>
+      <div class="search-box">
+        <input
+          type="text"
+          id="searchInput"
+          placeholder="Buscar por título o autor..."
+          oninput="filterBooks()"
+        />
+      </div>
+      <div class="books"></div>
+      <div class="pagination">
+        <button id="prevPage" onclick="showPage(currentPage - 1)">
+          Anterior
+        </button>
+        <div id="pageNumbers"></div>
+        <button id="nextPage" onclick="showPage(currentPage + 1)">
+          Siguiente
+        </button>
+      </div>
     </div>
-    
+
     <div class="footer">
-        <p>Contacto:
-            <a href="https://www.instagram.com/morfemalibreria" target="_blank" rel="noopener noreferrer">
-                <i class="fab fa-instagram"></i> Instagram
-            </a>
-        </p>
+      <p>
+        Contacto:
+        <a
+          href="https://www.instagram.com/morfemalibreria"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <i class="fab fa-instagram"></i> Instagram
+        </a>
+      </p>
     </div>
-<script src="navbar.js"></script>
-</body>
+    <script src="navbar.js"></script>
+  </body>
 </html>
