@@ -15,6 +15,7 @@ jobs:
         with:
           node-version-file: '.nvmrc'
       - run: npm ci
+      - run: npm run build
       - run: node generate-sitemap.js
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
