@@ -21,6 +21,16 @@ npm test
 
 Este comando verifica que `public/books.json` pueda analizarse correctamente.
 
+## Formato de código
+
+Utiliza [Prettier](https://prettier.io/) para mantener el estilo consistente. Ejecuta:
+
+```bash
+npm run format
+```
+
+Esto formatea los archivos HTML, CSS y JavaScript dentro de `public/`.
+
 ## Despliegue en Firebase Hosting
 
 1. Inicia sesión con tu cuenta de Firebase si no lo has hecho:
