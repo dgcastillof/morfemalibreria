@@ -1,6 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 const esbuild = require('esbuild');
+const ejs = require('ejs');
 
 const srcDir = path.join(__dirname, 'src');
 const publicDir = path.join(__dirname, 'public');
@@ -12,9 +13,14 @@ fs.mkdirSync(distDir, { recursive: true });
 // copy static assets from public
 fs.cpSync(publicDir, distDir, { recursive: true });
 
-// copy html files
+// render ejs templates and copy html files
 for (const file of fs.readdirSync(srcDir)) {
-  if (file.endsWith('.html')) {
+  if (file.endsWith('.ejs')) {
+    const template = fs.readFileSync(path.join(srcDir, file), 'utf8');
+    const html = ejs.render(template, {}, { filename: path.join(srcDir, file) });
+    const outFile = file.replace(/\.ejs$/, '.html');
+    fs.writeFileSync(path.join(distDir, outFile), html);
+  } else if (file.endsWith('.html')) {
     fs.copyFileSync(path.join(srcDir, file), path.join(distDir, file));
   }
 }
