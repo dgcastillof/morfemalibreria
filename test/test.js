@@ -9,7 +9,7 @@ try {
   const ajv = new Ajv();
   const validate = ajv.compile(schema);
 
-  const content = fs.readFileSync('public/books.json', 'utf8');
+  const content = fs.readFileSync('dist/books.json', 'utf8');
   const data = JSON.parse(content);
   assert.ok(Array.isArray(data), 'books.json should contain an array');
 

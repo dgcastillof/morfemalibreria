@@ -3,15 +3,17 @@
   "version": "1.0.0",
   "scripts": {
     "test": "node test/test.js",
-    "lint": "eslint public/**/*.js test/**/*.js",
-    "format": "prettier --write \"public/**/*.{js,css,html}\"",
-    "start": "npx http-server public",
+    "lint": "eslint src/**/*.js test/**/*.js",
+    "format": "prettier --write \"src/**/*.{js,css,html}\"",
+    "build": "node build.js",
+    "start": "npx http-server dist",
     "generate:sitemap": "node generate-sitemap.js"
   },
   "devDependencies": {
+    "ajv": "^8.12.0",
+    "esbuild": "^0.25.8",
     "eslint": "8.57.0",
     "http-server": "^14.1.1",
-    "prettier": "^3.6.2",
-    "ajv": "^8.12.0"
+    "prettier": "^3.6.2"
   }
 }

@@ -19,7 +19,7 @@ Las pruebas se ejecutan con el comando:
 npm test
 ```
 
-Este comando verifica que `public/books.json` pueda analizarse correctamente.
+Este comando verifica que `dist/books.json` pueda analizarse correctamente.
 
 ## Formato de código
 
@@ -29,7 +29,7 @@ Utiliza [Prettier](https://prettier.io/) para mantener el estilo consistente. Ej
 npm run format
 ```
 
-Esto formatea los archivos HTML, CSS y JavaScript dentro de `public/`.
+Esto formatea los archivos HTML, CSS y JavaScript dentro de `src/`.
 
 ## Servidor local
 
@@ -39,7 +39,7 @@ Para previsualizar el sitio en tu máquina ejecuta:
 npm start
 ```
 
-Este comando inicia `http-server` en la carpeta `public`.
+Este comando inicia `http-server` en la carpeta `dist`.
 
 ## Configuración de Firebase
 
@@ -53,12 +53,12 @@ El proyecto está asociado al proyecto de Firebase `morfemalibreria-b8c79` defin
 }
 ```
 
-El archivo `firebase.json` configura Firebase Hosting para publicar el contenido de la carpeta `public` e ignorar `firebase.json`, archivos ocultos y `node_modules`:
+El archivo `firebase.json` configura Firebase Hosting para publicar el contenido de la carpeta `dist` e ignorar `firebase.json`, archivos ocultos y `node_modules`:
 
 ```json
 {
   "hosting": {
-    "public": "public",
+    "public": "dist",
     "ignore": [
       "firebase.json",
       "**/.*",
