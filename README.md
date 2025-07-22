@@ -31,6 +31,16 @@ npm run format
 
 Esto formatea los archivos HTML, CSS y JavaScript dentro de `public/`.
 
+## Servidor local
+
+Para previsualizar el sitio en tu máquina ejecuta:
+
+```bash
+npm start
+```
+
+Este comando inicia `http-server` en la carpeta `public`.
+
 ## Despliegue en Firebase Hosting
 
 1. Inicia sesión con tu cuenta de Firebase si no lo has hecho:
