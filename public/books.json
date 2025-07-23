@@ -277,7 +277,7 @@
         "estado": "Como nuevo",
         "precio": "$29000",
         "imagen": "fotos/yumi_y_el_pintor_de_pesadillas.png",
-        "vendido": false
+        "vendido": true
     },
     {
         "id": 29,
@@ -297,7 +297,7 @@
         "estado": "Como nuevo",
         "precio": "$26500",
         "imagen": "fotos/trenza_del_mar_esmeralda.png",
-        "vendido": false
+        "vendido": true
     },
     {
         "id": 31,
@@ -307,7 +307,7 @@
         "estado": "Como nuevo",
         "precio": "$26000",
         "imagen": "fotos/el_hombre_iluminado.png",
-        "vendido": false
+        "vendido": true
     },
     {
         "id": 32,
@@ -317,7 +317,7 @@
         "estado": "Como nuevo",
         "precio": "$26500",
         "imagen": "fotos/la_guia_del_mago_frugal.png",
-        "vendido": false
+        "vendido": true
     },
     {
         "id": 33,
