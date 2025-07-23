@@ -328,6 +328,8 @@ body {
 
 .pagination .page-number.active {
     background: #0d1f3d;
+    font-weight: bold;
+    text-decoration: underline;
 }
 
 
