@@ -382,3 +382,14 @@ body {
     font-weight: bold;
     text-align: center;
 }
+
+/* Review pages */
+.review-content p {
+    text-align: justify;
+    line-height: 1.5;
+}
+
+.review-title {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 900;
+}
