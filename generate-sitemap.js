@@ -1,14 +1,27 @@
 const fs = require('fs');
 const path = require('path');
 
-const publicDir = path.join(__dirname, 'dist');
+const distDir = path.join(__dirname, 'dist');
+const publicDir = path.join(__dirname, 'public');
 const baseUrl = process.env.SITEMAP_BASE_URL || 'https://morfemalibreria.com.ar';
 
 const exclude = new Set(['404.html', 'navbar.html', 'gtm.html']);
 
-const pages = fs
-  .readdirSync(publicDir)
-  .filter((f) => f.endsWith('.html') && !exclude.has(f));
+const pages = [];
+
+function walk(sub) {
+  const abs = path.join(distDir, sub);
+  for (const entry of fs.readdirSync(abs, { withFileTypes: true })) {
+    const rel = path.join(sub, entry.name);
+    if (entry.isDirectory()) {
+      walk(rel);
+    } else if (entry.name.endsWith('.html') && !exclude.has(entry.name)) {
+      pages.push(rel.replace(/\\/g, '/'));
+    }
+  }
+}
+
+walk('');
 
 // Make sure index.html appears first for nicer ordering
 pages.sort((a, b) => {
@@ -28,4 +41,5 @@ const xml = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.s
   .map((u) => `  <url><loc>${u}</loc></url>`)
   .join('\n')}\n</urlset>\n`;
 
+fs.writeFileSync(path.join(distDir, 'sitemap.xml'), xml);
 fs.writeFileSync(path.join(publicDir, 'sitemap.xml'), xml);
