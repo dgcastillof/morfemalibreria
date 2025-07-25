@@ -1,0 +1,11 @@
+<% const basePath = typeof base !== 'undefined' ? base : '' %>
+<meta charset="UTF-8" />
+<script src="<%= basePath %>load-gtm.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title><%= title %></title>
+<%- headExtra || '' %>
+<link rel="stylesheet" href="<%= basePath %>styles.css" />
+<link rel="preload" href="<%= basePath %>placeholder.png" as="image" />
+<link rel="icon" href="<%= basePath %>favicon.ico" type="image/x-icon" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+<link href="https://fonts.googleapis.com/css2?family=Lato&family=Merriweather&display=swap" rel="stylesheet">
