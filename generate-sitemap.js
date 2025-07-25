@@ -34,6 +34,10 @@ const urls = pages.map((file) => {
   if (file === 'index.html') {
     return `${baseUrl}/`;
   }
+  if (file.endsWith('/index.html')) {
+    const dir = file.slice(0, -'index.html'.length);
+    return `${baseUrl}/${dir}`;
+  }
   return `${baseUrl}/${file}`;
 });
 
