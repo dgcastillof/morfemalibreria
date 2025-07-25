@@ -13,15 +13,13 @@ fs.mkdirSync(distDir, { recursive: true });
 // copy static assets from public
 fs.cpSync(publicDir, distDir, { recursive: true });
 
-// render ejs templates and copy html files
+// render ejs templates (including .html files which may contain ejs)
 for (const file of fs.readdirSync(srcDir)) {
-  if (file.endsWith('.ejs')) {
+  if (file.endsWith('.ejs') || file.endsWith('.html')) {
     const template = fs.readFileSync(path.join(srcDir, file), 'utf8');
     const html = ejs.render(template, {}, { filename: path.join(srcDir, file) });
     const outFile = file.replace(/\.ejs$/, '.html');
     fs.writeFileSync(path.join(distDir, outFile), html);
-  } else if (file.endsWith('.html')) {
-    fs.copyFileSync(path.join(srcDir, file), path.join(distDir, file));
   }
 }
 

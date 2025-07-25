@@ -1,59 +1,33 @@
 <!doctype html>
 <html lang="es-AR">
   <head>
-    <meta charset="UTF-8" />
-    <script src="load-gtm.js"></script>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Morfema - Librería</title>
-    <meta
-      name="description"
-      content="Catálogo online de Morfema Librería con una gran selección de libros usados."
-    />
-    <meta
-      name="keywords"
-      content="libros usados,librería,comprar libros,Morfema"
-    />
-    <meta name="author" content="Morfema Librería" />
-    <meta name="robots" content="index, follow" />
-    <meta property="og:title" content="Morfema - Librería" />
-    <meta
-      property="og:description"
-      content="Explorá el catálogo de libros usados de Morfema."
-    />
-    <meta
-      property="og:image"
-      content="https://morfemalibreria.com.ar/logo400x400fondo.png"
-    />
-    <meta property="og:url" content="https://morfemalibreria.com.ar/" />
-    <meta property="og:type" content="website" />
-    <meta property="og:locale" content="es_AR" />
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Morfema - Librería" />
-    <meta
-      name="twitter:description"
-      content="Explorá el catálogo de libros usados de Morfema."
-    />
-    <meta
-      name="twitter:image"
-      content="https://morfemalibreria.com.ar/logo400x400fondo.png"
-    />
-    <link rel="canonical" href="/catalogo.html" />
-    <link rel="stylesheet" href="styles.css" />
-    <link rel="preload" href="placeholder.png" as="image" />
-    <link rel="icon" href="favicon.ico" type="image/x-icon" />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
-    />
-    <link href="https://fonts.googleapis.com/css2?family=Lato&family=Merriweather&display=swap" rel="stylesheet">
-    <script type="application/ld+json">
-      {
-        "@context": "https://schema.org",
-        "@type": "CollectionPage",
-        "name": "Catálogo Morfema",
-        "url": "https://morfemalibreria.com.ar/catalogo.html"
-      }
-    </script>
+    <%- include('templates/head', {
+      title: 'Morfema - Librería',
+      headExtra: `
+<meta name="description" content="Catálogo online de Morfema Librería con una gran selección de libros usados." />
+<meta name="keywords" content="libros usados,librería,comprar libros,Morfema" />
+<meta name="author" content="Morfema Librería" />
+<meta name="robots" content="index, follow" />
+<meta property="og:title" content="Morfema - Librería" />
+<meta property="og:description" content="Explorá el catálogo de libros usados de Morfema." />
+<meta property="og:image" content="https://morfemalibreria.com.ar/logo400x400fondo.png" />
+<meta property="og:url" content="https://morfemalibreria.com.ar/" />
+<meta property="og:type" content="website" />
+<meta property="og:locale" content="es_AR" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Morfema - Librería" />
+<meta name="twitter:description" content="Explorá el catálogo de libros usados de Morfema." />
+<meta name="twitter:image" content="https://morfemalibreria.com.ar/logo400x400fondo.png" />
+<link rel="canonical" href="/catalogo.html" />
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    "name": "Catálogo Morfema",
+    "url": "https://morfemalibreria.com.ar/catalogo.html"
+  }
+</script>
+` }) %>
 
     <script>
       let currentPage = 1;
@@ -311,18 +285,6 @@
       </div>
     </div>
 
-    <div class="footer">
-      <p>
-        Contacto:
-        <a
-          href="https://www.instagram.com/morfemalibreria"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <i class="fab fa-instagram"></i> Instagram
-        </a>
-      </p>
-    </div>
-    <script src="navbar.js"></script>
+    <%- include('templates/footer') %>
   </body>
 </html>
