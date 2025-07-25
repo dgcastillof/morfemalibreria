@@ -2,7 +2,11 @@ document.addEventListener('DOMContentLoaded', function () {
     var container = document.getElementById('navbar');
     if (!container) return;
 
-    fetch('navbar.html')
+    var script = document.currentScript || document.querySelector('script[src$="navbar.js"]');
+    var base = script && script.getAttribute('data-base');
+    if (!base) base = '';
+
+    fetch(base + 'navbar.html')
         .then(function (res) { return res.text(); })
         .then(function (html) {
             container.innerHTML = html;
