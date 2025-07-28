@@ -395,3 +395,47 @@ body {
     font-family: 'Montserrat', sans-serif;
     font-weight: 900;
 }
+
+/* Quiénes Somos */
+.profile-section {
+    text-align: center;
+}
+
+.profile-cards {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+}
+
+.profile-card {
+    background: #fff;
+    color: #112a4a;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    max-width: 320px;
+    flex: 1 1 45%;
+}
+
+.profile-card img {
+    width: 100%;
+    border-radius: 5px;
+    object-fit: cover;
+    margin-bottom: 15px;
+}
+
+.profile-card h3 {
+    margin-top: 0;
+    margin-bottom: 10px;
+}
+
+@media (max-width: 600px) {
+    .profile-cards {
+        flex-direction: column;
+        align-items: center;
+    }
+    .profile-card {
+        max-width: 90%;
+    }
+}
