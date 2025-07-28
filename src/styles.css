@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@900&family=Open+Sans&display=swap');
+
 body {
     background: url('background.webp') no-repeat center center fixed;
     background-size: cover;
@@ -408,4 +410,49 @@ body {
     font-family: Arial, sans-serif;
     color: #607d8b;
     margin-bottom: 1em;
+}
+
+/* Team section */
+.team-section {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+}
+
+.profile-card {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    text-align: center;
+    color: #112a4a;
+    width: 45%;
+    max-width: 350px;
+}
+
+.profile-card img {
+    width: 100%;
+    aspect-ratio: 4 / 5;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.profile-name {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 900;
+    margin: 15px 0 10px;
+    font-size: 20px;
+}
+
+.profile-bio {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 16px;
+    text-align: justify;
+}
+
+@media (max-width: 600px) {
+    .profile-card {
+        width: 100%;
+    }
 }
