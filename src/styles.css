@@ -432,10 +432,12 @@ body {
 }
 
 .profile-card img {
-    width: 100%;
+    width: 80%;
     aspect-ratio: 4 / 5;
     object-fit: cover;
     border-radius: 8px;
+    display: block;
+    margin: 0 auto;
 }
 
 .profile-name {
@@ -447,7 +449,7 @@ body {
 
 .profile-bio {
     font-family: 'Open Sans', sans-serif;
-    font-size: 16px;
+    font-size: 14px;
     text-align: justify;
 }
 
