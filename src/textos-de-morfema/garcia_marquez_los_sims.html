@@ -124,6 +124,23 @@
         <i class="fas fa-feather-alt"></i> Por: Diego Castillo Flores
       </p>
     </div>
+    <section id="comments">
+      <h2>Comentarios</h2>
+      <form id="comment-form">
+        <input name="name" placeholder="Tu nombre" required />
+        <textarea
+          name="message"
+          placeholder="Escribe un comentario"
+          required
+        ></textarea>
+        <button type="submit">Enviar</button>
+      </form>
+      <ul id="comment-list"></ul>
+    </section>
+    <script src="../comments.js" type="module"></script>
+    <script type="module">
+      initComments('garcia_marquez_los_sims');
+    </script>
     <div class="footer">
       <p>
         Contacto:

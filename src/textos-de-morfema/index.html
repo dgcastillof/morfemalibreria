@@ -81,6 +81,23 @@
         </li>
       </ul>
     </div>
+    <section id="comments">
+      <h2>Comentarios</h2>
+      <form id="comment-form">
+        <input name="name" placeholder="Tu nombre" required />
+        <textarea
+          name="message"
+          placeholder="Escribe un comentario"
+          required
+        ></textarea>
+        <button type="submit">Enviar</button>
+      </form>
+      <ul id="comment-list"></ul>
+    </section>
+    <script src="../comments.js" type="module"></script>
+    <script type="module">
+      initComments('index');
+    </script>
     <div class="footer">
       <p>
         Contacto:
