@@ -9,6 +9,11 @@ try {
   const ajv = new Ajv();
   const validate = ajv.compile(schema);
 
+  assert.ok(
+    fs.existsSync(path.join('dist', 'comments.js')),
+    'dist/comments.js should exist after build'
+  );
+
   const content = fs.readFileSync('dist/books.json', 'utf8');
   const data = JSON.parse(content);
   assert.ok(Array.isArray(data), 'books.json should contain an array');
