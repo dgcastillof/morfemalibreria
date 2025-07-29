@@ -428,6 +428,11 @@ body {
     margin-bottom: 0.5em;
     font-size: 16px;
     font-family: inherit;
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
 }
 
 #comment-list {
@@ -490,6 +495,8 @@ body {
 }
 .comments-container {
     background: white;
+    padding: 20px;
+    border-radius: 8px;
 }
 
 .comment-form {
@@ -507,8 +514,16 @@ body {
     border-radius: 5px;
     font-size: 16px;
     font-family: 'Lato', sans-serif;
-    resize: none;
-    height: 100px;
+    box-sizing: border-box;
+}
+
+.comment-form input {
+    height: 40px;
+}
+
+.comment-form textarea {
+    height: 120px;
+    resize: vertical;
 }
 
 .comment-form button {
@@ -518,4 +533,6 @@ body {
     padding: 10px 20px;
     border-radius: 5px;
     cursor: pointer;
+    align-self: flex-end;
+    margin-top: 10px;
 }
