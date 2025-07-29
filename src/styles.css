@@ -507,6 +507,8 @@ body {
     border-radius: 5px;
     font-size: 16px;
     font-family: 'Lato', sans-serif;
+    resize: none;
+    height: 100px;
 }
 
 .comment-form button {
