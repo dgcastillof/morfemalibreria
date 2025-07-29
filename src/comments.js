@@ -38,3 +38,40 @@ export async function addComment(slug, name, message, recaptchaToken) {
   if (recaptchaToken) data.recaptchaToken = recaptchaToken;
   return addDoc(collection(database, 'reviews', slug, 'comments'), data);
 }
+
+export async function initComments(slug) {
+  const form = document.getElementById("comment-form");
+  const list = document.getElementById("comment-list");
+
+  if (!form || !list) {
+    console.warn("Formulario o lista de comentarios no encontrados");
+    return;
+  }
+
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const name = form.elements["name"].value;
+    const message = form.elements["message"].value;
+
+    try {
+      await addComment(slug, name, message);
+      form.reset();
+      const item = document.createElement("li");
+      item.textContent = `${name}: ${message}`;
+      list.appendChild(item);
+    } catch (err) {
+      console.error("Error al enviar comentario:", err);
+    }
+  });
+
+  try {
+    const comments = await loadComments(slug);
+    for (const { name, message } of comments) {
+      const item = document.createElement("li");
+      item.textContent = `${name}: ${message}`;
+      list.appendChild(item);
+    }
+  } catch (err) {
+    console.error("Error al cargar comentarios:", err);
+  }
+}

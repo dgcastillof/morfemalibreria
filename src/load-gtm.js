@@ -1,5 +1,5 @@
 (function () {
-  fetch('gtm.html')
+  fetch('/gtm.html')
     .then(function (res) {
       return res.text();
     })
