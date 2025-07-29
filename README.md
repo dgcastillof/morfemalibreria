@@ -31,6 +31,16 @@ npm run format
 
 Esto formatea los archivos HTML, CSS y JavaScript dentro de `src/`.
 
+## Generar `dist`
+
+Después de editar los archivos HTML o JavaScript vuelve a compilar el sitio con:
+
+```bash
+npm run build
+```
+
+El comando genera la carpeta `dist/` lista para publicar.
+
 ## Servidor local
 
 Para previsualizar el sitio en tu máquina ejecuta:
@@ -75,6 +85,20 @@ firebase use --add
 ```
 
 Luego selecciona tu proyecto y confirma la actualización de `.firebaserc`.
+
+## Sistema de comentarios
+
+Las reseñas permiten comentarios guardados en Firebase. Debes colocar las
+claves de tu proyecto en `src/firebase-config.js`.
+
+## Reglas de seguridad de Firestore
+
+Las reglas están en `firestore.rules` y limitan los campos permitidos al crear
+comentarios. Para aplicarlas ejecuta:
+
+```bash
+firebase deploy --only firestore:rules
+```
 
 ## Despliegue en Firebase Hosting
 
