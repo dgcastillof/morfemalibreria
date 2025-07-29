@@ -2,7 +2,7 @@
 <html lang="es-AR">
   <head>
     <meta charset="UTF-8" />
-    <script src="load-gtm.js"></script>
+    <script src="/load-gtm.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Morfema - Librería</title>
     <meta
@@ -39,9 +39,9 @@
       content="https://morfemalibreria.com.ar/logo400x400fondo.png"
     />
     <link rel="canonical" href="/" />
-    <link rel="stylesheet" href="styles.css" />
-    <link rel="preload" href="placeholder.png" as="image" />
-    <link rel="icon" href="favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="/styles.css" />
+    <link rel="preload" href="/placeholder.png" as="image" />
+    <link rel="icon" href="/favicon.ico" type="image/x-icon" />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
@@ -160,7 +160,7 @@
 
       async function cargarNovedades() {
         try {
-          const resp = await fetch('books.json');
+          const resp = await fetch('/books.json');
           const libros = await resp.json();
           novedades = libros.filter((b) => b.novedad);
           const track = document.querySelector('#novedades-track');
@@ -235,7 +235,7 @@
 
       async function cargarEconomicos() {
         try {
-          const resp = await fetch('books.json');
+          const resp = await fetch('/books.json');
           const libros = await resp.json();
           economicos = libros.filter(
             (b) =>
@@ -344,7 +344,7 @@
     <div class="container">
       <div class="header">Morfema - Librería</div>
       <div class="logo-container">
-        <img src="logo.png" alt="Morfema" class="logo" />
+        <img src="/logo.png" alt="Morfema" class="logo" />
       </div>
       <h2 class="novedades-title">NOVEDADES</h2>
       <div class="carousel" id="novedades-carousel">
@@ -369,7 +369,7 @@
       </div>
 
       <div style="text-align: center; margin-top: 20px">
-        <a href="catalogo.html" class="filter-button" id="catalog-link"
+        <a href="/catalogo.html" class="filter-button" id="catalog-link"
           >Ver el catálogo completo</a
         >
       </div>
@@ -386,6 +386,6 @@
         </a>
       </p>
     </div>
-    <script src="navbar.js"></script>
+    <script src="/navbar.js"></script>
   </body>
 </html>
