@@ -182,11 +182,79 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   });
 
-  form.addEventListener('submit', function (e) {
+  async function loadFirebase() {
+    if (window._firebase) return window._firebase;
+    const [{ initializeApp }, firestore, storage, { default: config }] =
+      await Promise.all([
+        import('https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js'),
+        import(
+          'https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore.js'
+        ),
+        import('https://www.gstatic.com/firebasejs/9.23.0/firebase-storage.js'),
+        import('/firebase-config.js'),
+      ]);
+    const app = initializeApp(config);
+    window._firebase = {
+      db: firestore.getFirestore(app),
+      storage: storage.getStorage(app),
+      addDoc: firestore.addDoc,
+      collection: firestore.collection,
+      serverTimestamp: firestore.serverTimestamp,
+      ref: storage.ref,
+      uploadBytes: storage.uploadBytes,
+      getDownloadURL: storage.getDownloadURL,
+    };
+    return window._firebase;
+  }
+
+  form.addEventListener('submit', async function (e) {
     e.preventDefault();
     if (!validateStep(current)) return;
-    form.innerHTML =
-      '<p class="success-message">\u00a1Gracias! Nos vamos a estar comunicando con vos por mail.</p>';
+
+    const fb = await loadFirebase();
+    const count = parseInt(form['book-count'].value, 10) || 0;
+    const books = [];
+    for (let i = 1; i <= count; i++) {
+      const file = form['photo-' + i].files[0];
+      let photoUrl = '';
+      if (file) {
+        const photoRef = fb.ref(
+          fb.storage,
+          'book_photos/' + Date.now() + '-' + file.name,
+        );
+        await fb.uploadBytes(photoRef, file);
+        photoUrl = await fb.getDownloadURL(photoRef);
+      }
+      books.push({
+        title: form['title-' + i].value,
+        price: Number(form['price-' + i].value),
+        condition: form['state-' + i].value,
+        notes: form['notes-' + i].value,
+        photoUrl,
+      });
+    }
+
+    const data = {
+      user: {
+        name: form.name.value,
+        email: form.email.value,
+        city: form.city.value,
+        accepted_terms: form.terms.checked,
+      },
+      books,
+      submittedAt: fb.serverTimestamp(),
+    };
+
+    try {
+      await fb.addDoc(fb.collection(fb.db, 'book_submissions'), data);
+      form.innerHTML =
+        '<p class="success-message">\u00a1Gracias! Nos vamos a estar comunicando con vos por mail.</p>';
+    } catch (err) {
+      console.error('Error saving form', err);
+      alert(
+        'Ocurri\u00f3 un problema al enviar el formulario. Intentalo nuevamente.',
+      );
+    }
   });
 
   showStep(current);
