@@ -440,44 +440,79 @@ document.addEventListener('DOMContentLoaded', function () {
 
     const fb = await loadFirebase();
     syncBooksFromForm();
-    const booksData = [];
+
+    const submitBtn = form.querySelector('.submit-button');
+    if (submitBtn) {
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Enviando...';
+    }
+
+    const uploadPromises = [];
     for (let i = 1; i <= books.length; i++) {
       const file = form['photo-' + i].files[0];
-      let photoUrl = books[i - 1].photoUrl || '';
-      if (file && !photoUrl) {
-        try {
-          photoUrl = await uploadBookPhoto(i, file);
-          books[i - 1].photoUrl = photoUrl;
-        } catch (err) {
-          console.error('Error uploading', file.name, file.size, err);
-          alert('No pudimos subir la foto ' + file.name);
-          return;
-        }
+      if (file && !books[i - 1].photoUrl) {
+        uploadPromises.push(
+          uploadBookPhoto(i, file)
+            .then(function (url) {
+              books[i - 1].photoUrl = url;
+            })
+            .catch(function (err) {
+              console.error('Error uploading', file.name, file.size, err);
+              alert('No pudimos subir la foto ' + file.name);
+              throw err;
+            }),
+        );
       }
+    }
+
+    try {
+      await Promise.all(uploadPromises);
+    } catch (err) {
+      if (submitBtn) {
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Enviar';
+      }
+      return;
+    }
+
+    const booksData = books.map(function (book, idx) {
+      const i = idx + 1;
       const priceValue = form['price-' + i].value;
-      booksData.push({
+      return {
         title: form['title-' + i].value,
         price: priceValue ? Number(priceValue) : null,
         priceMissing: priceValue === '',
         condition: form['state-' + i].value,
         notes: form['notes-' + i].value,
-        photoUrl,
-      });
-    }
+        photoUrl: book.photoUrl,
+      };
+    });
 
     const data = {
       user: {
         name: form.name.value,
         email: form.email.value,
         city: form.city.value,
-        accepted_terms: form.terms.checked,
       },
       books: booksData,
+      accepted_terms: form.terms.checked,
       submittedAt: fb.serverTimestamp(),
     };
 
     try {
-      await fb.addDoc(fb.collection(fb.db, 'book_submissions'), data);
+      const docRef = await fb.addDoc(
+        fb.collection(fb.db, 'book_submissions'),
+        data,
+      );
+      try {
+        await fetch('/sendConfirmationEmail', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email: data.user.email, id: docRef.id }),
+        });
+      } catch (err) {
+        console.warn('sendConfirmationEmail failed', err);
+      }
       form.innerHTML =
         '<p class="success-message">\u00a1Gracias! Nos vamos a estar comunicando con vos por mail.</p>';
     } catch (err) {
@@ -485,7 +520,14 @@ document.addEventListener('DOMContentLoaded', function () {
       alert(
         'Ocurri\u00f3 un problema al enviar el formulario. Intentalo nuevamente.',
       );
+      if (submitBtn) {
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Enviar';
+      }
+      return;
     }
+
+    if (submitBtn) submitBtn.disabled = false;
   });
 
   showStep(current);
