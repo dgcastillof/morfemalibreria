@@ -316,3 +316,24 @@
   border-radius: 4px;
   cursor: pointer;
 }
+
+.form-feedback {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.form-success {
+  color: #112a4a;
+  font-size: 1.2rem;
+  padding: 20px 0;
+}
+
+.form-error {
+  color: #e74c3c;
+  font-size: 1rem;
+  margin-top: 10px;
+}
+
+.loading-message {
+  color: #112a4a;
+}
