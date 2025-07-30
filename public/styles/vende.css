@@ -1,5 +1,9 @@
 /* Styles for vendé tus libros landing page */
 
+.hidden {
+  display: none;
+}
+
 .hero {
   padding: 40px 20px;
   background: #f4f4f4;
@@ -54,6 +58,7 @@
 .hero-image img {
   max-width: 100%;
   height: auto;
+  max-height: 60vh;
   border-radius: 8px;
 }
 
