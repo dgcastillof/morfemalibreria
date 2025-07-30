@@ -33,7 +33,8 @@ export async function addComment(slug, name, message, recaptchaToken) {
   const data = {
     name: String(name),
     message: String(message),
-    createdAt: serverTimestamp()
+    createdAt: serverTimestamp(),
+    status: 'pending'
   };
   if (recaptchaToken) data.recaptchaToken = recaptchaToken;
   return addDoc(collection(database, 'reviews', slug, 'comments'), data);
