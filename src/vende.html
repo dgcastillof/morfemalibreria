@@ -4,216 +4,152 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Vendé tus libros con Morfema</title>
+    <link rel="stylesheet" href="/styles.css" />
     <link rel="stylesheet" href="/styles/vende.css" />
   </head>
   <body>
     <div id="navbar" data-current="VENDÉ TUS LIBROS CON NOSOTROS"></div>
-    <main>
-      <!-- Hero section -->
-      <section class="hero">
-        <div class="hero-content">
-          <div class="hero-text">
-            <h1>¿Querés vender tus libros?</h1>
-            <p>Conectá tus lecturas con nuevas manos a través de Morfema.</p>
-            <button class="primary-button" data-scroll-to="form">
-              Quiero empezar
-            </button>
-          </div>
-          <div class="hero-image">
-            <!-- Add a file at public/images/books-hero.jpg (approx 1200x800) -->
-            <img src="/images/books-hero.jpg" alt="Pila de libros" />
-          </div>
-        </div>
-      </section>
-      <!-- How it works section -->
-      <section class="how-it-works">
-        <div class="steps-container">
-          <div class="step">
-            <img src="/images/icon1.svg" alt="Subí tus libros" />
-            <h3>Subí tus libros</h3>
-            <p>Subí los datos y fotos de tus libros a través del formulario.</p>
-          </div>
-          <div class="step">
-            <img src="/images/icon2.svg" alt="Los publicamos" />
-            <h3>Los publicamos</h3>
-            <p>Revisamos la información y los mostramos en nuestro catálogo.</p>
-          </div>
-          <div class="step">
-            <img src="/images/icon3.svg" alt="Nos ocupamos de la venta" />
-            <h3>Nos ocupamos de la venta y el pago</h3>
-            <p>Coordinamos la entrega y te transferimos el dinero.</p>
-          </div>
-        </div>
-      </section>
-      <!-- Form wizard for selling books -->
-      <section class="form-wizard" id="form">
-        <form id="book-sell-form">
-          <!-- Progress indicator -->
-          <ol class="form-progress" aria-label="Progreso del formulario">
-            <li
-              class="progress-step current"
-              data-step="1"
-              aria-label="Paso 1"
-              aria-current="step"
-            >
-              1
-            </li>
-            <li class="progress-step" data-step="2" aria-label="Paso 2">2</li>
-            <li class="progress-step" data-step="3" aria-label="Paso 3">3</li>
-            <li class="progress-step" data-step="4" aria-label="Paso 4">4</li>
-          </ol>
-
-          <!-- Step 1 – Seller Information -->
-          <div class="form-step" data-step="1">
-            <h2>Datos del vendedor</h2>
-            <label for="seller-name">Nombre</label>
-            <input type="text" id="seller-name" name="sellerName" required />
-
-            <label for="seller-email">Email</label>
-            <input type="email" id="seller-email" name="sellerEmail" required />
-
-            <label for="seller-phone">Teléfono</label>
-            <input type="tel" id="seller-phone" name="sellerPhone" required />
-
-            <div class="form-navigation">
-              <button type="button" class="next-button">Siguiente</button>
+    <div class="container">
+      <main>
+        <!-- Hero section -->
+        <section class="hero">
+          <div class="hero-content">
+            <div class="hero-text">
+              <h1>¿Querés vender tus libros?</h1>
+              <p>Conectá tus lecturas con nuevas manos a través de Morfema.</p>
+              <button class="primary-button" data-scroll-to="form">
+                Quiero empezar
+              </button>
+            </div>
+            <div class="hero-image">
+              <!-- Add a file at public/images/books-hero.jpg (approx 1200x800) -->
+              <img src="/images/books-hero.jpg" alt="Pila de libros" />
             </div>
           </div>
-
-          <!-- Step 2 – Book Information -->
-          <div class="form-step" data-step="2" hidden>
-            <h2>Datos del libro</h2>
-            <label for="book-title">Título</label>
-            <input type="text" id="book-title" name="bookTitle" required />
-
-            <label for="book-author">Autor</label>
-            <input type="text" id="book-author" name="bookAuthor" required />
-
-            <label for="book-publisher">Editorial</label>
-            <input
-              type="text"
-              id="book-publisher"
-              name="bookPublisher"
-              required
-            />
-
-            <label for="book-condition">Estado</label>
-            <select id="book-condition" name="bookCondition" required>
-              <option value="">Seleccioná</option>
-              <option>Nuevo</option>
-              <option>Excelente</option>
-              <option>Bueno</option>
-              <option>Usado con detalles</option>
-            </select>
-
-            <label for="book-price">Precio sugerido</label>
-            <input type="number" id="book-price" name="bookPrice" />
-
-            <label for="book-photo">Foto del libro</label>
-            <input
-              type="file"
-              id="book-photo"
-              name="bookPhoto"
-              accept="image/*"
-            />
-            <div class="photo-preview"><!-- preview goes here --></div>
-
-            <div class="form-navigation">
-=======
-      <!-- Multistep form -->
-      <section class="form-wizard" id="form">
-        <div class="progress-indicator">
-          <div class="progress-step"></div>
-          <div class="progress-step"></div>
-          <div class="progress-step"></div>
-          <div class="progress-step"></div>
-        </div>
-        <form id="sell-form">
-          <div class="form-step current-step">
-            <div class="field-group">
-              <label for="name">Nombre</label>
-              <input type="text" id="name" name="name" required />
+        </section>
+        <!-- How it works section -->
+        <section class="how-it-works">
+          <div class="steps-container">
+            <div class="step">
+              <img src="/images/icon1.svg" alt="Subí tus libros" />
+              <h3>Subí tus libros</h3>
+              <p>
+                Subí los datos y fotos de tus libros a través del formulario.
+              </p>
             </div>
-            <div class="field-group">
-              <label for="email">Email</label>
-              <input type="email" id="email" name="email" required />
+            <div class="step">
+              <img src="/images/icon2.svg" alt="Los publicamos" />
+              <h3>Los publicamos</h3>
+              <p>
+                Revisamos la información y los mostramos en nuestro catálogo.
+              </p>
             </div>
-            <div class="buttons">
-              <button type="button" class="next-button">Siguiente</button>
+            <div class="step">
+              <img src="/images/icon3.svg" alt="Nos ocupamos de la venta" />
+              <h3>Nos ocupamos de la venta y el pago</h3>
+              <p>Coordinamos la entrega y te transferimos el dinero.</p>
             </div>
           </div>
-          <div class="form-step">
-            <div class="field-group">
-              <label for="title">Título del libro</label>
-              <input type="text" id="title" name="title" required />
+        </section>
+        <!-- Multistep form -->
+        <section class="form-wizard" id="form">
+          <div class="progress-indicator">
+            <div class="progress-step"></div>
+            <div class="progress-step"></div>
+            <div class="progress-step"></div>
+            <div class="progress-step"></div>
+          </div>
+          <form id="sell-form">
+            <div class="form-step current-step">
+              <div class="field-group">
+                <label for="name">Nombre</label>
+                <input type="text" id="name" name="name" required />
+              </div>
+              <div class="field-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" required />
+              </div>
+              <div class="buttons">
+                <button type="button" class="next-button">Siguiente</button>
+              </div>
             </div>
-            <div class="field-group">
-              <label for="author">Autor</label>
-              <input type="text" id="author" name="author" required />
+            <div class="form-step">
+              <div class="field-group">
+                <label for="title">Título del libro</label>
+                <input type="text" id="title" name="title" required />
+              </div>
+              <div class="field-group">
+                <label for="author">Autor</label>
+                <input type="text" id="author" name="author" required />
+              </div>
+              <div class="buttons">
+                <button type="button" class="prev-button">Anterior</button>
+                <button type="button" class="next-button">Siguiente</button>
+              </div>
             </div>
-            <div class="buttons">
 
-          <!-- Step 3 – Delivery & Location -->
-          <div class="form-step" data-step="3" hidden>
-            <h2>Entrega y ubicación</h2>
-            <label for="zone">Zona</label>
-            <input type="text" id="zone" name="zone" required />
+            <!-- Step 3 – Delivery & Location -->
+            <div class="form-step" data-step="3" hidden>
+              <h2>Entrega y ubicación</h2>
+              <label for="zone">Zona</label>
+              <input type="text" id="zone" name="zone" required />
 
-            <fieldset>
-              <legend>Entrega</legend>
-              <label for="bring">
-                <input
-                  type="radio"
-                  id="bring"
-                  name="delivery"
-                  value="bring"
-                  checked
-                />
-                Lo acerco
+              <fieldset>
+                <legend>Entrega</legend>
+                <label for="bring">
+                  <input
+                    type="radio"
+                    id="bring"
+                    name="delivery"
+                    value="bring"
+                    checked
+                  />
+                  Lo acerco
+                </label>
+                <label for="pickup">
+                  <input
+                    type="radio"
+                    id="pickup"
+                    name="delivery"
+                    value="pickup"
+                  />
+                  Quiero que lo retiren
+                </label>
+              </fieldset>
+
+              <label for="availability">Disponibilidad</label>
+              <textarea id="availability" name="availability"></textarea>
+
+              <div class="form-navigation">
+                <button type="button" class="prev-button">Anterior</button>
+                <button type="button" class="next-button">Siguiente</button>
+              </div>
+            </div>
+
+            <!-- Step 4 – Confirmation -->
+            <div class="form-step" data-step="4" hidden>
+              <h2>Confirmación</h2>
+              <div class="review-data">
+                <!-- datos ingresados -->
+              </div>
+              <label for="terms" class="terms">
+                <input type="checkbox" id="terms" required /> Acepto términos y
+                condiciones
               </label>
-              <label for="pickup">
-                <input
-                  type="radio"
-                  id="pickup"
-                  name="delivery"
-                  value="pickup"
-                />
-                Quiero que lo retiren
-              </label>
-            </fieldset>
 
-            <label for="availability">Disponibilidad</label>
-            <textarea id="availability" name="availability"></textarea>
-
-            <div class="form-navigation">
-              <button type="button" class="prev-button">Anterior</button>
-              <button type="button" class="next-button">Siguiente</button>
+              <div class="form-navigation">
+                <button type="button" class="prev-button">Anterior</button>
+                <button type="submit" class="submit-button">Enviar</button>
+              </div>
             </div>
-          </div>
-
-          <!-- Step 4 – Confirmation -->
-          <div class="form-step" data-step="4" hidden>
-            <h2>Confirmación</h2>
-            <div class="review-data">
-              <!-- datos ingresados -->
-            </div>
-            <label for="terms" class="terms">
-              <input type="checkbox" id="terms" required /> Acepto términos y
-              condiciones
-            </label>
-
-            <div class="form-navigation">
-              <button type="button" class="prev-button">Anterior</button>
-              <button type="submit" class="submit-button">Enviar</button>
-            </div>
-          </div>
-        </form>
-      </section>
-      <!-- Testimonials section -->
-      <section class="testimonials"></section>
-      <!-- FAQs section -->
-      <section class="faqs"></section>
-    </main>
+          </form>
+        </section>
+        <!-- Testimonials section -->
+        <section class="testimonials"></section>
+        <!-- FAQs section -->
+        <section class="faqs"></section>
+      </main>
+    </div>
     <footer class="footer"></footer>
     <script src="/form.js"></script>
     <script src="/navbar.js"></script>
