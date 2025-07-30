@@ -103,6 +103,15 @@ comentarios. Para aplicarlas ejecuta:
 firebase deploy --only firestore:rules
 ```
 
+## Configuraci\u00f3n de CORS para Firebase Storage
+
+Si las cargas de im\u00e1genes fallan por pol\u00edticas CORS puedes configurar
+los or\u00edgenes permitidos creando `storage-cors.json` y aplic\u00e1ndolo con:
+
+```bash
+firebase storage:rules:set storage-cors.json
+```
+
 ## Despliegue en Firebase Hosting
 
 1. Inicia sesión con tu cuenta de Firebase si no lo has hecho:

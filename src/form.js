@@ -40,6 +40,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const fields = step.querySelectorAll(
       'input[required], select[required], textarea[required]'
     );
+    const optionalPrices = step.querySelectorAll('input[name^="price-"]');
     let valid = true;
 
     function showError(field, message) {
@@ -103,7 +104,7 @@ document.addEventListener('DOMContentLoaded', function () {
           valid = false;
         }
       } else if (field.name.startsWith('price')) {
-        if (!isValidPrice(value)) {
+        if (value !== '' && !isValidPrice(value)) {
           showError(field, 'El precio debe ser positivo');
           valid = false;
         }
@@ -116,6 +117,16 @@ document.addEventListener('DOMContentLoaded', function () {
         valid = false;
       } else if (!field.checkValidity()) {
         field.reportValidity();
+        valid = false;
+      }
+    }
+
+    for (const field of optionalPrices) {
+      if (Array.from(fields).includes(field)) continue;
+      clearError(field);
+      const value = field.value.trim();
+      if (value !== '' && !isValidPrice(value)) {
+        showError(field, 'El precio debe ser positivo');
         valid = false;
       }
     }
@@ -157,7 +168,7 @@ document.addEventListener('DOMContentLoaded', function () {
         i +
         '" name="price-' +
         i +
-        '" required />' +
+        '" placeholder="Si lo dej\u00e1s vac\u00edo nosotros te sugerimos un precio" />' +
         '</div>' +
         '<div class="field-group">' +
         '<label for="state-' +
@@ -246,7 +257,7 @@ document.addEventListener('DOMContentLoaded', function () {
         title +
         '</summary>' +
         '<p><strong>Precio:</strong> ' +
-        price +
+        (price ? price : 'A definir') +
         '</p>' +
         '<p><strong>Estado:</strong> ' +
         state +
@@ -343,12 +354,19 @@ document.addEventListener('DOMContentLoaded', function () {
           fb.storage,
           'book_photos/' + Date.now() + '-' + file.name,
         );
-        await fb.uploadBytes(photoRef, file);
-        photoUrl = await fb.getDownloadURL(photoRef);
+        try {
+          await fb.uploadBytes(photoRef, file);
+          photoUrl = await fb.getDownloadURL(photoRef);
+        } catch (err) {
+          console.error('Error uploading', file.name, file.size, err);
+          alert('No pudimos subir la foto ' + file.name);
+        }
       }
+      const priceValue = form['price-' + i].value;
       booksData.push({
         title: form['title-' + i].value,
-        price: Number(form['price-' + i].value),
+        price: priceValue ? Number(priceValue) : null,
+        priceMissing: priceValue === '',
         condition: form['state-' + i].value,
         notes: form['notes-' + i].value,
         photoUrl,
