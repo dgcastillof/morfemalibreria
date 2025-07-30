@@ -70,7 +70,8 @@
             <div class="progress-step"></div>
           </div>
           <form id="sell-form">
-            <div class="form-step current-step">
+            <!-- Step 1: User Info -->
+            <div class="form-step current-step" data-step="1">
               <div class="field-group">
                 <label for="name">Nombre</label>
                 <input type="text" id="name" name="name" required />
@@ -79,18 +80,30 @@
                 <label for="email">Email</label>
                 <input type="email" id="email" name="email" required />
               </div>
+              <div class="field-group">
+                <label for="city">Ciudad</label>
+                <input type="text" id="city" name="city" required />
+              </div>
               <div class="buttons">
                 <button type="button" class="next-button">Siguiente</button>
               </div>
             </div>
-            <div class="form-step">
+
+            <!-- Step 2: Book Count -->
+            <div class="form-step" data-step="2">
               <div class="field-group">
-                <label for="title">Título del libro</label>
-                <input type="text" id="title" name="title" required />
-              </div>
-              <div class="field-group">
-                <label for="author">Autor</label>
-                <input type="text" id="author" name="author" required />
+                <label for="book-count">Cantidad de libros</label>
+                <input
+                  type="number"
+                  id="book-count"
+                  name="book-count"
+                  min="1"
+                  max="50"
+                  required
+                />
+                <small>
+                  Te vamos a pedir una foto y algunos datos para cada libro
+                </small>
               </div>
               <div class="buttons">
                 <button type="button" class="prev-button">Anterior</button>
@@ -98,56 +111,24 @@
               </div>
             </div>
 
-            <!-- Step 3 – Delivery & Location -->
-            <div class="form-step" data-step="3" hidden>
-              <h2>Entrega y ubicación</h2>
-              <label for="zone">Zona</label>
-              <input type="text" id="zone" name="zone" required />
-
-              <fieldset>
-                <legend>Entrega</legend>
-                <label for="bring">
-                  <input
-                    type="radio"
-                    id="bring"
-                    name="delivery"
-                    value="bring"
-                    checked
-                  />
-                  Lo acerco
-                </label>
-                <label for="pickup">
-                  <input
-                    type="radio"
-                    id="pickup"
-                    name="delivery"
-                    value="pickup"
-                  />
-                  Quiero que lo retiren
-                </label>
-              </fieldset>
-
-              <label for="availability">Disponibilidad</label>
-              <textarea id="availability" name="availability"></textarea>
-
-              <div class="form-navigation">
+            <!-- Step 3: Book Details -->
+            <div class="form-step" data-step="3">
+              <div id="book-steps"></div>
+              <div class="buttons">
                 <button type="button" class="prev-button">Anterior</button>
                 <button type="button" class="next-button">Siguiente</button>
               </div>
             </div>
 
-            <!-- Step 4 – Confirmation -->
-            <div class="form-step" data-step="4" hidden>
+            <!-- Step 4: Confirmation -->
+            <div class="form-step" data-step="4">
               <h2>Confirmación</h2>
-              <div class="review-data">
-                <!-- datos ingresados -->
-              </div>
+              <div id="summary"></div>
               <label for="terms" class="terms">
-                <input type="checkbox" id="terms" required /> Acepto términos y
-                condiciones
+                <input type="checkbox" id="terms" required /> Acepto los
+                términos y condiciones
               </label>
-
-              <div class="form-navigation">
+              <div class="buttons">
                 <button type="button" class="prev-button">Anterior</button>
                 <button type="submit" class="submit-button">Enviar</button>
               </div>
