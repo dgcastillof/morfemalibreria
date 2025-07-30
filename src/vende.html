@@ -45,8 +45,72 @@
           </div>
         </div>
       </section>
-      <!-- Form placeholder -->
-      <section class="form-wizard"></section>
+      <!-- Multistep form -->
+      <section class="form-wizard" id="form">
+        <div class="progress-indicator">
+          <div class="progress-step"></div>
+          <div class="progress-step"></div>
+          <div class="progress-step"></div>
+          <div class="progress-step"></div>
+        </div>
+        <form id="sell-form">
+          <div class="form-step current-step">
+            <div class="field-group">
+              <label for="name">Nombre</label>
+              <input type="text" id="name" name="name" required />
+            </div>
+            <div class="field-group">
+              <label for="email">Email</label>
+              <input type="email" id="email" name="email" required />
+            </div>
+            <div class="buttons">
+              <button type="button" class="next-button">Siguiente</button>
+            </div>
+          </div>
+          <div class="form-step">
+            <div class="field-group">
+              <label for="title">Título del libro</label>
+              <input type="text" id="title" name="title" required />
+            </div>
+            <div class="field-group">
+              <label for="author">Autor</label>
+              <input type="text" id="author" name="author" required />
+            </div>
+            <div class="buttons">
+              <button type="button" class="prev-button">Anterior</button>
+              <button type="button" class="next-button">Siguiente</button>
+            </div>
+          </div>
+          <div class="form-step">
+            <div class="field-group">
+              <label for="condition">Estado del libro</label>
+              <select id="condition" name="condition" required>
+                <option value="" disabled selected>Seleccioná</option>
+                <option value="nuevo">Nuevo</option>
+                <option value="usado">Usado</option>
+              </select>
+            </div>
+            <div class="field-group">
+              <label for="price">Precio sugerido</label>
+              <input type="number" id="price" name="price" required />
+            </div>
+            <div class="buttons">
+              <button type="button" class="prev-button">Anterior</button>
+              <button type="button" class="next-button">Siguiente</button>
+            </div>
+          </div>
+          <div class="form-step">
+            <div class="field-group">
+              <label for="notes">Comentarios adicionales</label>
+              <textarea id="notes" name="notes" rows="4"></textarea>
+            </div>
+            <div class="buttons">
+              <button type="button" class="prev-button">Anterior</button>
+              <button type="submit" class="next-button">Enviar</button>
+            </div>
+          </div>
+        </form>
+      </section>
       <!-- Testimonials section -->
       <section class="testimonials"></section>
       <!-- FAQs section -->
