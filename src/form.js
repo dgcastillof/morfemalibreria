@@ -33,15 +33,89 @@ document.addEventListener('DOMContentLoaded', function () {
   function validateStep(idx) {
     const step = steps[idx];
     const fields = step.querySelectorAll(
-      'input[required], select[required], textarea[required]',
+      'input[required], select[required], textarea[required]'
     );
-    for (const field of fields) {
-      if (!field.checkValidity()) {
-        field.reportValidity();
+    let valid = true;
+
+    function showError(field, message) {
+      const group = field.closest('.field-group');
+      if (!group) return;
+      group.classList.add('invalid');
+      let msg = group.querySelector('.error-message');
+      if (!msg) {
+        msg = document.createElement('small');
+        msg.className = 'error-message';
+        group.appendChild(msg);
+      }
+      msg.textContent = message;
+    }
+
+    function clearError(field) {
+      const group = field.closest('.field-group');
+      if (!group) return;
+      group.classList.remove('invalid');
+      const msg = group.querySelector('.error-message');
+      if (msg) msg.textContent = '';
+    }
+
+    function isValidEmail(email) {
+      return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    }
+
+    function isValidPrice(value) {
+      return /^\d+(\.\d{1,2})?$/.test(value) && parseFloat(value) > 0;
+    }
+
+    function validateFileInput(input) {
+      const file = input.files[0];
+      if (!file) {
+        showError(input, 'Seleccioná una imagen');
         return false;
       }
+      const validTypes = [
+        'image/jpeg',
+        'image/png',
+        'image/webp',
+        'image/jpg',
+      ];
+      if (!validTypes.includes(file.type)) {
+        showError(input, 'Formato de imagen inválido');
+        return false;
+      }
+      if (file.size > 2 * 1024 * 1024) {
+        showError(input, 'La imagen debe pesar menos de 2MB');
+        return false;
+      }
+      return true;
     }
-    return true;
+
+    for (const field of fields) {
+      clearError(field);
+      const value = field.value.trim();
+      if (field.type === 'email') {
+        if (!isValidEmail(value)) {
+          showError(field, 'Ingresá un email válido');
+          valid = false;
+        }
+      } else if (field.name.startsWith('price')) {
+        if (!isValidPrice(value)) {
+          showError(field, 'El precio debe ser positivo');
+          valid = false;
+        }
+      } else if (field.type === 'file') {
+        if (!validateFileInput(field)) {
+          valid = false;
+        }
+      } else if (value === '') {
+        showError(field, 'Este campo es obligatorio');
+        valid = false;
+      } else if (!field.checkValidity()) {
+        field.reportValidity();
+        valid = false;
+      }
+    }
+
+    return valid;
   }
 
   function createBookBlocks(count) {

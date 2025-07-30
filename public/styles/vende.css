@@ -245,3 +245,14 @@
     gap: 20px;
   }
 }
+
+.field-group.invalid input,
+.field-group.invalid select,
+.field-group.invalid textarea {
+  border-color: #e74c3c;
+}
+
+.error-message {
+  color: #e74c3c;
+  font-size: 0.875rem;
+}
