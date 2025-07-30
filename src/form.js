@@ -13,11 +13,34 @@ document.addEventListener('DOMContentLoaded', function () {
     formSection.classList.add('hidden');
   }
 
+  function openForm() {
+    if (formSection) {
+      formSection.classList.remove('hidden');
+      document.body.classList.add('show-form');
+    }
+  }
+
+  function closeForm() {
+    document.body.classList.remove('show-form');
+    if (formSection) {
+      formSection.classList.add('hidden');
+    }
+    if (feedback) {
+      feedback.classList.add('hidden');
+    }
+  }
+
   const startButton = document.querySelector('[data-scroll-to="form"]');
   if (startButton && formSection) {
     startButton.addEventListener('click', function () {
-      formSection.classList.remove('hidden');
-      formSection.scrollIntoView({ behavior: 'smooth' });
+      openForm();
+    });
+  }
+
+  const closeButton = document.querySelector('#form .close-form');
+  if (closeButton) {
+    closeButton.addEventListener('click', function () {
+      closeForm();
     });
   }
 
@@ -562,6 +585,7 @@ document.addEventListener('DOMContentLoaded', function () {
         feedback.classList.remove('hidden');
         feedback.scrollIntoView({ behavior: 'smooth' });
       }
+      setTimeout(closeForm, 2000);
     } catch (err) {
       logError('Error saving form', err);
       if (feedback) {
