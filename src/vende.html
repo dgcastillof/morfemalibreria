@@ -68,6 +68,7 @@
             <div class="progress-step"></div>
             <div class="progress-step"></div>
             <div class="progress-step"></div>
+            <div class="progress-text"></div>
           </div>
           <form id="sell-form">
             <!-- Step 1: User Info -->
@@ -114,6 +115,9 @@
             <!-- Step 3: Book Details -->
             <div class="form-step" data-step="3">
               <div id="book-steps"></div>
+              <button type="button" id="add-book" class="add-book-button">
+                + Agregar otro libro
+              </button>
               <div class="buttons">
                 <button type="button" class="prev-button">Anterior</button>
                 <button type="button" class="next-button">Siguiente</button>
@@ -124,6 +128,9 @@
             <div class="form-step" data-step="4">
               <h2>Confirmación</h2>
               <div id="summary"></div>
+              <button type="button" id="edit-books" class="edit-button">
+                Editar
+              </button>
               <label for="terms" class="terms">
                 <input type="checkbox" id="terms" required /> Acepto los
                 términos y condiciones

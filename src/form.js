@@ -18,6 +18,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
   const steps = form.querySelectorAll('.form-step');
   const progress = document.querySelectorAll('.progress-step');
+  const progressText = document.querySelector('.progress-text');
+  let books = [];
   let current = 0;
 
   function showStep(index) {
@@ -28,6 +30,9 @@ document.addEventListener('DOMContentLoaded', function () {
       p.classList.toggle('active', i === index);
       p.classList.toggle('completed', i < index);
     });
+    if (progressText) {
+      progressText.textContent = 'Paso ' + (index + 1) + ' de ' + steps.length;
+    }
   }
 
   function validateStep(idx) {
@@ -118,15 +123,19 @@ document.addEventListener('DOMContentLoaded', function () {
     return valid;
   }
 
-  function createBookBlocks(count) {
+  function renderBookBlocks() {
     const container = document.getElementById('book-steps');
     if (!container) return;
     container.innerHTML = '';
-    for (let i = 1; i <= count; i++) {
+    books.forEach(function (book, idx) {
+      const i = idx + 1;
       const div = document.createElement('div');
       div.className = 'book-fields';
-      div.dataset.book = String(i);
+      div.dataset.index = String(idx);
       div.innerHTML =
+        '<button type="button" class="remove-book-button" data-index="' +
+        idx +
+        '">✖</button>' +
         '<h3>Libro ' +
         i +
         '</h3>' +
@@ -187,7 +196,24 @@ document.addEventListener('DOMContentLoaded', function () {
         '<small>Necesitamos una foto principal de la portada, lo más cerca posible.</small>' +
         '</div>';
       container.appendChild(div);
-    }
+      if (book.title) form['title-' + i].value = book.title;
+      if (book.price) form['price-' + i].value = book.price;
+      if (book.state) form['state-' + i].value = book.state;
+      if (book.notes) form['notes-' + i].value = book.notes;
+    });
+  }
+
+  function syncBooksFromForm() {
+    books = books.map(function (b, idx) {
+      const i = idx + 1;
+      return {
+        title: form['title-' + i].value,
+        price: form['price-' + i].value,
+        state: form['state-' + i].value,
+        notes: form['notes-' + i].value,
+        file: form['photo-' + i].files[0] || null,
+      };
+    });
   }
 
   function renderSummary() {
@@ -206,13 +232,13 @@ document.addEventListener('DOMContentLoaded', function () {
       '<p><strong>Cantidad de libros:</strong> ' +
       form['book-count'].value +
       '</p>';
-    const count = parseInt(form['book-count'].value, 10) || 0;
-    for (let i = 1; i <= count; i++) {
+    books.forEach(function (book, idx) {
+      const i = idx + 1;
       const details = document.createElement('details');
-      const title = form['title-' + i].value;
-      const price = form['price-' + i].value;
-      const state = form['state-' + i].value;
-      const notes = form['notes-' + i].value;
+      const title = book.title;
+      const price = book.price;
+      const state = book.state;
+      const notes = book.notes;
       details.innerHTML =
         '<summary>Libro ' +
         i +
@@ -227,7 +253,7 @@ document.addEventListener('DOMContentLoaded', function () {
         '</p>' +
         (notes ? '<p><strong>Observaciones:</strong> ' + notes + '</p>' : '');
       summary.appendChild(details);
-    }
+    });
   }
 
   form.addEventListener('click', function (e) {
@@ -237,9 +263,11 @@ document.addEventListener('DOMContentLoaded', function () {
       if (current === 1) {
         const count = parseInt(form['book-count'].value, 10);
         if (Number.isNaN(count) || count < 1) return;
-        createBookBlocks(count);
+        books = Array.from({ length: count }, () => ({}));
+        renderBookBlocks();
       }
       if (current === 2) {
+        syncBooksFromForm();
         renderSummary();
       }
       if (current < steps.length - 1) {
@@ -253,6 +281,25 @@ document.addEventListener('DOMContentLoaded', function () {
         current -= 1;
         showStep(current);
       }
+    }
+    if (e.target.id === 'add-book') {
+      e.preventDefault();
+      if (books.length < 50) {
+        books.push({});
+        renderBookBlocks();
+      }
+    }
+    if (e.target.classList.contains('remove-book-button')) {
+      e.preventDefault();
+      const idx = parseInt(e.target.dataset.index, 10);
+      if (!Number.isNaN(idx)) {
+        books.splice(idx, 1);
+        renderBookBlocks();
+      }
+    }
+    if (e.target.id === 'edit-books') {
+      e.preventDefault();
+      showStep(2);
     }
   });
 
@@ -286,9 +333,9 @@ document.addEventListener('DOMContentLoaded', function () {
     if (!validateStep(current)) return;
 
     const fb = await loadFirebase();
-    const count = parseInt(form['book-count'].value, 10) || 0;
-    const books = [];
-    for (let i = 1; i <= count; i++) {
+    syncBooksFromForm();
+    const booksData = [];
+    for (let i = 1; i <= books.length; i++) {
       const file = form['photo-' + i].files[0];
       let photoUrl = '';
       if (file) {
@@ -299,7 +346,7 @@ document.addEventListener('DOMContentLoaded', function () {
         await fb.uploadBytes(photoRef, file);
         photoUrl = await fb.getDownloadURL(photoRef);
       }
-      books.push({
+      booksData.push({
         title: form['title-' + i].value,
         price: Number(form['price-' + i].value),
         condition: form['state-' + i].value,
@@ -315,7 +362,7 @@ document.addEventListener('DOMContentLoaded', function () {
         city: form.city.value,
         accepted_terms: form.terms.checked,
       },
-      books,
+      books: booksData,
       submittedAt: fb.serverTimestamp(),
     };
 
