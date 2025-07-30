@@ -1,5 +1,11 @@
 // Multistep form logic for vende page
 document.addEventListener('DOMContentLoaded', function () {
+  function logError(msg, err) {
+    console.error(msg, err);
+    if (window.Sentry && window.Sentry.captureException) {
+      window.Sentry.captureException(err);
+    }
+  }
   const formSection = document.getElementById('form');
   const form = document.getElementById('sell-form');
   const feedback = document.getElementById('form-feedback');
@@ -424,6 +430,7 @@ document.addEventListener('DOMContentLoaded', function () {
         function (err) {
           if (errorEl) errorEl.textContent = 'Error al subir la foto';
           if (retry) retry.classList.remove('hidden');
+          logError('Firebase upload error', err);
           reject(err);
         },
         async function () {
@@ -441,6 +448,16 @@ document.addEventListener('DOMContentLoaded', function () {
 
     const fb = await loadFirebase();
     syncBooksFromForm();
+    let recaptchaToken = '';
+    if (window.grecaptcha) {
+      try {
+        await grecaptcha.ready();
+        recaptchaToken = await grecaptcha.execute('RECAPTCHA_SITE_KEY', { action: 'sell_form' });
+      } catch (err) {
+        logError('reCAPTCHA failed', err);
+      }
+    }
+    form['recaptcha-token'].value = recaptchaToken;
 
     const submitBtn = form.querySelector('.submit-button');
     if (submitBtn) {
@@ -463,7 +480,7 @@ document.addEventListener('DOMContentLoaded', function () {
               books[i - 1].photoUrl = url;
             })
             .catch(function (err) {
-              console.error('Error uploading', file.name, file.size, err);
+              logError('Error uploading ' + file.name, err);
               alert('No pudimos subir la foto ' + file.name);
               throw err;
             }),
@@ -474,6 +491,7 @@ document.addEventListener('DOMContentLoaded', function () {
     try {
       await Promise.all(uploadPromises);
     } catch (err) {
+      logError('Photo upload failed', err);
       if (submitBtn) {
         submitBtn.disabled = false;
         submitBtn.textContent = 'Enviar';
@@ -518,6 +536,7 @@ document.addEventListener('DOMContentLoaded', function () {
       },
       books: booksData,
       accepted_terms: form.terms.checked,
+      recaptchaToken: form['recaptcha-token'].value,
       submittedAt: fb.serverTimestamp(),
     };
 
@@ -533,7 +552,7 @@ document.addEventListener('DOMContentLoaded', function () {
           body: JSON.stringify({ email: data.user.email, id: docRef.id }),
         });
       } catch (err) {
-        console.warn('sendConfirmationEmail failed', err);
+        logError('sendConfirmationEmail failed', err);
       }
       form.classList.add('hidden');
       if (feedback) {
@@ -544,7 +563,7 @@ document.addEventListener('DOMContentLoaded', function () {
         feedback.scrollIntoView({ behavior: 'smooth' });
       }
     } catch (err) {
-      console.error('Error saving form', err);
+      logError('Error saving form', err);
       if (feedback) {
         feedback.innerHTML =
           '<p>Ocurri\u00f3 un problema al enviar el formulario.</p>';
