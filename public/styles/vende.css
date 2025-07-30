@@ -141,6 +141,12 @@
   margin-bottom: 20px;
 }
 
+.progress-text {
+  font-weight: bold;
+  margin-left: 8px;
+  align-self: center;
+}
+
 .progress-step {
   flex: 1;
   height: 4px;
@@ -221,6 +227,37 @@
   border-radius: 5px;
   padding: 15px;
   margin-bottom: 15px;
+  position: relative;
+}
+
+.add-book-button {
+  margin: 10px 0;
+  padding: 8px 16px;
+  background: #e0e0e0;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  align-self: flex-start;
+}
+
+.remove-book-button {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background: transparent;
+  border: none;
+  color: #e74c3c;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.edit-button {
+  background: transparent;
+  border: none;
+  color: #112a4a;
+  cursor: pointer;
+  margin-top: 10px;
+  text-decoration: underline;
 }
 
 .success-message {
