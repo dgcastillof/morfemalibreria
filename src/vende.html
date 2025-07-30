@@ -71,6 +71,7 @@
             <div class="progress-text"></div>
           </div>
           <form id="sell-form">
+            <input type="hidden" id="recaptcha-token" name="recaptchaToken" />
             <!-- Step 1: User Info -->
             <div class="form-step current-step" data-step="1">
               <div class="field-group">
@@ -133,7 +134,7 @@
               </button>
               <label for="terms" class="terms">
                 <input type="checkbox" id="terms" required /> Acepto los
-                términos y condiciones
+                <a href="https://morfemalibreria.com.ar/terminos" target="_blank" rel="noopener">términos y condiciones</a>
               </label>
               <div class="buttons">
                 <button type="button" class="prev-button">Anterior</button>
@@ -150,6 +151,7 @@
       </main>
     </div>
     <footer class="footer"></footer>
+    <script src="https://www.google.com/recaptcha/api.js?render=RECAPTCHA_SITE_KEY"></script>
     <script src="/form.js"></script>
     <script src="/navbar.js"></script>
   </body>
