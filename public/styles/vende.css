@@ -107,3 +107,98 @@
     max-width: 300px;
   }
 }
+
+/* Multistep form */
+.form-wizard {
+  max-width: 600px;
+  margin: 40px auto;
+  background: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.progress-indicator {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.progress-step {
+  flex: 1;
+  height: 4px;
+  background: #e0e0e0;
+  margin: 0 4px;
+  border-radius: 2px;
+  position: relative;
+}
+
+.progress-step.active,
+.progress-step.completed {
+  background: #112a4a;
+}
+
+.form-step {
+  display: none;
+  flex-direction: column;
+  gap: 15px;
+  animation: fade 0.3s ease;
+}
+
+.form-step.current-step {
+  display: flex;
+}
+
+.field-group label {
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.field-group input,
+.field-group select,
+.field-group textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-sizing: border-box;
+  font-size: 1rem;
+}
+
+.buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+.prev-button,
+.next-button {
+  background: #112a4a;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.prev-button:hover,
+.next-button:hover {
+  background: #0d1f3d;
+}
+
+@keyframes fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@media (min-width: 768px) {
+  .form-step.two-column {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+}
