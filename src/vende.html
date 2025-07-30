@@ -49,11 +49,18 @@
       <section class="form-wizard" id="form">
         <form id="book-sell-form">
           <!-- Progress indicator -->
-          <ol class="form-progress">
-            <li class="progress-step current" data-step="1">1</li>
-            <li class="progress-step" data-step="2">2</li>
-            <li class="progress-step" data-step="3">3</li>
-            <li class="progress-step" data-step="4">4</li>
+          <ol class="form-progress" aria-label="Progreso del formulario">
+            <li
+              class="progress-step current"
+              data-step="1"
+              aria-label="Paso 1"
+              aria-current="step"
+            >
+              1
+            </li>
+            <li class="progress-step" data-step="2" aria-label="Paso 2">2</li>
+            <li class="progress-step" data-step="3" aria-label="Paso 3">3</li>
+            <li class="progress-step" data-step="4" aria-label="Paso 4">4</li>
           </ol>
 
           <!-- Step 1 – Seller Information -->
