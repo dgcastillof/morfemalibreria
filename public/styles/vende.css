@@ -3,6 +3,7 @@
 .hero {
   padding: 40px 20px;
   background: #f4f4f4;
+  margin-bottom: 40px;
 }
 
 .hero-content {
@@ -38,6 +39,11 @@
   border-radius: 5px;
   cursor: pointer;
   font-size: 1rem;
+  transition: background 0.3s;
+}
+
+.primary-button:hover {
+  background: #0d1f3d;
 }
 
 .hero-image {
@@ -64,6 +70,7 @@
 .how-it-works {
   background: #fff;
   padding: 40px 20px;
+  margin-bottom: 40px;
 }
 
 .steps-container {
@@ -116,6 +123,7 @@
   padding: 20px;
   border-radius: 8px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  margin-bottom: 40px;
 }
 
 .progress-indicator {
