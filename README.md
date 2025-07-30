@@ -69,11 +69,7 @@ El archivo `firebase.json` configura Firebase Hosting para publicar el contenido
 {
   "hosting": {
     "public": "dist",
-    "ignore": [
-      "firebase.json",
-      "**/.*",
-      "**/node_modules/**"
-    ]
+    "ignore": ["firebase.json", "**/.*", "**/node_modules/**"]
   }
 }
 ```
@@ -90,6 +86,13 @@ Luego selecciona tu proyecto y confirma la actualización de `.firebaserc`.
 
 Las reseñas permiten comentarios guardados en Firebase. Debes colocar las
 claves de tu proyecto en `src/firebase-config.js`.
+
+Los comentarios nuevos se guardan con el estado `approved: false` y no son
+visibles públicamente hasta que un administrador los aprueba desde
+`/admin.html?slug=ID_DE_RESEÑA`.
+
+Para aprobarlos debes iniciar sesión con un usuario que tenga el claim
+personalizado `admin: true` en Firebase Authentication.
 
 ## Reglas de seguridad de Firestore
 
