@@ -10,8 +10,8 @@ try {
   const validate = ajv.compile(schema);
 
   assert.ok(
-    fs.existsSync(path.join('dist', 'comments.js')),
-    'dist/comments.js should exist after build'
+    fs.existsSync(path.join('dist', 'comments-esm.js')),
+    'dist/comments-esm.js should exist after build'
   );
 
   const content = fs.readFileSync('dist/books.json', 'utf8');

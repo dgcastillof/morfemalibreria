@@ -28,13 +28,17 @@ function processDir(srcPath, outPath) {
     } else if (entry.name.endsWith('.html')) {
       fs.copyFileSync(srcFile, outFile);
     } else if (entry.name.endsWith('.js')) {
-      esbuild.buildSync({
-        entryPoints: [srcFile],
-        outfile: outFile,
-        bundle: false,
-        minify: true,
-        format: 'iife',
-      });
+      if (entry.name === 'comments-esm.js') {
+        fs.copyFileSync(srcFile, outFile);
+      } else {
+        esbuild.buildSync({
+          entryPoints: [srcFile],
+          outfile: outFile,
+          bundle: false,
+          minify: true,
+          format: 'iife',
+        });
+      }
     } else if (entry.name.endsWith('.css')) {
       const css = fs.readFileSync(srcFile, 'utf8');
       fs.writeFileSync(outFile, css);
