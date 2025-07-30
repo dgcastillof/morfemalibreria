@@ -2,6 +2,7 @@
 document.addEventListener('DOMContentLoaded', function () {
   const formSection = document.getElementById('form');
   const form = document.getElementById('sell-form');
+  const feedback = document.getElementById('form-feedback');
   if (formSection) {
     formSection.classList.add('hidden');
   }
@@ -446,6 +447,11 @@ document.addEventListener('DOMContentLoaded', function () {
       submitBtn.disabled = true;
       submitBtn.textContent = 'Enviando...';
     }
+    if (feedback) {
+      feedback.textContent = 'Enviando...';
+      feedback.className = 'form-feedback loading-message';
+      feedback.classList.remove('hidden');
+    }
 
     const uploadPromises = [];
     for (let i = 1; i <= books.length; i++) {
@@ -471,6 +477,22 @@ document.addEventListener('DOMContentLoaded', function () {
       if (submitBtn) {
         submitBtn.disabled = false;
         submitBtn.textContent = 'Enviar';
+      }
+      if (feedback) {
+        feedback.innerHTML =
+          '<p>Error al subir las fotos. Intentá nuevamente.</p>';
+        const retry = document.createElement('button');
+        retry.type = 'button';
+        retry.textContent = 'Reintentar';
+        retry.className = 'retry-submit';
+        retry.addEventListener('click', function () {
+          feedback.classList.add('hidden');
+          form.requestSubmit();
+        });
+        feedback.appendChild(retry);
+        feedback.className = 'form-feedback form-error';
+        feedback.classList.remove('hidden');
+        feedback.scrollIntoView({ behavior: 'smooth' });
       }
       return;
     }
@@ -513,13 +535,33 @@ document.addEventListener('DOMContentLoaded', function () {
       } catch (err) {
         console.warn('sendConfirmationEmail failed', err);
       }
-      form.innerHTML =
-        '<p class="success-message">\u00a1Gracias! Nos vamos a estar comunicando con vos por mail.</p>';
+      form.classList.add('hidden');
+      if (feedback) {
+        feedback.textContent =
+          '\u00a1Gracias! Nos estaremos comunicando con vos por mail.';
+        feedback.className = 'form-feedback form-success';
+        feedback.classList.remove('hidden');
+        feedback.scrollIntoView({ behavior: 'smooth' });
+      }
     } catch (err) {
       console.error('Error saving form', err);
-      alert(
-        'Ocurri\u00f3 un problema al enviar el formulario. Intentalo nuevamente.',
-      );
+      if (feedback) {
+        feedback.innerHTML =
+          '<p>Ocurri\u00f3 un problema al enviar el formulario.</p>';
+        const retry = document.createElement('button');
+        retry.type = 'button';
+        retry.textContent = 'Reintentar';
+        retry.className = 'retry-submit';
+        retry.addEventListener('click', function () {
+          feedback.classList.add('hidden');
+          form.classList.remove('hidden');
+          form.requestSubmit();
+        });
+        feedback.appendChild(retry);
+        feedback.className = 'form-feedback form-error';
+        feedback.classList.remove('hidden');
+        feedback.scrollIntoView({ behavior: 'smooth' });
+      }
       if (submitBtn) {
         submitBtn.disabled = false;
         submitBtn.textContent = 'Enviar';
