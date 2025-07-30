@@ -13,7 +13,7 @@ import config from './firebase-config.js';
 let app;
 let db;
 
-function init() {
+export function init() {
   if (!app) {
     app = initializeApp(config);
     db = getFirestore(app);
@@ -21,14 +21,14 @@ function init() {
   return db;
 }
 
-async function loadComments(slug) {
+export async function loadComments(slug) {
   const database = db || init();
   const q = query(collection(database, 'reviews', slug, 'comments'), orderBy('createdAt'));
   const snapshot = await getDocs(q);
   return snapshot.docs.map((d) => d.data());
 }
 
-async function addComment(slug, name, message, recaptchaToken) {
+export async function addComment(slug, name, message, recaptchaToken) {
   const database = db || init();
   const data = {
     name: String(name),
@@ -39,7 +39,7 @@ async function addComment(slug, name, message, recaptchaToken) {
   return addDoc(collection(database, 'reviews', slug, 'comments'), data);
 }
 
-async function initComments(slug) {
+export async function initComments(slug) {
   const form = document.getElementById("comment-form");
   const list = document.getElementById("comment-list");
 
@@ -75,5 +75,3 @@ async function initComments(slug) {
     console.error("Error al cargar comentarios:", err);
   }
 }
-
-export { initComments };
