@@ -1,5 +1,11 @@
 /* Styles for vendé tus libros landing page */
 
+/* Container with wider max-width for landing page */
+.wide-container {
+  max-width: 1200px;
+  margin: 20px auto;
+}
+
 .hidden {
   display: none;
 }
@@ -15,7 +21,7 @@
   align-items: center;
   justify-content: center;
   gap: 40px;
-  max-width: 1200px;
+  max-width: 100%;
   margin: 0 auto;
   flex-wrap: wrap;
 }
@@ -82,7 +88,7 @@
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 20px;
-  max-width: 1200px;
+  max-width: 100%;
   margin: 0 auto;
 }
 
