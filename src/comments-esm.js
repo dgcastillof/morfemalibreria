@@ -3,10 +3,14 @@ import {
   getFirestore,
   collection,
   query,
+  where,
   orderBy,
   getDocs,
   addDoc,
-  serverTimestamp
+  doc,
+  updateDoc,
+  deleteDoc,
+  serverTimestamp,
 } from 'https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore.js';
 import config from './firebase-config.js';
 
@@ -23,7 +27,11 @@ export function init() {
 
 export async function loadComments(slug) {
   const database = db || init();
-  const q = query(collection(database, 'reviews', slug, 'comments'), orderBy('createdAt'));
+  const q = query(
+    collection(database, 'reviews', slug, 'comments'),
+    where('approved', '==', true),
+    orderBy('createdAt'),
+  );
   const snapshot = await getDocs(q);
   return snapshot.docs.map((d) => d.data());
 }
@@ -33,45 +41,67 @@ export async function addComment(slug, name, message, recaptchaToken) {
   const data = {
     name: String(name),
     message: String(message),
-    createdAt: serverTimestamp()
+    createdAt: serverTimestamp(),
+    approved: false,
   };
   if (recaptchaToken) data.recaptchaToken = recaptchaToken;
   return addDoc(collection(database, 'reviews', slug, 'comments'), data);
 }
 
+export async function loadPendingComments(slug) {
+  const database = db || init();
+  const q = query(
+    collection(database, 'reviews', slug, 'comments'),
+    where('approved', '==', false),
+    orderBy('createdAt'),
+  );
+  const snapshot = await getDocs(q);
+  return snapshot.docs.map((d) => ({ id: d.id, ...d.data() }));
+}
+
+export async function approveComment(slug, id) {
+  const database = db || init();
+  const ref = doc(database, 'reviews', slug, 'comments', id);
+  return updateDoc(ref, { approved: true });
+}
+
+export async function deleteComment(slug, id) {
+  const database = db || init();
+  const ref = doc(database, 'reviews', slug, 'comments', id);
+  return deleteDoc(ref);
+}
+
 export async function initComments(slug) {
-  const form = document.getElementById("comment-form");
-  const list = document.getElementById("comment-list");
+  const form = document.getElementById('comment-form');
+  const list = document.getElementById('comment-list');
 
   if (!form || !list) {
-    console.warn("Formulario o lista de comentarios no encontrados");
+    console.warn('Formulario o lista de comentarios no encontrados');
     return;
   }
 
-  form.addEventListener("submit", async (e) => {
+  form.addEventListener('submit', async (e) => {
     e.preventDefault();
-    const name = form.elements["name"].value;
-    const message = form.elements["message"].value;
+    const name = form.elements['name'].value;
+    const message = form.elements['message'].value;
 
     try {
       await addComment(slug, name, message);
       form.reset();
-      const item = document.createElement("li");
-      item.textContent = `${name}: ${message}`;
-      list.appendChild(item);
+      alert('Comentario enviado y pendiente de aprobación');
     } catch (err) {
-      console.error("Error al enviar comentario:", err);
+      console.error('Error al enviar comentario:', err);
     }
   });
 
   try {
     const comments = await loadComments(slug);
     for (const { name, message } of comments) {
-      const item = document.createElement("li");
+      const item = document.createElement('li');
       item.textContent = `${name}: ${message}`;
       list.appendChild(item);
     }
   } catch (err) {
-    console.error("Error al cargar comentarios:", err);
+    console.error('Error al cargar comentarios:', err);
   }
 }
