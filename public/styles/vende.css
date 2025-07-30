@@ -293,3 +293,26 @@
   color: #e74c3c;
   font-size: 0.875rem;
 }
+
+.photo-preview {
+  max-width: 150px;
+  margin-top: 5px;
+  display: block;
+}
+
+.progress-container {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 5px;
+}
+
+.retry-upload {
+  margin-top: 5px;
+  background: transparent;
+  border: 1px solid #112a4a;
+  color: #112a4a;
+  padding: 4px 8px;
+  border-radius: 4px;
+  cursor: pointer;
+}

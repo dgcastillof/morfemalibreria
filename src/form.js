@@ -38,7 +38,7 @@ document.addEventListener('DOMContentLoaded', function () {
   function validateStep(idx) {
     const step = steps[idx];
     const fields = step.querySelectorAll(
-      'input[required], select[required], textarea[required]'
+      'input[required], select[required], textarea[required]',
     );
     const optionalPrices = step.querySelectorAll('input[name^="price-"]');
     let valid = true;
@@ -78,12 +78,7 @@ document.addEventListener('DOMContentLoaded', function () {
         showError(input, 'Seleccioná una imagen');
         return false;
       }
-      const validTypes = [
-        'image/jpeg',
-        'image/png',
-        'image/webp',
-        'image/jpg',
-      ];
+      const validTypes = ['image/jpeg', 'image/png', 'image/webp', 'image/jpg'];
       if (!validTypes.includes(file.type)) {
         showError(input, 'Formato de imagen inválido');
         return false;
@@ -204,6 +199,27 @@ document.addEventListener('DOMContentLoaded', function () {
         '" name="photo-' +
         i +
         '" accept="image/*" required />' +
+        '<img id="preview-' +
+        i +
+        '" class="photo-preview hidden" alt="Previsualización" />' +
+        '<div id="progress-container-' +
+        i +
+        '" class="progress-container hidden">' +
+        '<progress id="progress-' +
+        i +
+        '" value="0" max="100"></progress>' +
+        '<span id="percent-' +
+        i +
+        '">0%</span>' +
+        '</div>' +
+        '<small class="error-message upload-error" id="upload-error-' +
+        i +
+        '"></small>' +
+        '<button type="button" class="retry-upload hidden" id="retry-' +
+        i +
+        '" data-index="' +
+        i +
+        '">Reintentar</button>' +
         '<small>Necesitamos una foto principal de la portada, lo más cerca posible.</small>' +
         '</div>';
       container.appendChild(div);
@@ -211,7 +227,32 @@ document.addEventListener('DOMContentLoaded', function () {
       if (book.price) form['price-' + i].value = book.price;
       if (book.state) form['state-' + i].value = book.state;
       if (book.notes) form['notes-' + i].value = book.notes;
+      if (book.previewUrl) {
+        const img = document.getElementById('preview-' + i);
+        if (img) {
+          img.src = book.previewUrl;
+          img.classList.remove('hidden');
+        }
+      }
     });
+  }
+
+  function previewImage(input) {
+    const parts = input.id.split('-');
+    const id = parts[1];
+    const file = input.files[0];
+    if (!file) return;
+    const url = URL.createObjectURL(file);
+    const img = document.getElementById('preview-' + id);
+    if (img) {
+      img.src = url;
+      img.classList.remove('hidden');
+    }
+    books[id - 1].previewUrl = url;
+    const err = document.getElementById('upload-error-' + id);
+    if (err) err.textContent = '';
+    const retry = document.getElementById('retry-' + id);
+    if (retry) retry.classList.add('hidden');
   }
 
   function syncBooksFromForm() {
@@ -223,6 +264,8 @@ document.addEventListener('DOMContentLoaded', function () {
         state: form['state-' + i].value,
         notes: form['notes-' + i].value,
         file: form['photo-' + i].files[0] || null,
+        photoUrl: b.photoUrl || '',
+        previewUrl: b.previewUrl || '',
       };
     });
   }
@@ -308,9 +351,23 @@ document.addEventListener('DOMContentLoaded', function () {
         renderBookBlocks();
       }
     }
+    if (e.target.classList.contains('retry-upload')) {
+      e.preventDefault();
+      const idx = parseInt(e.target.dataset.index, 10);
+      const file = form['photo-' + idx].files[0];
+      if (file) {
+        uploadBookPhoto(idx, file);
+      }
+    }
     if (e.target.id === 'edit-books') {
       e.preventDefault();
       showStep(2);
+    }
+  });
+
+  form.addEventListener('change', function (e) {
+    if (e.target.matches('input[type="file"]')) {
+      previewImage(e.target);
     }
   });
 
@@ -334,9 +391,47 @@ document.addEventListener('DOMContentLoaded', function () {
       serverTimestamp: firestore.serverTimestamp,
       ref: storage.ref,
       uploadBytes: storage.uploadBytes,
+      uploadBytesResumable: storage.uploadBytesResumable,
       getDownloadURL: storage.getDownloadURL,
     };
     return window._firebase;
+  }
+
+  async function uploadBookPhoto(index, file) {
+    const fb = await loadFirebase();
+    const progress = document.getElementById('progress-' + index);
+    const container = document.getElementById('progress-container-' + index);
+    const percent = document.getElementById('percent-' + index);
+    const errorEl = document.getElementById('upload-error-' + index);
+    const retry = document.getElementById('retry-' + index);
+    if (container) container.classList.remove('hidden');
+    if (retry) retry.classList.add('hidden');
+    if (errorEl) errorEl.textContent = '';
+    return new Promise(function (resolve, reject) {
+      const photoRef = fb.ref(
+        fb.storage,
+        'book_photos/' + Date.now() + '-' + file.name,
+      );
+      const task = fb.uploadBytesResumable(photoRef, file);
+      task.on(
+        'state_changed',
+        function (snap) {
+          const pct = (snap.bytesTransferred / snap.totalBytes) * 100;
+          if (progress) progress.value = pct;
+          if (percent) percent.textContent = Math.round(pct) + '%';
+        },
+        function (err) {
+          if (errorEl) errorEl.textContent = 'Error al subir la foto';
+          if (retry) retry.classList.remove('hidden');
+          reject(err);
+        },
+        async function () {
+          const url = await fb.getDownloadURL(task.snapshot.ref);
+          if (container) container.classList.add('hidden');
+          resolve(url);
+        },
+      );
+    });
   }
 
   form.addEventListener('submit', async function (e) {
@@ -348,18 +443,15 @@ document.addEventListener('DOMContentLoaded', function () {
     const booksData = [];
     for (let i = 1; i <= books.length; i++) {
       const file = form['photo-' + i].files[0];
-      let photoUrl = '';
-      if (file) {
-        const photoRef = fb.ref(
-          fb.storage,
-          'book_photos/' + Date.now() + '-' + file.name,
-        );
+      let photoUrl = books[i - 1].photoUrl || '';
+      if (file && !photoUrl) {
         try {
-          await fb.uploadBytes(photoRef, file);
-          photoUrl = await fb.getDownloadURL(photoRef);
+          photoUrl = await uploadBookPhoto(i, file);
+          books[i - 1].photoUrl = photoUrl;
         } catch (err) {
           console.error('Error uploading', file.name, file.size, err);
           alert('No pudimos subir la foto ' + file.name);
+          return;
         }
       }
       const priceValue = form['price-' + i].value;
