@@ -416,6 +416,12 @@ body {
 .review-content p.quote {
   font-family: 'Merriweather', serif;
   font-style: italic;
+  font-size: 1.1em;
+  line-height: 1.6;
+  color: #444;
+  padding-left: 1em;
+  border-left: 4px solid #112a4a;
+  margin: 1.5em 0;
 }
 
 /* Comment section */
