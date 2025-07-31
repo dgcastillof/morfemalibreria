@@ -410,6 +410,13 @@ body {
     font-weight: 900;
 }
 
+.review-banner {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    margin: 1em 0;
+}
+
 .reading-time {
     font-family: Arial, sans-serif;
     color: #607d8b;
