@@ -147,7 +147,7 @@
         "estado": "Como nuevo",
         "precio": "$15500",
         "imagen": "fotos/el_señor_de_los_anillos_ii_las_dos_torres.png",
-        "vendido": false
+        "vendido": true
     },
     {
         "id": 16,
@@ -417,7 +417,7 @@
         "estado": "Muy bueno",
         "precio": "$34500",
         "imagen": "fotos/el_aliento_de_los_dioses.png",
-        "vendido": false
+        "vendido": true
     },
     {
         "id": 43,
@@ -457,7 +457,7 @@
         "estado": "Detalles",
         "precio": "$21500",
         "imagen": "fotos/el_ritmo_de_la_guerra.png",
-        "vendido": false
+        "vendido": true
     },
     {
         "id": 47,
