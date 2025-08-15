@@ -608,5 +608,82 @@
         "imagen": "fotos/un_rio_encantado.png",
         "vendido": false,
         "novedad": true
+    },
+    {
+        "id": 61,
+        "titulo": "El camino de la escritura",
+        "idioma": "Español",
+        "autor": "Julia Cameron",
+        "estado": "Como nuevo",
+        "precio": "$30000",
+        "imagen": "fotos/el_camino_de_la_escritura.png",
+        "vendido": false,
+        "novedad": true
+    },
+    {
+        "id": 62,
+        "titulo": "Jane Eyre",
+        "idioma": "Español",
+        "autor": "Charlotte Brontë",
+        "estado": "Como nuevo",
+        "precio": "$15000",
+        "imagen": "fotos/jane_eyre.png",
+        "vendido": false,
+        "novedad": true
+    },
+    {
+        "id": 63,
+        "titulo": "Romeo y Julieta",
+        "idioma": "Español",
+        "autor": "William Shakespeare",
+        "estado": "Como nuevo",
+        "precio": "$15000",
+        "imagen": "fotos/romeo_y_julieta.png",
+        "vendido": false,
+        "novedad": true
+    },
+    {
+        "id": 64,
+        "titulo": "Study for Obedience",
+        "idioma": "Inglés",
+        "autor": "Sarah Bernstein",
+        "estado": "Como nuevo",
+        "precio": "$25000",
+        "imagen": "fotos/study_for_obedience.png",
+        "vendido": false,
+        "novedad": true
+    },
+    {
+        "id": 65,
+        "titulo": "The Bee Sting",
+        "idioma": "Inglés",
+        "autor": "Paul Murray",
+        "estado": "Como nuevo",
+        "precio": "$15000",
+        "imagen": "fotos/the_bee_sting.png",
+        "vendido": false,
+        "novedad": true
+    },
+    {
+        "id": 66,
+        "titulo": "This Other Eden",
+        "idioma": "Inglés",
+        "autor": "Paul Harding",
+        "estado": "Como nuevo",
+        "precio": "$25000",
+        "imagen": "fotos/this_other_eden.png",
+        "vendido": false,
+        "novedad": true
+    },
+    {
+        "id": 67,
+        "titulo": "Western Lane",
+        "idioma": "Inglés",
+        "autor": "Chetna Maroo",
+        "estado": "Como nuevo",
+        "precio": "$20000",
+        "imagen": "fotos/western_lane.png",
+        "vendido": false,
+        "novedad": true
     }
 ]
