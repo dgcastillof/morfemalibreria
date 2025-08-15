@@ -7,7 +7,8 @@
         "estado": "Como nuevo",
         "precio": "$11500",
         "imagen": "fotos/gallant.png",
-        "vendido": false
+        "vendido": false,
+        "novedad": false
     },
     {
         "id": 2,
@@ -17,7 +18,8 @@
         "estado": "Muy bueno",
         "precio": "$11500",
         "imagen": "fotos/lore.png",
-        "vendido": false
+        "vendido": false,
+        "novedad": false
     },
     {
         "id": 3,
@@ -27,7 +29,8 @@
         "estado": "Como nuevo",
         "precio": "$9500",
         "imagen": "fotos/cinder.png",
-        "vendido": false
+        "vendido": false,
+        "novedad": false
     },
     {
         "id": 4,
@@ -37,7 +40,8 @@
         "estado": "Como nuevo",
         "precio": "$15500",
         "imagen": "fotos/ella_que_llego_a_ser_el_sol.png",
-        "vendido": false
+        "vendido": false,
+        "novedad": false
     },
     {
         "id": 5,
@@ -47,7 +51,8 @@
         "estado": "Como nuevo",
         "precio": "$18500",
         "imagen": "fotos/nuestra_parte_de_noche.png",
-        "vendido": true
+        "vendido": true,
+        "novedad": false
     },
     {
         "id": 6,
@@ -57,7 +62,8 @@
         "estado": "Como nuevo",
         "precio": "$8000",
         "imagen": "fotos/la_teoria_de_joa.png",
-        "vendido": false
+        "vendido": false,
+        "novedad": false
     },
     {
         "id": 7,
@@ -67,7 +73,8 @@
         "estado": "Como nuevo",
         "precio": "$8000",
         "imagen": "fotos/tierra_del_fuego_la_creacion_del_fin_del_mundo.png",
-        "vendido": false
+        "vendido": false,
+        "novedad": false
     },
     {
         "id": 8,
@@ -77,7 +84,8 @@
         "estado": "Como nuevo",
         "precio": "$4000",
         "imagen": "fotos/eclosion.png",
-        "vendido": false
+        "vendido": false,
+        "novedad": false
     },
     {
         "id": 9,
@@ -87,7 +95,8 @@
         "estado": "Como nuevo",
         "precio": "$23000",
         "imagen": "fotos/cadaver_exquisito.png",
-        "vendido": true
+        "vendido": true,
+        "novedad": false
     },
     {
         "id": 10,
@@ -97,7 +106,8 @@
         "estado": "Como nuevo",
         "precio": "$14000",
         "imagen": "fotos/las_indignas.png",
-        "vendido": false
+        "vendido": false,
+        "novedad": false
     },
     {
         "id": 11,
@@ -107,7 +117,8 @@
         "estado": "Como nuevo",
         "precio": "$19000",
         "imagen": "fotos/mitos_dogmas_y_epopeyas.png",
-        "vendido": false
+        "vendido": false,
+        "novedad": false
     },
     {
         "id": 12,
@@ -117,7 +128,8 @@
         "estado": "Detalles",
         "precio": "$4500",
         "imagen": "fotos/this_is_how_you_lose_the_time_war.png",
-        "vendido": true
+        "vendido": true,
+        "novedad": false
     },
     {
         "id": 13,
@@ -127,7 +139,8 @@
         "estado": "Como nuevo",
         "precio": "$8000",
         "imagen": "fotos/un_mundo_feliz.png",
-        "vendido": false
+        "vendido": false,
+        "novedad": false
     },
     {
         "id": 14,
@@ -137,7 +150,8 @@
         "estado": "Como nuevo",
         "precio": "$14000",
         "imagen": "fotos/aniquilacion.png",
-        "vendido": false
+        "vendido": false,
+        "novedad": false
     },
     {
         "id": 15,
@@ -147,7 +161,8 @@
         "estado": "Como nuevo",
         "precio": "$15500",
         "imagen": "fotos/el_señor_de_los_anillos_ii_las_dos_torres.png",
-        "vendido": true
+        "vendido": true,
+        "novedad": false
     },
     {
         "id": 16,
@@ -157,7 +172,8 @@
         "estado": "Como nuevo",
         "precio": "$11500",
         "imagen": "fotos/el_señor_de_los_anillos_i_la_comunidad_del_anillo.png",
-        "vendido": true
+        "vendido": true,
+        "novedad": false
     },
     {
         "id": 17,
@@ -167,7 +183,8 @@
         "estado": "Como nuevo",
         "precio": "$11500",
         "imagen": "fotos/entremuros.png",
-        "vendido": false
+        "vendido": false,
+        "novedad": false
     },
     {
         "id": 18,
@@ -177,7 +194,8 @@
         "estado": "Como nuevo",
         "precio": "$19000",
         "imagen": "fotos/viuda_de_hierro.png",
-        "vendido": false
+        "vendido": false,
+        "novedad": false
     },
     {
         "id": 19,
@@ -187,7 +205,8 @@
         "estado": "Como nuevo",
         "precio": "$23000",
         "imagen": "fotos/casa_de_tierra_y_sangre.png",
-        "vendido": false
+        "vendido": false,
+        "novedad": false
     },
     {
         "id": 20,
@@ -197,7 +216,8 @@
         "estado": "Muy bueno",
         "precio": "$6500",
         "imagen": "fotos/este_es_el_mar.png",
-        "vendido": true
+        "vendido": true,
+        "novedad": false
     },
     {
         "id": 21,
@@ -207,7 +227,8 @@
         "estado": "Como nuevo",
         "precio": "$25000",
         "imagen": "fotos/esquirla_del_amanecer.png",
-        "vendido": false
+        "vendido": false,
+        "novedad": false
     },
     {
         "id": 22,
@@ -217,7 +238,8 @@
         "estado": "Como nuevo",
         "precio": "$27500",
         "imagen": "fotos/sombras_de_identidad.png",
-        "vendido": true
+        "vendido": true,
+        "novedad": false
     },
     {
         "id": 23,
@@ -227,7 +249,8 @@
         "estado": "Muy bueno",
         "precio": "$19000",
         "imagen": "fotos/aleacion_de_ley.png",
-        "vendido": false
+        "vendido": false,
+        "novedad": false
     },
     {
         "id": 24,
@@ -237,7 +260,8 @@
         "estado": "Como nuevo",
         "precio": "$31500",
         "imagen": "fotos/el_metal_perdido.png",
-        "vendido": true
+        "vendido": true,
+        "novedad": false
     },
     {
         "id": 25,
@@ -247,7 +271,8 @@
         "estado": "Como nuevo",
         "precio": "$26500",
         "imagen": "fotos/brazales_de_duelo.png",
-        "vendido": true
+        "vendido": true,
+        "novedad": false
     },
     {
         "id": 26,
@@ -257,7 +282,8 @@
         "estado": "Como nuevo",
         "precio": "$27500",
         "imagen": "fotos/firefight.png",
-        "vendido": false
+        "vendido": false,
+        "novedad": false
     },
     {
         "id": 27,
@@ -267,7 +293,8 @@
         "estado": "Muy bueno",
         "precio": "$23500",
         "imagen": "fotos/steelheart.png",
-        "vendido": false
+        "vendido": false,
+        "novedad": false
     },
     {
         "id": 28,
@@ -277,7 +304,8 @@
         "estado": "Como nuevo",
         "precio": "$29000",
         "imagen": "fotos/yumi_y_el_pintor_de_pesadillas.png",
-        "vendido": true
+        "vendido": true,
+        "novedad": false
     },
     {
         "id": 29,
@@ -287,7 +315,8 @@
         "estado": "Como nuevo",
         "precio": "$24500",
         "imagen": "fotos/la_novena_casa.png",
-        "vendido": false
+        "vendido": false,
+        "novedad": false
     },
     {
         "id": 30,
@@ -297,7 +326,8 @@
         "estado": "Como nuevo",
         "precio": "$26500",
         "imagen": "fotos/trenza_del_mar_esmeralda.png",
-        "vendido": true
+        "vendido": true,
+        "novedad": false
     },
     {
         "id": 31,
@@ -307,7 +337,8 @@
         "estado": "Como nuevo",
         "precio": "$26000",
         "imagen": "fotos/el_hombre_iluminado.png",
-        "vendido": true
+        "vendido": true,
+        "novedad": false
     },
     {
         "id": 32,
@@ -317,7 +348,8 @@
         "estado": "Como nuevo",
         "precio": "$26500",
         "imagen": "fotos/la_guia_del_mago_frugal.png",
-        "vendido": true
+        "vendido": true,
+        "novedad": false
     },
     {
         "id": 33,
@@ -327,7 +359,8 @@
         "estado": "Como nuevo",
         "precio": "$26000",
         "imagen": "fotos/cuestiones_candentes.png",
-        "vendido": false
+        "vendido": false,
+        "novedad": false
     },
     {
         "id": 34,
@@ -337,7 +370,8 @@
         "estado": "Como nuevo",
         "precio": "$23000",
         "imagen": "fotos/donde_estas_mundo_bello.png",
-        "vendido": true
+        "vendido": true,
+        "novedad": false
     },
     {
         "id": 35,
@@ -347,7 +381,8 @@
         "estado": "Como nuevo",
         "precio": "$23000",
         "imagen": "fotos/los_guardianes_de_almas.png",
-        "vendido": false
+        "vendido": false,
+        "novedad": false
     },
     {
         "id": 36,
@@ -357,7 +392,8 @@
         "estado": "Como nuevo",
         "precio": "$16000",
         "imagen": "fotos/me_alegro_de_que_mi_madre_haya_muerto.png",
-        "vendido": false
+        "vendido": false,
+        "novedad": false
     },
     {
         "id": 37,
@@ -367,7 +403,8 @@
         "estado": "Como nuevo",
         "precio": "$13000",
         "imagen": "fotos/el_ultimo_hombre_blanco.png",
-        "vendido": false
+        "vendido": false,
+        "novedad": false
     },
     {
         "id": 38,
@@ -377,7 +414,8 @@
         "estado": "Como nuevo",
         "precio": "$26000",
         "imagen": "fotos/una_herencia_en_juego.png",
-        "vendido": false
+        "vendido": false,
+        "novedad": false
     },
     {
         "id": 39,
@@ -387,7 +425,8 @@
         "estado": "Muy bueno",
         "precio": "$5500",
         "imagen": "fotos/como_evitar_un_desastre_climatico.png",
-        "vendido": false
+        "vendido": false,
+        "novedad": false
     },
     {
         "id": 40,
@@ -397,7 +436,8 @@
         "estado": "Como nuevo",
         "precio": "$17000",
         "imagen": "fotos/a_game_of_thrones.png",
-        "vendido": false
+        "vendido": false,
+        "novedad": false
     },
     {
         "id": 41,
@@ -407,7 +447,8 @@
         "estado": "Como nuevo",
         "precio": "$41000",
         "imagen": "fotos/el_camino_de_los_reyes.png",
-        "vendido": false
+        "vendido": false,
+        "novedad": false
     },
     {
         "id": 42,
@@ -417,7 +458,8 @@
         "estado": "Muy bueno",
         "precio": "$34500",
         "imagen": "fotos/el_aliento_de_los_dioses.png",
-        "vendido": true
+        "vendido": true,
+        "novedad": false
     },
     {
         "id": 43,
@@ -427,7 +469,8 @@
         "estado": "Como nuevo",
         "precio": "$36000",
         "imagen": "fotos/arcanum_ilimitado.png",
-        "vendido": false
+        "vendido": false,
+        "novedad": false
     },
     {
         "id": 44,
@@ -437,7 +480,8 @@
         "estado": "Como nuevo",
         "precio": "$11500",
         "imagen": "fotos/arena_blanca.png",
-        "vendido": true
+        "vendido": true,
+        "novedad": false
     },
     {
         "id": 45,
@@ -447,7 +491,8 @@
         "estado": "Como nuevo",
         "precio": "$44000",
         "imagen": "fotos/juramentada.png",
-        "vendido": false
+        "vendido": false,
+        "novedad": false
     },
     {
         "id": 46,
@@ -457,7 +502,8 @@
         "estado": "Detalles",
         "precio": "$21500",
         "imagen": "fotos/el_ritmo_de_la_guerra.png",
-        "vendido": true
+        "vendido": true,
+        "novedad": false
     },
     {
         "id": 47,
@@ -467,7 +513,8 @@
         "estado": "Como nuevo",
         "precio": "$44000",
         "imagen": "fotos/palabras_radiantes.png",
-        "vendido": false
+        "vendido": false,
+        "novedad": false
     },
     {
         "id": 48,
@@ -477,7 +524,8 @@
         "estado": "Como nuevo",
         "precio": "$45000",
         "imagen": "fotos/babel.png",
-        "vendido": false
+        "vendido": false,
+        "novedad": false
     },
     {
         "id": 49,
@@ -487,7 +535,8 @@
         "estado": "Detalles",
         "precio": "$8500",
         "imagen": "fotos/a_day_of_fallen_night.png",
-        "vendido": true
+        "vendido": true,
+        "novedad": false
     },
     {
         "id": 50,
@@ -497,7 +546,8 @@
         "estado": "Detalles",
         "precio": "$9500",
         "imagen": "fotos/the_way_of_kings.png",
-        "vendido": false
+        "vendido": false,
+        "novedad": false
     },
     {
         "id": 51,
@@ -508,7 +558,7 @@
         "precio": "$80000",
         "imagen": "fotos/box_a_song_of_ice_and_fire.png",
         "vendido": false,
-        "novedad": true
+        "novedad": false
     },
     {
         "id": 52,
@@ -519,7 +569,7 @@
         "precio": "$75000",
         "imagen": "fotos/box_dune.png",
         "vendido": false,
-        "novedad": true
+        "novedad": false
     },
     {
         "id": 53,
@@ -530,7 +580,7 @@
         "precio": "$100000",
         "imagen": "fotos/box_harry_potter.png",
         "vendido": false,
-        "novedad": true
+        "novedad": false
     },
     {
         "id": 54,
@@ -541,7 +591,7 @@
         "precio": "$75000",
         "imagen": "fotos/box_the_lord_of_the_rings.png",
         "vendido": false,
-        "novedad": true
+        "novedad": false
     },
     {
         "id": 55,
@@ -552,7 +602,7 @@
         "precio": "$60000",
         "imagen": "fotos/box_the_wheel_of_time.png",
         "vendido": false,
-        "novedad": true
+        "novedad": false
     },
     {
         "id": 56,
@@ -563,7 +613,7 @@
         "precio": "$25000",
         "imagen": "fotos/el_regreso_de_carrie_soto.png",
         "vendido": false,
-        "novedad": true
+        "novedad": false
     },
     {
         "id": 57,
@@ -574,7 +624,7 @@
         "precio": "$45000",
         "imagen": "fotos/diarios_de_alejandra_pizarnik.png",
         "vendido": false,
-        "novedad": true
+        "novedad": false
     },
     {
         "id": 58,
@@ -585,7 +635,7 @@
         "precio": "$15000",
         "imagen": "fotos/malibu_renace.png",
         "vendido": false,
-        "novedad": true
+        "novedad": false
     },
     {
         "id": 59,
@@ -596,7 +646,7 @@
         "precio": "$7000",
         "imagen": "fotos/sandman_volumen_1.png",
         "vendido": false,
-        "novedad": true
+        "novedad": false
     },
     {
         "id": 60,
@@ -607,7 +657,7 @@
         "precio": "$27500",
         "imagen": "fotos/un_rio_encantado.png",
         "vendido": false,
-        "novedad": true
+        "novedad": false
     },
     {
         "id": 61,
