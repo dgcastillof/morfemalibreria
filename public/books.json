@@ -5,7 +5,7 @@
         "idioma": "Español",
         "autor": "V. E. Schwab",
         "estado": "Como nuevo",
-        "precio": "$11500",
+        "precio": "$12000",
         "imagen": "fotos/gallant.png",
         "vendido": false,
         "novedad": false
@@ -16,7 +16,7 @@
         "idioma": "Español",
         "autor": "Alexandra Bracken",
         "estado": "Muy bueno",
-        "precio": "$11500",
+        "precio": "$12000",
         "imagen": "fotos/lore.png",
         "vendido": false,
         "novedad": false
@@ -27,7 +27,7 @@
         "idioma": "Español",
         "autor": "Marissa Meyer",
         "estado": "Como nuevo",
-        "precio": "$9500",
+        "precio": "$9000",
         "imagen": "fotos/cinder.png",
         "vendido": false,
         "novedad": false
@@ -38,7 +38,7 @@
         "idioma": "Español",
         "autor": "Shelley Parker-Chan",
         "estado": "Como nuevo",
-        "precio": "$15500",
+        "precio": "$16000",
         "imagen": "fotos/ella_que_llego_a_ser_el_sol.png",
         "vendido": false,
         "novedad": false
@@ -49,7 +49,7 @@
         "idioma": "Español",
         "autor": "Mariana Enriquez",
         "estado": "Como nuevo",
-        "precio": "$18500",
+        "precio": "$19000",
         "imagen": "fotos/nuestra_parte_de_noche.png",
         "vendido": true,
         "novedad": false
@@ -93,7 +93,7 @@
         "idioma": "Español",
         "autor": "Agustina Bazterrica",
         "estado": "Como nuevo",
-        "precio": "$23000",
+        "precio": "$24000",
         "imagen": "fotos/cadaver_exquisito.png",
         "vendido": true,
         "novedad": false
@@ -126,7 +126,7 @@
         "idioma": "Inglés",
         "autor": "Amal El-Mohtar, Max Gladstone",
         "estado": "Detalles",
-        "precio": "$4500",
+        "precio": "$4000",
         "imagen": "fotos/this_is_how_you_lose_the_time_war.png",
         "vendido": true,
         "novedad": false
@@ -159,7 +159,7 @@
         "idioma": "Español",
         "autor": "J. R. R. Tolkien",
         "estado": "Como nuevo",
-        "precio": "$15500",
+        "precio": "$16000",
         "imagen": "fotos/el_señor_de_los_anillos_ii_las_dos_torres.png",
         "vendido": true,
         "novedad": false
@@ -170,7 +170,7 @@
         "idioma": "Español",
         "autor": "J. R. R. Tolkien",
         "estado": "Como nuevo",
-        "precio": "$11500",
+        "precio": "$12000",
         "imagen": "fotos/el_señor_de_los_anillos_i_la_comunidad_del_anillo.png",
         "vendido": true,
         "novedad": false
@@ -181,7 +181,7 @@
         "idioma": "Español",
         "autor": "Robert Jackson Bennett",
         "estado": "Como nuevo",
-        "precio": "$11500",
+        "precio": "$12000",
         "imagen": "fotos/entremuros.png",
         "vendido": false,
         "novedad": false
@@ -203,7 +203,7 @@
         "idioma": "Español",
         "autor": "Sarah J. Maas",
         "estado": "Como nuevo",
-        "precio": "$23000",
+        "precio": "$24000",
         "imagen": "fotos/casa_de_tierra_y_sangre.png",
         "vendido": false,
         "novedad": false
@@ -214,7 +214,7 @@
         "idioma": "Español",
         "autor": "Mariana Enriquez",
         "estado": "Muy bueno",
-        "precio": "$6500",
+        "precio": "$6000",
         "imagen": "fotos/este_es_el_mar.png",
         "vendido": true,
         "novedad": false
@@ -225,7 +225,7 @@
         "idioma": "Español",
         "autor": "Brandon Sanderson",
         "estado": "Como nuevo",
-        "precio": "$25000",
+        "precio": "$26000",
         "imagen": "fotos/esquirla_del_amanecer.png",
         "vendido": false,
         "novedad": false
@@ -236,7 +236,7 @@
         "idioma": "Español",
         "autor": "Brandon Sanderson",
         "estado": "Como nuevo",
-        "precio": "$27500",
+        "precio": "$28000",
         "imagen": "fotos/sombras_de_identidad.png",
         "vendido": true,
         "novedad": false
@@ -258,7 +258,7 @@
         "idioma": "Español",
         "autor": "Brandon Sanderson",
         "estado": "Como nuevo",
-        "precio": "$31500",
+        "precio": "$33000",
         "imagen": "fotos/el_metal_perdido.png",
         "vendido": true,
         "novedad": false
@@ -269,7 +269,7 @@
         "idioma": "Español",
         "autor": "Brandon Sanderson",
         "estado": "Como nuevo",
-        "precio": "$26500",
+        "precio": "$27000",
         "imagen": "fotos/brazales_de_duelo.png",
         "vendido": true,
         "novedad": false
@@ -280,7 +280,7 @@
         "idioma": "Español",
         "autor": "Brandon Sanderson",
         "estado": "Como nuevo",
-        "precio": "$27500",
+        "precio": "$28000",
         "imagen": "fotos/firefight.png",
         "vendido": false,
         "novedad": false
@@ -291,7 +291,7 @@
         "idioma": "Español",
         "autor": "Brandon Sanderson",
         "estado": "Muy bueno",
-        "precio": "$23500",
+        "precio": "$24000",
         "imagen": "fotos/steelheart.png",
         "vendido": false,
         "novedad": false
@@ -302,7 +302,7 @@
         "idioma": "Español",
         "autor": "Brandon Sanderson",
         "estado": "Como nuevo",
-        "precio": "$29000",
+        "precio": "$30000",
         "imagen": "fotos/yumi_y_el_pintor_de_pesadillas.png",
         "vendido": true,
         "novedad": false
@@ -313,7 +313,7 @@
         "idioma": "Español",
         "autor": "Leigh Bardugo",
         "estado": "Como nuevo",
-        "precio": "$24500",
+        "precio": "$25000",
         "imagen": "fotos/la_novena_casa.png",
         "vendido": false,
         "novedad": false
@@ -324,7 +324,7 @@
         "idioma": "Español",
         "autor": "Brandon Sanderson",
         "estado": "Como nuevo",
-        "precio": "$26500",
+        "precio": "$27000",
         "imagen": "fotos/trenza_del_mar_esmeralda.png",
         "vendido": true,
         "novedad": false
@@ -335,7 +335,7 @@
         "idioma": "Español",
         "autor": "Brandon Sanderson",
         "estado": "Como nuevo",
-        "precio": "$26000",
+        "precio": "$27000",
         "imagen": "fotos/el_hombre_iluminado.png",
         "vendido": true,
         "novedad": false
@@ -346,7 +346,7 @@
         "idioma": "Español",
         "autor": "Brandon Sanderson",
         "estado": "Como nuevo",
-        "precio": "$26500",
+        "precio": "$27000",
         "imagen": "fotos/la_guia_del_mago_frugal.png",
         "vendido": true,
         "novedad": false
@@ -357,7 +357,7 @@
         "idioma": "Español",
         "autor": "Margaret Atwood",
         "estado": "Como nuevo",
-        "precio": "$26000",
+        "precio": "$27000",
         "imagen": "fotos/cuestiones_candentes.png",
         "vendido": false,
         "novedad": false
@@ -368,7 +368,7 @@
         "idioma": "Español",
         "autor": "Sally Rooney",
         "estado": "Como nuevo",
-        "precio": "$23000",
+        "precio": "$24000",
         "imagen": "fotos/donde_estas_mundo_bello.png",
         "vendido": true,
         "novedad": false
@@ -379,7 +379,7 @@
         "idioma": "Español",
         "autor": "Raquel Brune",
         "estado": "Como nuevo",
-        "precio": "$23000",
+        "precio": "$24000",
         "imagen": "fotos/los_guardianes_de_almas.png",
         "vendido": false,
         "novedad": false
@@ -412,7 +412,7 @@
         "idioma": "Español",
         "autor": "Jennifer Lynn Barnes",
         "estado": "Como nuevo",
-        "precio": "$26000",
+        "precio": "$27000",
         "imagen": "fotos/una_herencia_en_juego.png",
         "vendido": false,
         "novedad": false
@@ -423,7 +423,7 @@
         "idioma": "Español",
         "autor": "Bill Gates",
         "estado": "Muy bueno",
-        "precio": "$5500",
+        "precio": "$5000",
         "imagen": "fotos/como_evitar_un_desastre_climatico.png",
         "vendido": false,
         "novedad": false
@@ -445,9 +445,9 @@
         "idioma": "Español",
         "autor": "Brandon Sanderson",
         "estado": "Como nuevo",
-        "precio": "$41000",
+        "precio": "$43000",
         "imagen": "fotos/el_camino_de_los_reyes.png",
-        "vendido": false,
+        "vendido": true,
         "novedad": false
     },
     {
@@ -456,7 +456,7 @@
         "idioma": "Español",
         "autor": "Brandon Sanderson",
         "estado": "Muy bueno",
-        "precio": "$34500",
+        "precio": "$36000",
         "imagen": "fotos/el_aliento_de_los_dioses.png",
         "vendido": true,
         "novedad": false
@@ -467,7 +467,7 @@
         "idioma": "Español",
         "autor": "Brandon Sanderson",
         "estado": "Como nuevo",
-        "precio": "$36000",
+        "precio": "$37000",
         "imagen": "fotos/arcanum_ilimitado.png",
         "vendido": false,
         "novedad": false
@@ -478,7 +478,7 @@
         "idioma": "Español",
         "autor": "Brandon Sanderson",
         "estado": "Como nuevo",
-        "precio": "$11500",
+        "precio": "$12000",
         "imagen": "fotos/arena_blanca.png",
         "vendido": true,
         "novedad": false
@@ -489,7 +489,7 @@
         "idioma": "Español",
         "autor": "Brandon Sanderson",
         "estado": "Como nuevo",
-        "precio": "$44000",
+        "precio": "$46000",
         "imagen": "fotos/juramentada.png",
         "vendido": false,
         "novedad": false
@@ -500,7 +500,7 @@
         "idioma": "Español",
         "autor": "Brandon Sanderson",
         "estado": "Detalles",
-        "precio": "$21500",
+        "precio": "$22000",
         "imagen": "fotos/el_ritmo_de_la_guerra.png",
         "vendido": true,
         "novedad": false
@@ -511,7 +511,7 @@
         "idioma": "Español",
         "autor": "Brandon Sanderson",
         "estado": "Como nuevo",
-        "precio": "$44000",
+        "precio": "$46000",
         "imagen": "fotos/palabras_radiantes.png",
         "vendido": false,
         "novedad": false
@@ -522,7 +522,7 @@
         "idioma": "Inglés",
         "autor": "R. F. Kuang",
         "estado": "Como nuevo",
-        "precio": "$45000",
+        "precio": "$47000",
         "imagen": "fotos/babel.png",
         "vendido": false,
         "novedad": false
@@ -533,7 +533,7 @@
         "idioma": "Inglés",
         "autor": "Samantha Shannon",
         "estado": "Detalles",
-        "precio": "$8500",
+        "precio": "$8000",
         "imagen": "fotos/a_day_of_fallen_night.png",
         "vendido": true,
         "novedad": false
@@ -544,7 +544,7 @@
         "idioma": "Inglés",
         "autor": "Brandon Sanderson",
         "estado": "Detalles",
-        "precio": "$9500",
+        "precio": "$9000",
         "imagen": "fotos/the_way_of_kings.png",
         "vendido": false,
         "novedad": false
@@ -555,7 +555,7 @@
         "idioma": "Inglés",
         "autor": "George R. R. Martin",
         "estado": "Como nuevo",
-        "precio": "$80000",
+        "precio": "$84000",
         "imagen": "fotos/box_a_song_of_ice_and_fire.png",
         "vendido": false,
         "novedad": false
@@ -566,7 +566,7 @@
         "idioma": "Inglés",
         "autor": "Frank Herbert",
         "estado": "Como nuevo",
-        "precio": "$75000",
+        "precio": "$78000",
         "imagen": "fotos/box_dune.png",
         "vendido": false,
         "novedad": false
@@ -577,7 +577,7 @@
         "idioma": "Inglés",
         "autor": "J.K. Rowling",
         "estado": "Como nuevo",
-        "precio": "$100000",
+        "precio": "$105000",
         "imagen": "fotos/box_harry_potter.png",
         "vendido": false,
         "novedad": false
@@ -588,7 +588,7 @@
         "idioma": "Inglés",
         "autor": "J.R.R. Tolkien",
         "estado": "Como nuevo",
-        "precio": "$75000",
+        "precio": "$78000",
         "imagen": "fotos/box_the_lord_of_the_rings.png",
         "vendido": false,
         "novedad": false
@@ -599,7 +599,7 @@
         "idioma": "Inglés",
         "autor": "Robert Jordan",
         "estado": "Como nuevo",
-        "precio": "$60000",
+        "precio": "$63000",
         "imagen": "fotos/box_the_wheel_of_time.png",
         "vendido": false,
         "novedad": false
@@ -610,7 +610,7 @@
         "idioma": "Español",
         "autor": "Taylor Jenkins Reid",
         "estado": "Como nuevo",
-        "precio": "$25000",
+        "precio": "$26000",
         "imagen": "fotos/el_regreso_de_carrie_soto.png",
         "vendido": false,
         "novedad": false
@@ -621,7 +621,7 @@
         "idioma": "Español",
         "autor": "Alejandra Pizarnik",
         "estado": "Como nuevo",
-        "precio": "$45000",
+        "precio": "$47000",
         "imagen": "fotos/diarios_de_alejandra_pizarnik.png",
         "vendido": false,
         "novedad": false
@@ -654,7 +654,7 @@
         "idioma": "Español",
         "autor": "Rebecca Ross",
         "estado": "Como nuevo",
-        "precio": "$27500",
+        "precio": "$28000",
         "imagen": "fotos/un_rio_encantado.png",
         "vendido": false,
         "novedad": false
@@ -665,7 +665,7 @@
         "idioma": "Español",
         "autor": "Julia Cameron",
         "estado": "Como nuevo",
-        "precio": "$30000",
+        "precio": "$31000",
         "imagen": "fotos/el_camino_de_la_escritura.png",
         "vendido": false,
         "novedad": true
@@ -698,7 +698,7 @@
         "idioma": "Inglés",
         "autor": "Sarah Bernstein",
         "estado": "Como nuevo",
-        "precio": "$25000",
+        "precio": "$26000",
         "imagen": "fotos/study_for_obedience.png",
         "vendido": false,
         "novedad": true
@@ -720,7 +720,7 @@
         "idioma": "Inglés",
         "autor": "Paul Harding",
         "estado": "Como nuevo",
-        "precio": "$25000",
+        "precio": "$26000",
         "imagen": "fotos/this_other_eden.png",
         "vendido": false,
         "novedad": true
@@ -731,7 +731,7 @@
         "idioma": "Inglés",
         "autor": "Chetna Maroo",
         "estado": "Como nuevo",
-        "precio": "$20000",
+        "precio": "$21000",
         "imagen": "fotos/western_lane.png",
         "vendido": false,
         "novedad": true
