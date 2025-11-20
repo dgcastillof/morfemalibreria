@@ -74,7 +74,8 @@
         "precio": "$8000",
         "imagen": "fotos/tierra_del_fuego_la_creacion_del_fin_del_mundo.png",
         "vendido": false,
-        "novedad": false
+        "novedad": false,
+        "reservado": true
     },
     {
         "id": 8,
@@ -107,7 +108,8 @@
         "precio": "$14000",
         "imagen": "fotos/las_indignas.png",
         "vendido": false,
-        "novedad": false
+        "novedad": false,
+        "reservado": true
     },
     {
         "id": 11,
@@ -492,7 +494,8 @@
         "precio": "$46000",
         "imagen": "fotos/juramentada.png",
         "vendido": false,
-        "novedad": false
+        "novedad": false,
+        "reservado": true
     },
     {
         "id": 46,

@@ -22,7 +22,8 @@
       "precio": { "type": "string" },
       "imagen": { "type": "string" },
       "vendido": { "type": "boolean" },
-      "novedad": { "type": "boolean" }
+      "novedad": { "type": "boolean" },
+      "reservado": { "type": "boolean" }
     },
     "additionalProperties": false
   }
