@@ -779,7 +779,7 @@
         "autor": "George R. R. Martin",
         "estado": "Como nuevo",
         "precio": "$40000",
-        "imagen": "fotos/fuego_y_sangre.png",
+        "imagen": "fotos/fuego_sangre.png",
         "vendido": false,
         "novedad": true
     },
@@ -801,7 +801,7 @@
         "autor": "J. R. R. Tolkien",
         "estado": "Muy bueno",
         "precio": "$25000",
-        "imagen": "fotos/el_senor_de_los_anillos_la_comunidad_del_anillo_edicion_2.png",
+        "imagen": "fotos/el_senor_de_los_anillos_edicion_2.png",
         "vendido": false,
         "novedad": true
     },
@@ -823,7 +823,7 @@
         "autor": "Stephen King",
         "estado": "Como nuevo",
         "precio": "$30000",
-        "imagen": "fotos/despues_de_stephen_king.png",
+        "imagen": "fotos/despues.png",
         "vendido": false,
         "novedad": true
     },
