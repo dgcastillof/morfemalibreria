@@ -671,7 +671,7 @@
         "precio": "$31000",
         "imagen": "fotos/el_camino_de_la_escritura.png",
         "vendido": false,
-        "novedad": true
+        "novedad": false
     },
     {
         "id": 62,
@@ -682,7 +682,7 @@
         "precio": "$15000",
         "imagen": "fotos/jane_eyre.png",
         "vendido": false,
-        "novedad": true
+        "novedad": false
     },
     {
         "id": 63,
@@ -693,7 +693,7 @@
         "precio": "$15000",
         "imagen": "fotos/romeo_y_julieta.png",
         "vendido": false,
-        "novedad": true
+        "novedad": false
     },
     {
         "id": 64,
@@ -704,7 +704,7 @@
         "precio": "$26000",
         "imagen": "fotos/study_for_obedience.png",
         "vendido": false,
-        "novedad": true
+        "novedad": false
     },
     {
         "id": 65,
@@ -715,7 +715,7 @@
         "precio": "$15000",
         "imagen": "fotos/the_bee_sting.png",
         "vendido": false,
-        "novedad": true
+        "novedad": false
     },
     {
         "id": 66,
@@ -726,7 +726,7 @@
         "precio": "$26000",
         "imagen": "fotos/this_other_eden.png",
         "vendido": false,
-        "novedad": true
+        "novedad": false
     },
     {
         "id": 67,
@@ -736,6 +736,83 @@
         "estado": "Como nuevo",
         "precio": "$21000",
         "imagen": "fotos/western_lane.png",
+        "vendido": false,
+        "novedad": false
+    },
+    {
+        "id": 68,
+        "titulo": "Elantris",
+        "idioma": "Español",
+        "autor": "Brandon Sanderson",
+        "estado": "Como nuevo",
+        "precio": "$30000",
+        "imagen": "fotos/elantris.png",
+        "vendido": false,
+        "novedad": true
+    },
+    {
+        "id": 69,
+        "titulo": "Proyecto Hail Mary",
+        "idioma": "Español",
+        "autor": "Andy Weir",
+        "estado": "Como nuevo",
+        "precio": "$25000",
+        "imagen": "fotos/proyecto_hail_mary.png",
+        "vendido": false,
+        "novedad": true
+    },
+    {
+        "id": 70,
+        "titulo": "Cuento de hadas",
+        "idioma": "Español",
+        "autor": "Stephen King",
+        "estado": "Como nuevo",
+        "precio": "$35000",
+        "imagen": "fotos/cuento_de_hadas.png",
+        "vendido": false,
+        "novedad": true
+    },
+    {
+        "id": 71,
+        "titulo": "Fuego y sangre",
+        "idioma": "Español",
+        "autor": "George R. R. Martin",
+        "estado": "Como nuevo",
+        "precio": "$40000",
+        "imagen": "fotos/fuego_y_sangre.png",
+        "vendido": false,
+        "novedad": true
+    },
+    {
+        "id": 72,
+        "titulo": "Resurrección",
+        "idioma": "Español",
+        "autor": "León Tolstoi",
+        "estado": "Muy bueno",
+        "precio": "$15000",
+        "imagen": "fotos/resurreccion.png",
+        "vendido": false,
+        "novedad": true
+    },
+    {
+        "id": 73,
+        "titulo": "El señor de los anillos - La comunidad del anillo",
+        "idioma": "Español",
+        "autor": "J. R. R. Tolkien",
+        "estado": "Muy bueno",
+        "precio": "$25000",
+        "imagen": "fotos/el_senor_de_los_anillos_la_comunidad_del_anillo_edicion_2.png",
+        "vendido": false,
+        "novedad": true
+    },
+    {
+        "id": 74,
+        "titulo": "Trilogía Fundación",
+        "idioma": "Español",
+        "autor": "Isaac Asimov",
+        "estado": "Como nuevo",
+        "precio": "$25000",
+        "imagen": "fotos/trilogia_fundacion.png",
         "vendido": false,
         "novedad": true
     }
