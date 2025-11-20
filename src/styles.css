@@ -477,6 +477,10 @@ body {
   justify-content: center;
 }
 
+.talleres-banner a {
+  display: block;
+}
+
 .talleres-banner img {
   width: 100%;
   height: auto;
@@ -505,6 +509,16 @@ body {
   font-family: 'Merriweather', serif;
   font-size: 28px;
   line-height: 1.3;
+}
+
+.talleres-title-link {
+  color: inherit;
+  text-decoration: none;
+}
+
+.talleres-title-link:hover,
+.talleres-title-link:focus-visible {
+  text-decoration: underline;
 }
 
 .talleres-date {
