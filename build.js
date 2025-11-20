@@ -7,6 +7,7 @@ const ejs = require('ejs');
 const srcDir = path.join(__dirname, 'src');
 const publicDir = path.join(__dirname, 'public');
 const distDir = path.join(__dirname, 'dist');
+const version = Date.now().toString();
 
 const assetExtensions = new Set([
   '.js',
@@ -129,6 +130,22 @@ function updateReferences(filePath) {
 
     updated = updated.replace(new RegExp(escapedAbsolute, 'g'), `/${hashed}`);
     updated = updated.replace(new RegExp(escapedOriginal, 'g'), hashed);
+  }
+
+  if (ext === '.html') {
+    for (const [, hashed] of replacements) {
+      const escapedHashed = escapeForRegex(hashed);
+      const escapedAbsoluteHashed = escapeForRegex(`/${hashed}`);
+
+      updated = updated.replace(
+        new RegExp(`${escapedAbsoluteHashed}(?!\\?v=)`, 'g'),
+        `/${hashed}?v=${version}`,
+      );
+      updated = updated.replace(
+        new RegExp(`${escapedHashed}(?!\\?v=)`, 'g'),
+        `${hashed}?v=${version}`,
+      );
+    }
   }
 
   if (updated !== content) {
