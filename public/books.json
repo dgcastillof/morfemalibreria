@@ -892,5 +892,126 @@
         "imagen": "fotos/el_nombre_del_mundo_es_bosque.png",
         "vendido": false,
         "novedad": true
+    },
+    {
+        "id": 82,
+        "titulo": "Yerba buena",
+        "idioma": "Español",
+        "autor": "Nina Lacour",
+        "estado": "Muy bueno",
+        "precio": "$10000",
+        "imagen": "fotos/yerba_buena.png",
+        "vendido": false,
+        "novedad": true
+    },
+    {
+        "id": 83,
+        "titulo": "La banda de los polacos",
+        "idioma": "Español",
+        "autor": "Federico Jeanmaire",
+        "estado": "Muy bueno",
+        "precio": "$24000",
+        "imagen": "fotos/la_banda_de_los_polacos.png",
+        "vendido": false,
+        "novedad": true
+    },
+    {
+        "id": 84,
+        "titulo": "El acontecimiento",
+        "idioma": "Español",
+        "autor": "Annie Ernaux",
+        "estado": "Muy bueno",
+        "precio": "$22000",
+        "imagen": "fotos/el_acontecimiento.png",
+        "vendido": false,
+        "novedad": true
+    },
+    {
+        "id": 85,
+        "titulo": "El hombre en el castillo",
+        "idioma": "Español",
+        "autor": "Philip K. Dick",
+        "estado": "Muy bueno",
+        "precio": "$18000",
+        "imagen": "fotos/el_hombre_en_el_castillo.png",
+        "vendido": false,
+        "novedad": true
+    },
+    {
+        "id": 86,
+        "titulo": "Curso de escritura creativa",
+        "idioma": "Español",
+        "autor": "Brandon Sanderson",
+        "estado": "Muy bueno",
+        "precio": "$30000",
+        "imagen": "fotos/curso_de_escritura_creativa.png",
+        "vendido": false,
+        "novedad": true
+    },
+    {
+        "id": 87,
+        "titulo": "Cuentos breves y extraordinarios",
+        "idioma": "Español",
+        "autor": "Selección",
+        "estado": "Muy bueno",
+        "precio": "$20000",
+        "imagen": "fotos/cuentos_breves_y_extraordinarios.png",
+        "vendido": false,
+        "novedad": true
+    },
+    {
+        "id": 88,
+        "titulo": "Vengo a buscar las herramientas",
+        "idioma": "Español",
+        "autor": "Silvia Hopenhayn",
+        "estado": "Muy bueno",
+        "precio": "$20000",
+        "imagen": "fotos/vengo_a_buscar_las_herramientas.png",
+        "vendido": false,
+        "novedad": true
+    },
+    {
+        "id": 89,
+        "titulo": "La ilusión de los mamíferos",
+        "idioma": "Español",
+        "autor": "Julián López",
+        "estado": "Muy bueno",
+        "precio": "$22000",
+        "imagen": "fotos/la_ilusion_de_los_mamiferos.png",
+        "vendido": false,
+        "novedad": true
+    },
+    {
+        "id": 90,
+        "titulo": "Elena sabe",
+        "idioma": "Español",
+        "autor": "Claudia Piñeiro",
+        "estado": "Muy bueno",
+        "precio": "$18000",
+        "imagen": "fotos/elena_sabe.png",
+        "vendido": false,
+        "novedad": true
+    },
+    {
+        "id": 91,
+        "titulo": "El teatro de los sueños",
+        "idioma": "Español",
+        "autor": "Polly Samson",
+        "estado": "Muy bueno",
+        "precio": "$20000",
+        "imagen": "fotos/el_teatro_de_los_suenos.png",
+        "vendido": false,
+        "novedad": true
+    },
+    {
+        "id": 92,
+        "titulo": "La naranja mecánica",
+        "idioma": "Español",
+        "autor": "Anthony Burgess",
+        "estado": "Muy bueno",
+        "precio": "$30000",
+        "imagen": "fotos/la_naranja_mecanica.png",
+        "vendido": false,
+        "novedad": true
     }
 ]
