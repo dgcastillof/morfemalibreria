@@ -170,9 +170,12 @@
             const titleParam = encodeURIComponent(libro.titulo);
             slide.innerHTML = `
                         <a href="libro.html?id=${libro.id}&titulo=${titleParam}" class="book-link">
-                            <div class="book-card ${libro.vendido ? 'sold' : ''}">
+                            <div class="book-card ${libro.vendido ? 'sold' : ''} ${libro.reservado ? 'reserved' : ''}">
                                 <div class="book-img-wrapper">
                                     <img src="${libro.imagen}" alt="${libro.titulo}" loading="lazy" width="600" height="800">
+                                    ${libro.novedad ? '<span class="new-badge">NOVEDAD</span>' : ''}
+                                    ${libro.reservado ? '<span class="reserved-badge">RESERVADO</span>' : ''}
+                                    ${libro.vendido ? '<span class="sold-badge">VENDIDO</span>' : ''}
                                 </div>
                                 <h3>${libro.titulo}</h3>
                                 <p><strong>Autor:</strong> ${libro.autor}</p>
@@ -248,9 +251,10 @@
             const titleParam = encodeURIComponent(libro.titulo);
             slide.innerHTML = `
                         <a href="libro.html?id=${libro.id}&titulo=${titleParam}" class="book-link">
-                            <div class="book-card">
+                            <div class="book-card ${libro.reservado ? 'reserved' : ''}">
                                 <div class="book-img-wrapper">
                                     <img src="${libro.imagen}" alt="${libro.titulo}" loading="lazy" width="600" height="800">
+                                    ${libro.reservado ? '<span class="reserved-badge">RESERVADO</span>' : ''}
                                 </div>
                                 <h3>${libro.titulo}</h3>
                                 <p><strong>Autor:</strong> ${libro.autor}</p>

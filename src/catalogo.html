@@ -118,7 +118,9 @@
 
         filteredBooks.slice(start, end).forEach((book) => {
           const bookCard = document.createElement('div');
-          bookCard.className = `book-card ${book.vendido ? 'sold' : ''}`; // Agregar clase 'sold' si está vendido
+          bookCard.className = `book-card ${book.vendido ? 'sold' : ''} ${
+            book.reservado ? 'reserved' : ''
+          }`; // Agregar clases si está vendido o reservado
 
           const link = document.createElement('a');
           const titleParam = encodeURIComponent(book.titulo);
@@ -129,6 +131,7 @@
                     <div class="book-img-wrapper">
                         <img src="/placeholder.png" data-src="${book.imagen}" alt="${book.titulo}" class="lazy-img" width="180" height="240" loading="lazy">
                         ${book.novedad ? '<span class="new-badge">NOVEDAD</span>' : ''}
+                        ${book.reservado ? '<span class="reserved-badge">RESERVADO</span>' : ''}
                         ${book.vendido ? '<span class="sold-badge">VENDIDO</span>' : ''}
                     </div>
                     <h3>${book.titulo}</h3>

@@ -242,6 +242,11 @@ body {
   position: relative;
 }
 
+.book-card.reserved {
+  position: relative;
+  box-shadow: 0 0 0 2px #f0b429;
+}
+
 .book-card.sold img {
   filter: grayscale(100%);
   pointer-events: none; /* Desactiva interacciones en la imagen */
@@ -284,6 +289,18 @@ body {
   left: 10px;
   background: red;
   color: white;
+  padding: 5px 10px;
+  font-size: 14px;
+  font-weight: bold;
+  border-radius: 5px;
+  text-transform: uppercase;
+}
+.reserved-badge {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: #f0b429;
+  color: #0a1a35;
   padding: 5px 10px;
   font-size: 14px;
   font-weight: bold;
