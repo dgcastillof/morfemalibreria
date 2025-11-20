@@ -75,7 +75,39 @@
   </head>
   <body>
     <div id="navbar" data-current="TALLERES"></div>
-    <div class="container placeholder">Próximamente</div>
+    <div class="container talleres-section">
+      <div class="talleres-grid">
+        <div class="talleres-banner">
+          <a
+            href="https://www.instagram.com/p/DQt6joiDU0v/"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Ver detalles del taller en Instagram"
+          >
+            <img
+              src="/fotos/taller_1.jpg"
+              alt="Banner del taller de lectura Matate, amor"
+              loading="lazy"
+            />
+          </a>
+        </div>
+        <div class="talleres-info">
+          <p class="talleres-company">Fluir de mí</p>
+          <h1 class="talleres-title">
+            <a
+              class="talleres-title-link"
+              href="https://www.instagram.com/p/DQt6joiDU0v/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Taller de lectura: Matate, amor
+            </a>
+          </h1>
+          <p class="talleres-date">Comienza: 5 de diciembre</p>
+          <div id="taller-countdown" class="talleres-countdown" aria-live="polite"></div>
+        </div>
+      </div>
+    </div>
     <div class="footer">
       <p>
         Contacto:
@@ -89,5 +121,43 @@
       </p>
     </div>
     <script src="/navbar.js"></script>
+    <script>
+      (function () {
+        const countdownEl = document.getElementById('taller-countdown');
+        if (!countdownEl) return;
+
+        const now = new Date();
+        const currentYear = now.getFullYear();
+        let startDate = new Date(`${currentYear}-12-05T00:00:00`);
+        if (startDate < now) {
+          startDate = new Date(`${currentYear + 1}-12-05T00:00:00`);
+        }
+
+        function formatCountdown(diffMs) {
+          if (diffMs <= 0) return '¡El taller ya comenzó!';
+
+          const totalSeconds = Math.floor(diffMs / 1000);
+          const days = Math.floor(totalSeconds / (3600 * 24));
+          const hours = Math.floor((totalSeconds % (3600 * 24)) / 3600);
+          const minutes = Math.floor((totalSeconds % 3600) / 60);
+
+          const parts = [];
+          if (days > 0) parts.push(`${days} día${days !== 1 ? 's' : ''}`);
+          if (hours > 0) parts.push(`${hours} hora${hours !== 1 ? 's' : ''}`);
+          parts.push(`${minutes} minuto${minutes !== 1 ? 's' : ''}`);
+
+          return `${parts.join(' ')} restantes`;
+        }
+
+        function updateCountdown() {
+          const now = new Date();
+          const diff = startDate - now;
+          countdownEl.textContent = formatCountdown(diff);
+        }
+
+        updateCountdown();
+        setInterval(updateCountdown, 60000);
+      })();
+    </script>
   </body>
 </html>
