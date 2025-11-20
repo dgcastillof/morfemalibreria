@@ -815,5 +815,82 @@
         "imagen": "fotos/trilogia_fundacion.png",
         "vendido": false,
         "novedad": true
+    },
+    {
+        "id": 75,
+        "titulo": "Después",
+        "idioma": "Español",
+        "autor": "Stephen King",
+        "estado": "Como nuevo",
+        "precio": "$30000",
+        "imagen": "fotos/despues_de_stephen_king.png",
+        "vendido": false,
+        "novedad": true
+    },
+    {
+        "id": 76,
+        "titulo": "Las niñas del naranjel",
+        "idioma": "Español",
+        "autor": "Gabriela Cabezón Cámara",
+        "estado": "Como nuevo",
+        "precio": "$25000",
+        "imagen": "fotos/las_ninas_del_naranjel.png",
+        "vendido": false,
+        "novedad": true
+    },
+    {
+        "id": 77,
+        "titulo": "Zama",
+        "idioma": "Español",
+        "autor": "Antonio Di Benedetto",
+        "estado": "Como nuevo",
+        "precio": "$10000",
+        "imagen": "fotos/zama.png",
+        "vendido": false,
+        "novedad": true
+    },
+    {
+        "id": 78,
+        "titulo": "El pistolero",
+        "idioma": "Español",
+        "autor": "Stephen King",
+        "estado": "Como nuevo",
+        "precio": "$20000",
+        "imagen": "fotos/el_pistolero.png",
+        "vendido": false,
+        "novedad": true
+    },
+    {
+        "id": 79,
+        "titulo": "Artemisa",
+        "idioma": "Español",
+        "autor": "Andy Weir",
+        "estado": "Como nuevo",
+        "precio": "$30000",
+        "imagen": "fotos/artemisa.png",
+        "vendido": false,
+        "novedad": true
+    },
+    {
+        "id": 80,
+        "titulo": "¿Sueñan los androides con ovejas eléctricas?",
+        "idioma": "Español",
+        "autor": "Philip K. Dick",
+        "estado": "Como nuevo",
+        "precio": "$30000",
+        "imagen": "fotos/suenan_los_androides_con_ovejas_electricas.png",
+        "vendido": false,
+        "novedad": true
+    },
+    {
+        "id": 81,
+        "titulo": "El nombre del mundo es bosque",
+        "idioma": "Español",
+        "autor": "Ursula K. Le Guin",
+        "estado": "Muy bueno",
+        "precio": "$20000",
+        "imagen": "fotos/el_nombre_del_mundo_es_bosque.png",
+        "vendido": false,
+        "novedad": true
     }
 ]
