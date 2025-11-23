@@ -66,7 +66,11 @@ function processDir(srcPath, outPath) {
       }
     } else if (entry.name.endsWith('.css')) {
       const css = fs.readFileSync(srcFile, 'utf8');
-      fs.writeFileSync(outFile, css);
+      const { code } = esbuild.transformSync(css, {
+        loader: 'css',
+        minify: true,
+      });
+      fs.writeFileSync(outFile, code);
     }
   }
 }
