@@ -53,7 +53,12 @@ function processDir(srcPath, outPath) {
     } else if (entry.name.endsWith('.html')) {
       fs.copyFileSync(srcFile, outFile);
     } else if (entry.name.endsWith('.js')) {
-      if (entry.name === 'comments-esm.js') {
+      const passthroughModules = new Set([
+        'comments-esm.js',
+        'analytics-esm.js',
+        'analytics-dashboard.js',
+      ]);
+      if (passthroughModules.has(entry.name)) {
         fs.copyFileSync(srcFile, outFile);
       } else {
         esbuild.buildSync({
