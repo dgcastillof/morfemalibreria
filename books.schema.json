@@ -21,6 +21,9 @@
       "estado": { "type": "string" },
       "precio": { "type": "string" },
       "imagen": { "type": "string" },
+      "imagenSmall": { "type": "string" },
+      "imagenFallback": { "type": "string" },
+      "imagenFallbackSmall": { "type": "string" },
       "vendido": { "type": "boolean" },
       "novedad": { "type": "boolean" },
       "reservado": { "type": "boolean" }
