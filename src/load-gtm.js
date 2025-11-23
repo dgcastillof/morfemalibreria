@@ -1,4 +1,12 @@
 (function () {
+  // Load the lightweight analytics module on every page so visits and page
+  // views are recorded even before GTM finishes loading.
+  var analyticsScript = document.createElement('script');
+  analyticsScript.type = 'module';
+  analyticsScript.src = '/analytics-esm.js';
+  analyticsScript.defer = true;
+  document.head.appendChild(analyticsScript);
+
   fetch('/gtm.html')
     .then(function (res) {
       return res.text();
