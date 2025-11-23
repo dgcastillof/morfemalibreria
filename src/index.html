@@ -161,6 +161,41 @@
       let slideWidthEconomicos = 0;
       let slideCountEconomicos = 0;
 
+      const carouselSizes = '(max-width: 800px) 70vw, 260px';
+
+      function getCoverSources(book) {
+        const mainLarge = book.imagen || book.imagenSmall || book.imagenFallback;
+        const mainSmall = book.imagenSmall || mainLarge;
+        const fallbackLarge = book.imagenFallback || mainLarge;
+        const fallbackSmall = book.imagenFallbackSmall || fallbackLarge;
+
+        return { mainLarge, mainSmall, fallbackLarge, fallbackSmall };
+      }
+
+      function buildCoverPicture(book) {
+        const { mainLarge, mainSmall, fallbackLarge, fallbackSmall } =
+          getCoverSources(book);
+
+        return `
+                                <picture class="book-cover">
+                                    <source srcset="/${mainSmall} 480w, /${mainLarge} 900w" sizes="${carouselSizes}" type="image/webp">
+                                    <img src="/${fallbackLarge}" srcset="/${fallbackSmall} 480w, /${fallbackLarge} 900w" sizes="${carouselSizes}" alt="${book.titulo}" class="lazy-img" loading="lazy" width="600" height="800">
+                                </picture>`;
+      }
+
+      function markImageLoaded(imgElem) {
+        if (!imgElem) return;
+        if (imgElem.complete) {
+          imgElem.classList.add('loaded');
+        } else {
+          imgElem.addEventListener(
+            'load',
+            () => imgElem.classList.add('loaded'),
+            { once: true },
+          );
+        }
+      }
+
       async function cargarNovedades() {
         try {
           const resp = await fetch('/books.json');
@@ -175,7 +210,7 @@
                         <a href="libro.html?id=${libro.id}&titulo=${titleParam}" class="book-link">
                             <div class="book-card ${libro.vendido ? 'sold' : ''} ${libro.reservado ? 'reserved' : ''}">
                                 <div class="book-img-wrapper">
-                                    <img src="${libro.imagen}" alt="${libro.titulo}" loading="lazy" width="600" height="800">
+                                    ${buildCoverPicture(libro)}
                                     ${libro.novedad ? '<span class="new-badge">NOVEDAD</span>' : ''}
                                     ${libro.reservado ? '<span class="reserved-badge">RESERVADO</span>' : ''}
                                     ${libro.vendido ? '<span class="sold-badge">VENDIDO</span>' : ''}
@@ -188,6 +223,8 @@
                             </div>
                         </a>`;
             track.appendChild(slide);
+            const imgElem = slide.querySelector('img.lazy-img');
+            markImageLoaded(imgElem);
           });
           if (novedades.length > 1) {
             const firstClone = track.firstElementChild.cloneNode(true);
@@ -256,7 +293,7 @@
                         <a href="libro.html?id=${libro.id}&titulo=${titleParam}" class="book-link">
                             <div class="book-card ${libro.reservado ? 'reserved' : ''}">
                                 <div class="book-img-wrapper">
-                                    <img src="${libro.imagen}" alt="${libro.titulo}" loading="lazy" width="600" height="800">
+                                    ${buildCoverPicture(libro)}
                                     ${libro.reservado ? '<span class="reserved-badge">RESERVADO</span>' : ''}
                                 </div>
                                 <h3>${libro.titulo}</h3>
@@ -267,6 +304,8 @@
                             </div>
                         </a>`;
             track.appendChild(slide);
+            const imgElem = slide.querySelector('img.lazy-img');
+            markImageLoaded(imgElem);
           });
           if (economicos.length > 1) {
             const firstClone = track.firstElementChild.cloneNode(true);

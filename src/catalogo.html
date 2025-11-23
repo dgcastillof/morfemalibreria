@@ -68,23 +68,38 @@
       let books = [];
       let filteredBooks = [];
 
-      function loadImage(imgElem) {
-        const src = imgElem.getAttribute('data-src');
-        if (!src) return;
+      const cardSizes = '(max-width: 800px) 45vw, 220px';
 
-        function startLoading() {
-          const realImg = new Image();
-          realImg.src = src;
-          realImg.onload = () => {
-            imgElem.src = src;
-            imgElem.classList.add('loaded');
-          };
-        }
+      function getCoverSources(book) {
+        const mainLarge = book.imagen || book.imagenSmall || book.imagenFallback;
+        const mainSmall = book.imagenSmall || mainLarge;
+        const fallbackLarge = book.imagenFallback || mainLarge;
+        const fallbackSmall = book.imagenFallbackSmall || fallbackLarge;
 
+        return { mainLarge, mainSmall, fallbackLarge, fallbackSmall };
+      }
+
+      function buildCoverPicture(book) {
+        const { mainLarge, mainSmall, fallbackLarge, fallbackSmall } =
+          getCoverSources(book);
+
+        return `
+                    <picture class="book-cover">
+                        <source srcset="/${mainSmall} 480w, /${mainLarge} 900w" sizes="${cardSizes}" type="image/webp">
+                        <img src="/${fallbackLarge}" srcset="/${fallbackSmall} 480w, /${fallbackLarge} 900w" sizes="${cardSizes}" alt="${book.titulo}" class="lazy-img" loading="lazy" width="600" height="800">
+                    </picture>`;
+      }
+
+      function markImageLoaded(imgElem) {
+        if (!imgElem) return;
         if (imgElem.complete) {
-          startLoading();
+          imgElem.classList.add('loaded');
         } else {
-          imgElem.addEventListener('load', startLoading, { once: true });
+          imgElem.addEventListener(
+            'load',
+            () => imgElem.classList.add('loaded'),
+            { once: true },
+          );
         }
       }
 
@@ -132,7 +147,7 @@
 
           link.innerHTML = `
                     <div class="book-img-wrapper">
-                        <img src="/placeholder.png" data-src="${book.imagen}" alt="${book.titulo}" class="lazy-img" width="180" height="240" loading="lazy">
+                        ${buildCoverPicture(book)}
                         ${book.novedad ? '<span class="new-badge">NOVEDAD</span>' : ''}
                         ${book.reservado ? '<span class="reserved-badge">RESERVADO</span>' : ''}
                         ${book.vendido ? '<span class="sold-badge">VENDIDO</span>' : ''}
@@ -147,7 +162,7 @@
           bookCard.appendChild(link);
           booksContainer.appendChild(bookCard);
           const imgElem = link.querySelector('img.lazy-img');
-          loadImage(imgElem);
+          markImageLoaded(imgElem);
         });
 
         const pageNumbersContainer = document.getElementById('pageNumbers');

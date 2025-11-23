@@ -51,6 +51,12 @@ npm start
 
 Este comando inicia `http-server` en la carpeta `dist`.
 
+## Guía para portadas de libros
+
+- Sube las portadas originales a `public/fotos/` en formato PNG o JPG. Con un ancho de ~1200px o menos es suficiente para generar todas las variantes.
+- El build (`npm run build`) usa Sharp para crear automáticamente versiones WebP y JPG en 480px (para listas y tarjetas, donde las portadas no superan ~300px de ancho en pantalla) y 900px (para la vista de detalle, preparada para pantallas HiDPI).
+- WebP es el formato preferido y las versiones JPG quedan como fallback de compatibilidad; las plantillas ya referencian las versiones comprimidas mediante `<picture>` y `srcset`.
+
 ## Configuración de Firebase
 
 El proyecto está asociado al proyecto de Firebase `morfemalibreria-b8c79` definido en `.firebaserc`:
