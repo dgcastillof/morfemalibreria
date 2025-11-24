@@ -67,6 +67,7 @@
       const booksPerPage = 24;
       let books = [];
       let filteredBooks = [];
+      let currentSort = 'title-asc';
 
       const cardSizes = '(max-width: 800px) 45vw, 220px';
 
@@ -103,6 +104,34 @@
         }
       }
 
+      const parsePrice = (price) => {
+        const numericValue = parseFloat(
+          price.toString().replace(/[^0-9.-]/g, ''),
+        );
+        return Number.isNaN(numericValue) ? 0 : numericValue;
+      };
+
+      // Centralized sorter to keep ordering consistent across fetches and filters
+      function sortBooks(list, criterion = currentSort) {
+        const sorted = [...list];
+
+        sorted.sort((a, b) => {
+          switch (criterion) {
+            case 'price-asc':
+              return parsePrice(a.precio) - parsePrice(b.precio);
+            case 'price-desc':
+              return parsePrice(b.precio) - parsePrice(a.precio);
+            case 'author-asc':
+              return a.autor.localeCompare(b.autor);
+            case 'title-asc':
+            default:
+              return a.titulo.localeCompare(b.titulo);
+          }
+        });
+
+        return sorted;
+      }
+
       async function fetchBooks() {
         try {
           const response = await fetch('/books.json');
@@ -110,8 +139,7 @@
             throw new Error(`HTTP error! Status: ${response.status}`);
           }
           books = await response.json();
-          books.sort((a, b) => a.titulo.localeCompare(b.titulo));
-          filteredBooks = books;
+          filteredBooks = sortBooks(books);
           showPage(1);
         } catch (error) {
           console.error('Error cargando el archivo books.json:', error);
@@ -245,6 +273,7 @@
             (selectedAutor === '' || book.autor === selectedAutor),
         );
 
+        filteredBooks = sortBooks(filteredBooks);
         showPage(1);
       }
 
@@ -254,6 +283,12 @@
         document.getElementById('filterAutor').value = '';
         document.getElementById('searchInput').value = '';
         filterBooks();
+      }
+
+      function handleSortChange(event) {
+        currentSort = event?.target?.value || 'title-asc';
+        filteredBooks = sortBooks(filteredBooks);
+        showPage(1);
       }
 
       document.addEventListener('DOMContentLoaded', () => {
@@ -302,6 +337,20 @@
         </ul>
       </section>
       <div class="filters-container-wrapper">
+        <!-- Selector de ordenamiento colocado a la izquierda de los filtros existentes -->
+        <div class="sort-container">
+          <label for="sortSelect">Ordenar por:</label>
+          <select
+            id="sortSelect"
+            class="filter-select sort-select"
+            onchange="handleSortChange(event)"
+          >
+            <option value="price-asc">Precio (menor a mayor)</option>
+            <option value="price-desc">Precio (mayor a menor)</option>
+            <option value="title-asc" selected>Título (A–Z)</option>
+            <option value="author-asc">Autor (A–Z)</option>
+          </select>
+        </div>
         <div class="filters-container">
           <select
             id="filterIdioma"
