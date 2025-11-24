@@ -188,6 +188,26 @@
                 `;
 
           bookCard.appendChild(link);
+          const addToCartButton = document.createElement('button');
+          const unavailable = book.vendido || book.reservado;
+          addToCartButton.type = 'button';
+          addToCartButton.className = 'add-to-cart-button';
+          addToCartButton.textContent = unavailable
+            ? 'No disponible'
+            : 'Agregar al carrito';
+          addToCartButton.disabled = unavailable;
+          addToCartButton.addEventListener('click', (event) => {
+            event.preventDefault();
+            event.stopPropagation();
+            window.cartManager?.addItem({
+              id: book.id,
+              titulo: book.titulo,
+              autor: book.autor,
+              precio: book.precio,
+            });
+          });
+
+          bookCard.appendChild(addToCartButton);
           booksContainer.appendChild(bookCard);
           const imgElem = link.querySelector('img.lazy-img');
           markImageLoaded(imgElem);
@@ -414,6 +434,7 @@
         </a>
       </p>
     </div>
+    <script src="/cart.js"></script>
     <script src="/navbar.js"></script>
   </body>
 </html>
