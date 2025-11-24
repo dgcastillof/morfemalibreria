@@ -724,6 +724,76 @@ body {
   cursor: not-allowed;
 }
 
+.textos-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 16px;
+  margin-top: 20px;
+}
+
+.texto-card {
+  display: flex;
+  flex-direction: column;
+  background: white;
+  border-radius: 10px;
+  border: 1px solid #e5e7eb;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
+  color: #112a4a;
+  text-decoration: none;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  overflow: hidden;
+}
+
+.texto-card:hover,
+.texto-card:focus-visible {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+}
+
+.texto-card__image-wrapper {
+  background: #e8ecf3;
+}
+
+.texto-card__image {
+  display: block;
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+}
+
+.texto-card__content {
+  padding: 14px 16px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.texto-card__title {
+  margin: 0;
+  font-family: 'Merriweather', serif;
+  font-size: 18px;
+  line-height: 1.35;
+  min-height: calc(1.35em * 3);
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+}
+
+.texto-card__author {
+  margin: 0;
+  font-family: 'Lato', sans-serif;
+  font-weight: 700;
+  font-size: 14px;
+}
+
+.texto-card__meta {
+  margin: 0;
+  font-family: 'Lato', sans-serif;
+  font-size: 13px;
+  color: #4b5563;
+}
+
 body.cart-open {
   overflow: hidden;
 }
