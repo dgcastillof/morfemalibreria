@@ -207,8 +207,8 @@
             slide.className = 'carousel-slide';
             const titleParam = encodeURIComponent(libro.titulo);
             slide.innerHTML = `
-                        <a href="libro.html?id=${libro.id}&titulo=${titleParam}" class="book-link">
-                            <div class="book-card ${libro.vendido ? 'sold' : ''} ${libro.reservado ? 'reserved' : ''}">
+                        <div class="book-card ${libro.vendido ? 'sold' : ''} ${libro.reservado ? 'reserved' : ''}">
+                            <a href="libro.html?id=${libro.id}&titulo=${titleParam}" class="book-link">
                                 <div class="book-img-wrapper">
                                     ${buildCoverPicture(libro)}
                                     ${libro.novedad ? '<span class="new-badge">NOVEDAD</span>' : ''}
@@ -220,11 +220,27 @@
                                 <p><strong>Idioma:</strong> ${libro.idioma}</p>
                                 <p><strong>Estado:</strong> ${libro.estado}</p>
                                 <p><strong>Precio:</strong> ${libro.precio}</p>
-                            </div>
-                        </a>`;
+                            </a>
+                            <button class="add-to-cart-button" ${
+                              libro.vendido ? 'disabled' : ''
+                            }>Agregar al carrito</button>
+                        </div>`;
             track.appendChild(slide);
             const imgElem = slide.querySelector('img.lazy-img');
             markImageLoaded(imgElem);
+            const addToCartButton = slide.querySelector('.add-to-cart-button');
+            if (addToCartButton) {
+              addToCartButton.addEventListener('click', (event) => {
+                event.preventDefault();
+                event.stopPropagation();
+                window.cartManager?.addItem({
+                  id: libro.id,
+                  titulo: libro.titulo,
+                  autor: libro.autor,
+                  precio: libro.precio,
+                });
+              });
+            }
           });
           if (novedades.length > 1) {
             const firstClone = track.firstElementChild.cloneNode(true);
@@ -290,8 +306,8 @@
             slide.className = 'carousel-slide';
             const titleParam = encodeURIComponent(libro.titulo);
             slide.innerHTML = `
-                        <a href="libro.html?id=${libro.id}&titulo=${titleParam}" class="book-link">
-                            <div class="book-card ${libro.reservado ? 'reserved' : ''}">
+                        <div class="book-card ${libro.reservado ? 'reserved' : ''}">
+                            <a href="libro.html?id=${libro.id}&titulo=${titleParam}" class="book-link">
                                 <div class="book-img-wrapper">
                                     ${buildCoverPicture(libro)}
                                     ${libro.reservado ? '<span class="reserved-badge">RESERVADO</span>' : ''}
@@ -301,11 +317,27 @@
                                 <p><strong>Idioma:</strong> ${libro.idioma}</p>
                                 <p><strong>Estado:</strong> ${libro.estado}</p>
                                 <p><strong>Precio:</strong> ${libro.precio}</p>
-                            </div>
-                        </a>`;
+                            </a>
+                            <button class="add-to-cart-button" ${
+                              libro.reservado ? 'disabled' : ''
+                            }>Agregar al carrito</button>
+                        </div>`;
             track.appendChild(slide);
             const imgElem = slide.querySelector('img.lazy-img');
             markImageLoaded(imgElem);
+            const addToCartButton = slide.querySelector('.add-to-cart-button');
+            if (addToCartButton) {
+              addToCartButton.addEventListener('click', (event) => {
+                event.preventDefault();
+                event.stopPropagation();
+                window.cartManager?.addItem({
+                  id: libro.id,
+                  titulo: libro.titulo,
+                  autor: libro.autor,
+                  precio: libro.precio,
+                });
+              });
+            }
           });
           if (economicos.length > 1) {
             const firstClone = track.firstElementChild.cloneNode(true);
@@ -449,6 +481,7 @@
         </a>
       </p>
     </div>
+    <script src="/cart.js"></script>
     <script src="/navbar.js"></script>
   </body>
 </html>
