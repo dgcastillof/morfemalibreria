@@ -199,6 +199,13 @@
   border-radius: 10px;
 }
 
+.review-body {
+  font-family: 'Times New Roman', Times, serif;
+  font-size: 12px;
+  line-height: 1.5;
+  text-align: justify;
+}
+
 .comment-form {
   display: flex;
   flex-direction: column;
