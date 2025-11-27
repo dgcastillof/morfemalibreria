@@ -67,25 +67,69 @@
       const booksPerPage = 24;
       let books = [];
       let filteredBooks = [];
+      let currentSort = 'title-asc';
 
-      function loadImage(imgElem) {
-        const src = imgElem.getAttribute('data-src');
-        if (!src) return;
+      const cardSizes = '(max-width: 800px) 45vw, 220px';
 
-        function startLoading() {
-          const realImg = new Image();
-          realImg.src = src;
-          realImg.onload = () => {
-            imgElem.src = src;
-            imgElem.classList.add('loaded');
-          };
-        }
+      function getCoverSources(book) {
+        const mainLarge = book.imagen || book.imagenSmall || book.imagenFallback;
+        const mainSmall = book.imagenSmall || mainLarge;
+        const fallbackLarge = book.imagenFallback || mainLarge;
+        const fallbackSmall = book.imagenFallbackSmall || fallbackLarge;
 
+        return { mainLarge, mainSmall, fallbackLarge, fallbackSmall };
+      }
+
+      function buildCoverPicture(book) {
+        const { mainLarge, mainSmall, fallbackLarge, fallbackSmall } =
+          getCoverSources(book);
+
+        return `
+                    <picture class="book-cover">
+                        <source srcset="/${mainSmall} 480w, /${mainLarge} 900w" sizes="${cardSizes}" type="image/webp">
+                        <img src="/${fallbackLarge}" srcset="/${fallbackSmall} 480w, /${fallbackLarge} 900w" sizes="${cardSizes}" alt="${book.titulo}" class="lazy-img" loading="lazy" width="600" height="800">
+                    </picture>`;
+      }
+
+      function markImageLoaded(imgElem) {
+        if (!imgElem) return;
         if (imgElem.complete) {
-          startLoading();
+          imgElem.classList.add('loaded');
         } else {
-          imgElem.addEventListener('load', startLoading, { once: true });
+          imgElem.addEventListener(
+            'load',
+            () => imgElem.classList.add('loaded'),
+            { once: true },
+          );
         }
+      }
+
+      const parsePrice = (price) => {
+        const numericValue = parseFloat(
+          price.toString().replace(/[^0-9.-]/g, ''),
+        );
+        return Number.isNaN(numericValue) ? 0 : numericValue;
+      };
+
+      // Centralized sorter to keep ordering consistent across fetches and filters
+      function sortBooks(list, criterion = currentSort) {
+        const sorted = [...list];
+
+        sorted.sort((a, b) => {
+          switch (criterion) {
+            case 'price-asc':
+              return parsePrice(a.precio) - parsePrice(b.precio);
+            case 'price-desc':
+              return parsePrice(b.precio) - parsePrice(a.precio);
+            case 'author-asc':
+              return a.autor.localeCompare(b.autor);
+            case 'title-asc':
+            default:
+              return a.titulo.localeCompare(b.titulo);
+          }
+        });
+
+        return sorted;
       }
 
       async function fetchBooks() {
@@ -95,8 +139,7 @@
             throw new Error(`HTTP error! Status: ${response.status}`);
           }
           books = await response.json();
-          books.sort((a, b) => a.titulo.localeCompare(b.titulo));
-          filteredBooks = books;
+          filteredBooks = sortBooks(books);
           showPage(1);
         } catch (error) {
           console.error('Error cargando el archivo books.json:', error);
@@ -132,7 +175,7 @@
 
           link.innerHTML = `
                     <div class="book-img-wrapper">
-                        <img src="/placeholder.png" data-src="${book.imagen}" alt="${book.titulo}" class="lazy-img" width="180" height="240" loading="lazy">
+                        ${buildCoverPicture(book)}
                         ${book.novedad ? '<span class="new-badge">NOVEDAD</span>' : ''}
                         ${book.reservado ? '<span class="reserved-badge">RESERVADO</span>' : ''}
                         ${book.vendido ? '<span class="sold-badge">VENDIDO</span>' : ''}
@@ -145,9 +188,29 @@
                 `;
 
           bookCard.appendChild(link);
+          const addToCartButton = document.createElement('button');
+          const unavailable = book.vendido || book.reservado;
+          addToCartButton.type = 'button';
+          addToCartButton.className = 'add-to-cart-button';
+          addToCartButton.textContent = unavailable
+            ? 'No disponible'
+            : 'Agregar al carrito';
+          addToCartButton.disabled = unavailable;
+          addToCartButton.addEventListener('click', (event) => {
+            event.preventDefault();
+            event.stopPropagation();
+            window.cartManager?.addItem({
+              id: book.id,
+              titulo: book.titulo,
+              autor: book.autor,
+              precio: book.precio,
+            });
+          });
+
+          bookCard.appendChild(addToCartButton);
           booksContainer.appendChild(bookCard);
           const imgElem = link.querySelector('img.lazy-img');
-          loadImage(imgElem);
+          markImageLoaded(imgElem);
         });
 
         const pageNumbersContainer = document.getElementById('pageNumbers');
@@ -230,6 +293,7 @@
             (selectedAutor === '' || book.autor === selectedAutor),
         );
 
+        filteredBooks = sortBooks(filteredBooks);
         showPage(1);
       }
 
@@ -239,6 +303,12 @@
         document.getElementById('filterAutor').value = '';
         document.getElementById('searchInput').value = '';
         filterBooks();
+      }
+
+      function handleSortChange(event) {
+        currentSort = event?.target?.value || 'title-asc';
+        filteredBooks = sortBooks(filteredBooks);
+        showPage(1);
       }
 
       document.addEventListener('DOMContentLoaded', () => {
@@ -287,6 +357,20 @@
         </ul>
       </section>
       <div class="filters-container-wrapper">
+        <!-- Selector de ordenamiento colocado a la izquierda de los filtros existentes -->
+        <div class="sort-container">
+          <label for="sortSelect">Ordenar por:</label>
+          <select
+            id="sortSelect"
+            class="filter-select sort-select"
+            onchange="handleSortChange(event)"
+          >
+            <option value="price-asc">Precio (menor a mayor)</option>
+            <option value="price-desc">Precio (mayor a menor)</option>
+            <option value="title-asc" selected>Título (A–Z)</option>
+            <option value="author-asc">Autor (A–Z)</option>
+          </select>
+        </div>
         <div class="filters-container">
           <select
             id="filterIdioma"
@@ -350,6 +434,7 @@
         </a>
       </p>
     </div>
+    <script src="/cart.js"></script>
     <script src="/navbar.js"></script>
   </body>
 </html>
