@@ -35,6 +35,12 @@
 
 .talleres-row-reverse .talleres-info {
   order: 1;
+  text-align: right;
+}
+
+/* Align countdown to the right when text is right-aligned */
+.talleres-row-reverse .talleres-countdown {
+  margin-left: auto;
 }
 
 .talleres-banner {
@@ -138,6 +144,12 @@
   .talleres-row-normal .talleres-info,
   .talleres-row-reverse .talleres-info {
     order: 2;
+    text-align: left;
+  }
+
+  /* Reset countdown alignment on mobile */
+  .talleres-row-reverse .talleres-countdown {
+    margin-left: 0;
   }
 }
 
