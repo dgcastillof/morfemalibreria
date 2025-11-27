@@ -18,6 +18,25 @@
   align-items: center;
 }
 
+/* Alternating layout for workshops */
+/* Normal: poster on left (order 1), info on right (order 2) */
+.talleres-row-normal .talleres-banner {
+  order: 1;
+}
+
+.talleres-row-normal .talleres-info {
+  order: 2;
+}
+
+/* Reverse: info on left (order 1), poster on right (order 2) */
+.talleres-row-reverse .talleres-banner {
+  order: 2;
+}
+
+.talleres-row-reverse .talleres-info {
+  order: 1;
+}
+
 .talleres-banner {
   display: flex;
   justify-content: center;
@@ -108,6 +127,17 @@
 
   .talleres-title {
     font-size: 24px;
+  }
+
+  /* On mobile, always stack poster on top, info below */
+  .talleres-row-normal .talleres-banner,
+  .talleres-row-reverse .talleres-banner {
+    order: 1;
+  }
+
+  .talleres-row-normal .talleres-info,
+  .talleres-row-reverse .talleres-info {
+    order: 2;
   }
 }
 
