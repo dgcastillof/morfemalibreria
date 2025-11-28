@@ -253,11 +253,13 @@ function updateReferences(filePath, replacements) {
 
   for (const [original, hashed] of replacements) {
     const escapedOriginal = escapeForRegex(original);
-    const escapedAbsolute = escapeForRegex(`/${original}`);
 
-    updated = updated.replace(new RegExp(escapedAbsolute, 'g'), `/${hashed}`);
-    // Only replace relative references, not external URLs (http:// or https://)
-    updated = updated.replace(new RegExp(`(?<!https?://[^\\s'"\`]*?)${escapedOriginal}`, 'g'), hashed);
+    // Replace absolute paths starting with / but not in external URLs
+    // Use quotes or start of attribute to identify local absolute paths
+    updated = updated.replace(new RegExp(`(['"\`])/${escapedOriginal}`, 'g'), `$1/${hashed}`);
+    
+    // Replace relative paths (like ./filename.js)
+    updated = updated.replace(new RegExp(`(\\./)${escapedOriginal}`, 'g'), `$1${hashed}`);
   }
 
   if (ext === '.html') {
