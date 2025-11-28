@@ -122,6 +122,9 @@ async function handleLoginSubmit(e) {
   try {
     const user = await loginWithEmail(email, password);
 
+    // Clear password field immediately after use (security best practice)
+    if (passwordInput) passwordInput.value = '';
+
     // Sync user profile in Firestore
     await syncUserProfile(user);
 
@@ -144,6 +147,8 @@ async function handleLoginSubmit(e) {
       }, 1000);
     }
   } catch (error) {
+    // Clear password field on error too (security best practice)
+    if (passwordInput) passwordInput.value = '';
     showMessage(error.message || 'Error al iniciar sesión. Intenta de nuevo.', 'error');
   } finally {
     setLoading(false);

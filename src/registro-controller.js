@@ -134,6 +134,10 @@ async function handleRegisterSubmit(e) {
     // Create the user account
     const user = await registerWithEmail(email, password);
 
+    // Clear password fields immediately after use (security best practice)
+    if (passwordInput) passwordInput.value = '';
+    if (confirmPasswordInput) confirmPasswordInput.value = '';
+
     // Send verification email
     try {
       await sendVerificationEmail(user);
@@ -161,6 +165,9 @@ async function handleRegisterSubmit(e) {
       window.location.href = '/verifica-email.html';
     }, 2000);
   } catch (error) {
+    // Clear password fields on error too (security best practice)
+    if (passwordInput) passwordInput.value = '';
+    if (confirmPasswordInput) confirmPasswordInput.value = '';
     showMessage(error.message || 'Error al crear la cuenta. Intenta de nuevo.', 'error');
     setLoading(false);
   }
