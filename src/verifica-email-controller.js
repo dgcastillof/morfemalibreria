@@ -140,8 +140,6 @@ async function handleCheckVerification() {
  */
 function updateUI(user) {
   const emailDisplay = document.getElementById('user-email-display');
-  const resendButton = document.getElementById('resend-button');
-  const checkButton = document.getElementById('check-verification-button');
   const notLoggedInMessage = document.getElementById('not-logged-in-message');
   const verificationContent = document.getElementById('verification-content');
 
