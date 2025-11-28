@@ -256,7 +256,8 @@ function updateReferences(filePath, replacements) {
     const escapedAbsolute = escapeForRegex(`/${original}`);
 
     updated = updated.replace(new RegExp(escapedAbsolute, 'g'), `/${hashed}`);
-    updated = updated.replace(new RegExp(escapedOriginal, 'g'), hashed);
+    // Only replace relative references, not external URLs (http:// or https://)
+    updated = updated.replace(new RegExp(`(?<!https?://[^\\s'"\`]*?)${escapedOriginal}`, 'g'), hashed);
   }
 
   if (ext === '.html') {
