@@ -1,6 +1,4 @@
-import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js';
 import {
-  getFirestore,
   collection,
   getDocs,
   orderBy,
@@ -8,18 +6,7 @@ import {
   limit,
   where,
 } from 'https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore.js';
-import config from './firebase-config.js';
-
-let app;
-let db;
-
-function initAnalytics() {
-  if (!app) {
-    app = initializeApp(config);
-    db = getFirestore(app);
-  }
-  return db;
-}
+import { db } from './firebase-app.js';
 
 function renderTable(container, rows, headers) {
   const table = document.createElement('table');
@@ -51,9 +38,8 @@ function renderTable(container, rows, headers) {
 }
 
 async function loadDaily() {
-  const database = initAnalytics();
   const q = query(
-    collection(database, 'analytics_daily'),
+    collection(db, 'analytics_daily'),
     orderBy('date', 'desc'),
     limit(14),
   );
@@ -74,9 +60,8 @@ async function loadDaily() {
 }
 
 async function loadWeekly() {
-  const database = initAnalytics();
   const q = query(
-    collection(database, 'analytics_weekly'),
+    collection(db, 'analytics_weekly'),
     orderBy('week', 'desc'),
     limit(8),
   );
@@ -103,7 +88,6 @@ function sevenDaysAgoKey() {
 }
 
 async function loadRoutes(range = 'daily') {
-  const database = initAnalytics();
   const container = document.getElementById('route-views');
   const isWeekly = range === 'weekly';
   const startKey = isWeekly ? undefined : sevenDaysAgoKey();
@@ -112,10 +96,10 @@ async function loadRoutes(range = 'daily') {
     : 'analytics_routes_daily';
   let q;
   if (isWeekly) {
-    q = query(collection(database, collName), orderBy('week', 'desc'), limit(12));
+    q = query(collection(db, collName), orderBy('week', 'desc'), limit(12));
   } else {
     q = query(
-      collection(database, collName),
+      collection(db, collName),
       where('date', '>=', startKey),
       orderBy('date', 'asc'),
       limit(90),
@@ -136,11 +120,10 @@ async function loadRoutes(range = 'daily') {
 }
 
 async function loadNavigation() {
-  const database = initAnalytics();
   const container = document.getElementById('navigation-views');
   const start = sevenDaysAgoKey();
   const q = query(
-    collection(database, 'analytics_navigation_daily'),
+    collection(db, 'analytics_navigation_daily'),
     where('date', '>=', start),
     orderBy('date', 'asc'),
     limit(120),

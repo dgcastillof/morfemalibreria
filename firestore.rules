@@ -1,20 +1,283 @@
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
-    match /reviews/{slug}/comments/{commentId} {
-      function isAdmin() {
-        return request.auth != null && request.auth.token.admin == true;
+
+    // ============================================
+    // FUNCIONES GLOBALES DE AUTENTICACIÓN Y ROLES
+    // ============================================
+
+    // Verifica si el usuario está autenticado
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+
+    // Verifica si el usuario autenticado es el dueño del documento
+    function isOwner(uid) {
+      return isAuthenticated() && request.auth.uid == uid;
+    }
+
+    // Verifica si el usuario tiene claim de admin
+    function isAdmin() {
+      return isAuthenticated() && request.auth.token.admin == true;
+    }
+
+    // Verifica si el usuario tiene claim de moderador
+    function isModerator() {
+      return isAuthenticated() && request.auth.token.moderator == true;
+    }
+
+    // Verifica si el usuario es admin o moderador
+    function isStaff() {
+      return isAdmin() || isModerator();
+    }
+
+    // ============================================
+    // COLECCIÓN: users/{uid}
+    // Perfil mínimo del usuario
+    // ============================================
+    match /users/{uid} {
+      // Campos permitidos en el perfil de usuario
+      function validUserFields() {
+        return request.resource.data.keys().hasOnly([
+          'displayName',
+          'emailVerified',
+          'photoURL',
+          'bio',
+          'createdAt',
+          'updatedAt'
+        ]);
       }
 
-      allow read: if resource.data.approved == true || isAdmin();
+      // Validaciones de tipos y tamaños
+      function validUserData() {
+        let data = request.resource.data;
+        return data.displayName is string &&
+               data.displayName.size() >= 2 &&
+               data.displayName.size() <= 100 &&
+               data.emailVerified is bool &&
+               (!('photoURL' in data) || data.photoURL is string) &&
+               (!('bio' in data) || (data.bio is string && data.bio.size() <= 500)) &&
+               data.createdAt is timestamp &&
+               data.updatedAt is timestamp;
+      }
+
+      // Validar que updatedAt sea el tiempo actual en actualizaciones
+      function validTimestampUpdate() {
+        return request.resource.data.updatedAt == request.time;
+      }
+
+      // Solo el propio usuario o staff puede leer su perfil
+      allow read: if isOwner(uid) || isStaff();
+
+      // Solo el propio usuario puede crear su perfil
+      allow create: if isOwner(uid) &&
+                       validUserFields() &&
+                       validUserData() &&
+                       request.resource.data.createdAt == request.time &&
+                       request.resource.data.updatedAt == request.time;
+
+      // Solo el propio usuario puede actualizar su perfil
+      // createdAt no puede modificarse
+      allow update: if isOwner(uid) &&
+                       validUserFields() &&
+                       validUserData() &&
+                       validTimestampUpdate() &&
+                       request.resource.data.createdAt == resource.data.createdAt;
+
+      // Solo admin puede eliminar perfiles
+      allow delete: if isAdmin();
+    }
+
+    // ============================================
+    // COLECCIÓN: memberships/{uid}
+    // Estado de membresía "Club Morfema"
+    // ============================================
+    match /memberships/{uid} {
+      // Campos permitidos en membresía
+      function validMembershipFields() {
+        return request.resource.data.keys().hasOnly([
+          'status',
+          'plan',
+          'startDate',
+          'endDate',
+          'autoRenew',
+          'paymentMethod',
+          'createdAt',
+          'updatedAt'
+        ]);
+      }
+
+      // Estados válidos de membresía
+      function validStatus() {
+        return request.resource.data.status in ['active', 'inactive', 'pending', 'cancelled', 'expired'];
+      }
+
+      // Planes válidos
+      function validPlan() {
+        return request.resource.data.plan in ['free', 'basic', 'premium', 'annual'];
+      }
+
+      // Validaciones de tipos
+      function validMembershipData() {
+        let data = request.resource.data;
+        return validStatus() &&
+               validPlan() &&
+               data.startDate is timestamp &&
+               (!('endDate' in data) || data.endDate is timestamp) &&
+               (!('autoRenew' in data) || data.autoRenew is bool) &&
+               (!('paymentMethod' in data) || data.paymentMethod is string) &&
+               data.createdAt is timestamp &&
+               data.updatedAt is timestamp;
+      }
+
+      // Solo el propio usuario o staff puede leer su membresía
+      allow read: if isOwner(uid) || isStaff();
+
+      // Solo el sistema (admin) puede crear membresías
+      // Los usuarios no pueden auto-asignarse membresías
+      allow create: if isAdmin();
+
+      // El usuario puede actualizar ciertos campos (autoRenew, paymentMethod)
+      // Admin puede actualizar todo
+      allow update: if (isOwner(uid) &&
+                        validMembershipFields() &&
+                        request.resource.data.updatedAt == request.time &&
+                        // Usuario solo puede cambiar autoRenew y paymentMethod
+                        request.resource.data.status == resource.data.status &&
+                        request.resource.data.plan == resource.data.plan &&
+                        request.resource.data.startDate == resource.data.startDate &&
+                        request.resource.data.endDate == resource.data.endDate &&
+                        request.resource.data.createdAt == resource.data.createdAt) ||
+                       isAdmin();
+
+      // Solo admin puede eliminar membresías
+      allow delete: if isAdmin();
+    }
+
+    // ============================================
+    // COLECCIÓN: listings/{listingId}
+    // Libros publicados por usuarios para venta
+    // ============================================
+    match /listings/{listingId} {
+      // Campos permitidos en un listing
+      function validListingFields() {
+        return request.resource.data.keys().hasOnly([
+          'userId',
+          'title',
+          'author',
+          'isbn',
+          'description',
+          'condition',
+          'price',
+          'currency',
+          'images',
+          'status',
+          'category',
+          'createdAt',
+          'updatedAt'
+        ]);
+      }
+
+      // Condiciones válidas del libro
+      function validCondition() {
+        return request.resource.data.condition in ['new', 'like_new', 'good', 'acceptable', 'poor'];
+      }
+
+      // Estados válidos del listing
+      function validListingStatus() {
+        return request.resource.data.status in ['draft', 'pending_review', 'active', 'sold', 'removed'];
+      }
+
+      // Validaciones de tipos y tamaños
+      function validListingData() {
+        let data = request.resource.data;
+        return data.userId is string &&
+               data.title is string &&
+               data.title.size() >= 1 &&
+               data.title.size() <= 200 &&
+               data.author is string &&
+               data.author.size() >= 1 &&
+               data.author.size() <= 200 &&
+               (!('isbn' in data) || data.isbn is string) &&
+               (!('description' in data) || (data.description is string && data.description.size() <= 2000)) &&
+               validCondition() &&
+               data.price is number &&
+               data.price > 0 &&
+               data.currency is string &&
+               data.currency.size() == 3 &&
+               (!('images' in data) || data.images is list) &&
+               validListingStatus() &&
+               (!('category' in data) || data.category is string) &&
+               data.createdAt is timestamp &&
+               data.updatedAt is timestamp;
+      }
+
+      // Verifica si el usuario es el dueño del listing
+      function isListingOwner() {
+        return isAuthenticated() && request.auth.uid == resource.data.userId;
+      }
+
+      // Listings activos son públicos, otros solo visibles por dueño o staff
+      allow read: if resource.data.status == 'active' ||
+                     isListingOwner() ||
+                     isStaff();
+
+      // Usuario autenticado puede crear listings (su propio userId)
+      allow create: if isAuthenticated() &&
+                       validListingFields() &&
+                       validListingData() &&
+                       request.resource.data.userId == request.auth.uid &&
+                       request.resource.data.status in ['draft', 'pending_review'] &&
+                       request.resource.data.createdAt == request.time &&
+                       request.resource.data.updatedAt == request.time;
+
+      // Dueño puede actualizar su listing (no puede cambiar userId)
+      // Staff puede actualizar cualquier listing (ej: aprobar)
+      allow update: if (isListingOwner() &&
+                        validListingFields() &&
+                        validListingData() &&
+                        request.resource.data.userId == resource.data.userId &&
+                        request.resource.data.createdAt == resource.data.createdAt &&
+                        request.resource.data.updatedAt == request.time &&
+                        // Usuario no puede auto-aprobar
+                        (request.resource.data.status != 'active' || resource.data.status == 'active')) ||
+                       isStaff();
+
+      // Dueño puede eliminar su listing, admin siempre puede
+      allow delete: if isListingOwner() || isAdmin();
+    }
+
+    // ============================================
+    // COLECCIÓN: reviews/{slug}/comments/{commentId}
+    // Comentarios en reseñas (existente)
+    // Supports optional uid field for authenticated users.
+    // ============================================
+    match /reviews/{slug}/comments/{commentId} {
+      // Allow reading approved comments publicly.
+      // Allow staff to read all comments.
+      // Allow authenticated users to read their own pending comments (uid match).
+      allow read: if resource.data.approved == true ||
+                     isStaff() ||
+                     (isAuthenticated() && resource.data.uid == request.auth.uid);
+
+      // Helper to validate uid field:
+      // - If user is authenticated, uid must match their auth.uid
+      // - If user is anonymous, uid must be null
+      function validCommentUid() {
+        let data = request.resource.data;
+        return (isAuthenticated() && data.uid == request.auth.uid) ||
+               (!isAuthenticated() && data.uid == null);
+      }
 
       allow create: if
-        request.resource.data.keys().hasOnly(['name', 'message', 'createdAt', 'recaptchaToken']) &&
+        request.resource.data.keys().hasOnly(['name', 'message', 'createdAt', 'recaptchaToken', 'approved', 'uid']) &&
         request.resource.data.name is string &&
         request.resource.data.message is string &&
         request.resource.data.name.size() > 0 && request.resource.data.name.size() <= 100 &&
         request.resource.data.message.size() > 0 && request.resource.data.message.size() <= 1000 &&
         request.time == request.resource.data.createdAt &&
+        request.resource.data.approved == false &&
+        validCommentUid() &&
         (!('recaptchaToken' in request.resource.data) || request.resource.data.recaptchaToken is string);
 
       allow update, delete: if isAdmin();

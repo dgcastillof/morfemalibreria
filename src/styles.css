@@ -52,6 +52,25 @@ body {
 .navbar a:hover {
   text-decoration: underline;
 }
+
+/* Navbar auth elements */
+.nav-user-info {
+  color: #112a4a;
+  font-weight: bold;
+  font-size: 14px;
+  padding: 0 15px;
+  border-left: 1px solid #112a4a;
+}
+
+.nav-verify-warning {
+  color: #92400e !important;
+  font-size: 14px !important;
+}
+
+.nav-logout-link {
+  cursor: pointer;
+}
+
 .container {
   max-width: 900px;
   margin: 20px auto;

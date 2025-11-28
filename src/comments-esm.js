@@ -1,6 +1,4 @@
-import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js';
 import {
-  getFirestore,
   collection,
   query,
   where,
@@ -12,23 +10,21 @@ import {
   deleteDoc,
   serverTimestamp,
 } from 'https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore.js';
-import config from './firebase-config.js';
+import { db } from './firebase-app.js';
+import { getCurrentUser } from './auth-esm.js';
 
-let app;
-let db;
-
+/**
+ * Initialize the comments module.
+ * Returns the shared Firestore instance.
+ * @returns {import('firebase/firestore').Firestore}
+ */
 export function init() {
-  if (!app) {
-    app = initializeApp(config);
-    db = getFirestore(app);
-  }
   return db;
 }
 
 export async function loadComments(slug) {
-  const database = db || init();
   const q = query(
-    collection(database, 'reviews', slug, 'comments'),
+    collection(db, 'reviews', slug, 'comments'),
     where('approved', '==', true),
     orderBy('createdAt'),
   );
@@ -37,21 +33,25 @@ export async function loadComments(slug) {
 }
 
 export async function addComment(slug, name, message, recaptchaToken) {
-  const database = db || init();
+  // Get the current user to optionally attach uid to the comment.
+  // Anonymous visitors will have uid: null.
+  const user = getCurrentUser();
+  const uid = user ? user.uid : null;
+
   const data = {
     name: String(name),
     message: String(message),
     createdAt: serverTimestamp(),
     approved: false,
+    uid: uid,
   };
   if (recaptchaToken) data.recaptchaToken = recaptchaToken;
-  return addDoc(collection(database, 'reviews', slug, 'comments'), data);
+  return addDoc(collection(db, 'reviews', slug, 'comments'), data);
 }
 
 export async function loadPendingComments(slug) {
-  const database = db || init();
   const q = query(
-    collection(database, 'reviews', slug, 'comments'),
+    collection(db, 'reviews', slug, 'comments'),
     where('approved', '==', false),
     orderBy('createdAt'),
   );
@@ -60,14 +60,12 @@ export async function loadPendingComments(slug) {
 }
 
 export async function approveComment(slug, id) {
-  const database = db || init();
-  const ref = doc(database, 'reviews', slug, 'comments', id);
+  const ref = doc(db, 'reviews', slug, 'comments', id);
   return updateDoc(ref, { approved: true });
 }
 
 export async function deleteComment(slug, id) {
-  const database = db || init();
-  const ref = doc(database, 'reviews', slug, 'comments', id);
+  const ref = doc(db, 'reviews', slug, 'comments', id);
   return deleteDoc(ref);
 }
 

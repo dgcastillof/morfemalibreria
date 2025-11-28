@@ -3,6 +3,8 @@
   "version": "1.0.0",
   "scripts": {
     "test": "npm run build && node test/test.js",
+    "test:validation": "node test/auth-validation.js",
+    "test:dom": "node test/auth-forms-dom.js",
     "lint": "eslint src/**/*.js test/**/*.js",
     "format": "prettier --write --parser html \"src/**/*.{js,css,html,ejs}\"",
     "build": "node build.js",
@@ -16,6 +18,7 @@
     "eslint": "8.57.0",
     "firebase-tools": "^14.25.1",
     "http-server": "^14.1.1",
+    "jsdom": "^26.1.0",
     "prettier": "^3.6.2",
     "sharp": "^0.34.5"
   }

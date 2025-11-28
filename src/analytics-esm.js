@@ -1,27 +1,23 @@
-import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js';
 import {
-  getFirestore,
   doc,
   setDoc,
   increment,
 } from 'https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore.js';
-import config from './firebase-config.js';
+import { db } from './firebase-app.js';
+import { onAuthChange } from './auth-esm.js';
 
-let app;
-let db;
+// Track the current authenticated user at module level.
+// This avoids repeated getCurrentUser() calls and provides
+// the uid for analytics writes when a user is logged in.
+let currentUser = null;
+onAuthChange((user) => {
+  currentUser = user;
+});
 
 const VISITOR_KEY = 'morfema:analytics:visitor';
 const DAILY_UNIQUE_KEY = 'morfema:analytics:last-daily';
 const WEEKLY_UNIQUE_KEY = 'morfema:analytics:last-weekly';
 const LAST_ROUTE_KEY = 'morfema:analytics:last-route';
-
-function initAnalytics() {
-  if (!app) {
-    app = initializeApp(config);
-    db = getFirestore(app);
-  }
-  return db;
-}
 
 function getVisitorId() {
   const stored = localStorage.getItem(VISITOR_KEY);
@@ -61,9 +57,8 @@ async function updateDocSafe(ref, data) {
 }
 
 async function recordTotals(dayKey, weekKey, isNewDailyVisitor, isNewWeeklyVisitor) {
-  const database = initAnalytics();
-  const dailyRef = doc(database, 'analytics_daily', dayKey);
-  const weeklyRef = doc(database, 'analytics_weekly', weekKey);
+  const dailyRef = doc(db, 'analytics_daily', dayKey);
+  const weeklyRef = doc(db, 'analytics_weekly', weekKey);
 
   await Promise.all([
     updateDocSafe(dailyRef, {
@@ -82,10 +77,9 @@ async function recordTotals(dayKey, weekKey, isNewDailyVisitor, isNewWeeklyVisit
 }
 
 async function recordRouteViews(dayKey, weekKey, pathname) {
-  const database = initAnalytics();
   const routeKey = buildRouteKey(pathname);
-  const dailyRef = doc(database, 'analytics_routes_daily', `${dayKey}_${routeKey}`);
-  const weeklyRef = doc(database, 'analytics_routes_weekly', `${weekKey}_${routeKey}`);
+  const dailyRef = doc(db, 'analytics_routes_daily', `${dayKey}_${routeKey}`);
+  const weeklyRef = doc(db, 'analytics_routes_weekly', `${weekKey}_${routeKey}`);
 
   await Promise.all([
     updateDocSafe(dailyRef, {
@@ -105,16 +99,15 @@ async function recordRouteViews(dayKey, weekKey, pathname) {
 
 async function recordNavigation(dayKey, weekKey, from, to) {
   if (!from || !to || from === to) return;
-  const database = initAnalytics();
   const transition = `${from}->${to}`;
   const transitionKey = encodeURIComponent(transition);
   const dailyRef = doc(
-    database,
+    db,
     'analytics_navigation_daily',
     `${dayKey}_${transitionKey}`,
   );
   const weeklyRef = doc(
-    database,
+    db,
     'analytics_navigation_weekly',
     `${weekKey}_${transitionKey}`,
   );
@@ -163,11 +156,13 @@ async function trackPageView(pathname) {
     recordNavigation(dayKey, weekKey, previousRoute, pathname),
     // Store a tiny fingerprint so routes can be reconciled with visitors later
     // if needed. This is intentionally lightweight and avoids PII.
-    updateDocSafe(doc(initAnalytics(), 'analytics_visitors', visitorId), {
+    // Include uid when the user is authenticated to associate analytics with user.
+    updateDocSafe(doc(db, 'analytics_visitors', visitorId), {
       lastSeenDay: dayKey,
       lastSeenWeek: weekKey,
       lastRoute: pathname,
       updatedAt: Date.now(),
+      uid: currentUser ? currentUser.uid : null,
     }),
   ]);
 }

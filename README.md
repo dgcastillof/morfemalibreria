@@ -19,7 +19,38 @@ Las pruebas se ejecutan con el comando:
 npm test
 ```
 
-Este comando ejecuta el proceso de build y luego verifica que `dist/books.json` pueda analizarse correctamente.
+Este comando ejecuta el proceso de build y luego verifica:
+
+1. **Archivos requeridos**: Todas las páginas HTML y módulos ESM necesarios existen en `dist/`
+2. **Validación de datos**: `dist/books.json` es válido según el esquema JSON
+3. **Módulos ESM**: Los módulos de autenticación contienen los exports esperados
+4. **Validación de formularios**: Las funciones de validación de email, contraseña, etc. funcionan correctamente
+5. **Estructura DOM**: Los formularios de auth tienen la estructura HTML esperada (requiere jsdom)
+
+### Scripts de prueba disponibles
+
+| Comando | Descripción |
+|---------|-------------|
+| `npm test` | Ejecuta build + todas las pruebas |
+| `npm run test:validation` | Solo pruebas de validación de auth (sin build) |
+| `npm run test:dom` | Solo pruebas DOM de formularios auth (requiere jsdom) |
+
+### Instalar dependencias de prueba
+
+Para ejecutar las pruebas DOM, instala jsdom:
+
+```bash
+npm install
+```
+
+### Qué cubren las pruebas de auth
+
+- **Validación de email**: Formatos válidos e inválidos
+- **Validación de contraseña**: Longitud mínima (6 caracteres)
+- **Coincidencia de contraseñas**: Verificación en registro
+- **Estructura de formularios**: Campos, botones, mensajes de error
+- **Páginas auth en dist/**: login.html, registro.html, olvide-clave.html, verifica-email.html
+- **Módulos ESM**: auth-esm.js, user-profile.js, controladores
 
 ## Formato de código
 
@@ -88,10 +119,51 @@ firebase use --add
 
 Luego selecciona tu proyecto y confirma la actualización de `.firebaserc`.
 
+### Credenciales de Firebase (`src/firebase-config.js`)
+
+La configuración de Firebase se centraliza en `src/firebase-config.js`. Este archivo exporta un objeto con las credenciales necesarias para conectar con los servicios de Firebase.
+
+**Valores requeridos:**
+
+| Clave                  | Descripción                                      |
+|------------------------|--------------------------------------------------|
+| `apiKey`               | Clave de API del proyecto                        |
+| `authDomain`           | Dominio de autenticación                         |
+| `projectId`            | ID del proyecto de Firebase                      |
+| `storageBucket`        | Bucket de almacenamiento                         |
+| `messagingSenderId`    | ID del remitente para Cloud Messaging            |
+| `appId`                | ID de la aplicación web                          |
+| `measurementId`        | ID de medición para Analytics (opcional)         |
+
+**Cómo obtener estos valores:**
+
+1. Ve a la [Consola de Firebase](https://console.firebase.google.com/)
+2. Selecciona tu proyecto
+3. Haz clic en el ícono de engranaje > Configuración del proyecto
+4. En "Tus apps", selecciona tu aplicación web
+5. Copia los valores del objeto `firebaseConfig`
+
+**Gestión de entornos:**
+
+Para usar diferentes proyectos de Firebase (desarrollo vs producción), puedes:
+
+1. **Desarrollo local:** Edita directamente `src/firebase-config.js` con las credenciales del proyecto de desarrollo.
+
+2. **CI/CD con variables de entorno:** Configura las variables de entorno antes del build:
+   ```bash
+   export FIREBASE_API_KEY="tu-api-key"
+   export FIREBASE_PROJECT_ID="tu-project-id"
+   # ... otras variables
+   npm run build
+   ```
+
+> **Nota:** El archivo `public/firebase-config.js` está obsoleto y ya no se incluye en el build. Usa exclusivamente `src/firebase-config.js`.
+
 ## Sistema de comentarios
 
-Las reseñas permiten comentarios guardados en Firebase. Debes colocar las
-claves de tu proyecto en `src/firebase-config.js`.
+Las reseñas permiten comentarios guardados en Firebase. Consulta la sección
+[Credenciales de Firebase](#credenciales-de-firebase-srcfirebase-configjs) para
+configurar las claves de tu proyecto.
 
 Los comentarios nuevos se guardan con el estado `approved: false` y no son
 visibles públicamente hasta que un administrador los aprueba desde

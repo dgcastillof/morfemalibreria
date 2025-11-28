@@ -57,6 +57,14 @@ function processDir(srcPath, outPath) {
         'comments-esm.js',
         'analytics-esm.js',
         'analytics-dashboard.js',
+        'firebase-app.js',
+        'auth-esm.js',
+        'user-profile.js',
+        'login-controller.js',
+        'registro-controller.js',
+        'password-reset-controller.js',
+        'verifica-email-controller.js',
+        'session-listener.js',
       ]);
       if (passthroughModules.has(entry.name)) {
         fs.copyFileSync(srcFile, outFile);
@@ -108,9 +116,16 @@ function escapeForRegex(value) {
 
 function copyPublicAssets() {
   const coverRoot = path.resolve(coverDir);
+  const deprecatedConfig = path.resolve(publicDir, 'firebase-config.js');
   fs.cpSync(publicDir, distDir, {
     recursive: true,
-    filter: (source) => !path.resolve(source).startsWith(coverRoot),
+    filter: (source) => {
+      const resolved = path.resolve(source);
+      // Skip cover images (processed separately) and deprecated config file
+      if (resolved.startsWith(coverRoot)) return false;
+      if (resolved === deprecatedConfig) return false;
+      return true;
+    },
   });
 }
 
