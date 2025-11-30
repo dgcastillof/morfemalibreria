@@ -58,6 +58,9 @@ import {
   sendEmailVerification,
   onAuthStateChanged,
   reload,
+  applyActionCode,
+  checkActionCode,
+  confirmPasswordReset,
 } from 'https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js';
 import { app } from './firebase-app.js';
 
@@ -240,6 +243,71 @@ export async function logoutUser() {
 export async function sendPasswordReset(email) {
   try {
     await sendPasswordResetEmail(auth, email);
+  } catch (error) {
+    throw normalizeError(error);
+  }
+}
+
+/**
+ * Verify a user's email using an out-of-band code.
+ *
+ * @param {string} oobCode - The verification code from the email link
+ * @returns {Promise<void>} Resolves when the email is verified
+ * @throws {AuthError} If verification fails
+ */
+export async function verifyEmailWithCode(oobCode) {
+  if (!oobCode) {
+    throw new AuthError('auth/invalid-action-code', 'Código de verificación inválido.');
+  }
+
+  try {
+    await applyActionCode(auth, oobCode);
+    // Refresh current user to ensure emailVerified reflects latest state
+    if (auth.currentUser) {
+      await reload(auth.currentUser);
+    }
+  } catch (error) {
+    throw normalizeError(error);
+  }
+}
+
+/**
+ * Retrieve information about an action code (e.g., password reset).
+ *
+ * @param {string} oobCode - The out-of-band action code
+ * @returns {Promise<import('firebase/auth').ActionCodeInfo>} Action code info
+ * @throws {AuthError} If the code is invalid or expired
+ */
+export async function getActionCodeInfo(oobCode) {
+  if (!oobCode) {
+    throw new AuthError('auth/invalid-action-code', 'Código inválido o faltante.');
+  }
+
+  try {
+    return await checkActionCode(auth, oobCode);
+  } catch (error) {
+    throw normalizeError(error);
+  }
+}
+
+/**
+ * Confirm a password reset using an out-of-band code.
+ *
+ * @param {string} oobCode - The reset code from the email link
+ * @param {string} newPassword - The new password to set
+ * @returns {Promise<void>} Resolves when password is reset
+ * @throws {AuthError} If the reset fails
+ */
+export async function resetPasswordWithCode(oobCode, newPassword) {
+  if (!oobCode) {
+    throw new AuthError('auth/invalid-action-code', 'Código inválido o faltante.');
+  }
+  if (!newPassword) {
+    throw new AuthError('auth/invalid-password', 'La contraseña no puede estar vacía.');
+  }
+
+  try {
+    await confirmPasswordReset(auth, oobCode, newPassword);
   } catch (error) {
     throw normalizeError(error);
   }

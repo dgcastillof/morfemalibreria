@@ -64,6 +64,7 @@ function processDir(srcPath, outPath) {
         'registro-controller.js',
         'password-reset-controller.js',
         'verifica-email-controller.js',
+        'auth-action-controller.js',
         'session-listener.js',
       ]);
       if (passthroughModules.has(entry.name)) {
