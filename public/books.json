@@ -107,7 +107,7 @@
         "estado": "Como nuevo",
         "precio": "$14000",
         "imagen": "fotos/las_indignas.png",
-        "vendido": false,
+        "vendido": true,
         "novedad": false,
         "reservado": true
     },
@@ -791,7 +791,7 @@
         "estado": "Muy bueno",
         "precio": "$15000",
         "imagen": "fotos/resurreccion.png",
-        "vendido": false,
+        "vendido": true,
         "novedad": true
     },
     {
@@ -956,7 +956,7 @@
         "estado": "Muy bueno",
         "precio": "$20000",
         "imagen": "fotos/cuentos_breves_y_extraordinarios.png",
-        "vendido": false,
+        "vendido": true,
         "novedad": true
     },
     {
