@@ -258,9 +258,12 @@ function updateReferences(filePath, replacements) {
     // Replace absolute paths starting with / but not in external URLs
     // Use quotes or start of attribute to identify local absolute paths
     updated = updated.replace(new RegExp(`(['"\`])/${escapedOriginal}`, 'g'), `$1/${hashed}`);
-    
+
     // Replace relative paths (like ./filename.js)
     updated = updated.replace(new RegExp(`(\\./)${escapedOriginal}`, 'g'), `$1${hashed}`);
+
+    // Replace quoted bare relative paths (e.g., JSON values like "fotos/cover.webp")
+    updated = updated.replace(new RegExp(`(['"\`])${escapedOriginal}`, 'g'), `$1${hashed}`);
   }
 
   if (ext === '.html') {
