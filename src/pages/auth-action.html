@@ -4,67 +4,39 @@
     <meta charset="UTF-8" />
     <script src="/load-gtm.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta
-      http-equiv="Cache-Control"
-      content="no-cache, no-store, must-revalidate"
-    />
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
     <meta http-equiv="Pragma" content="no-cache" />
     <meta http-equiv="Expires" content="0" />
     <title>Acción de cuenta - Morfema</title>
-    <meta
-      name="description"
-      content="Gestioná la verificación de email o el restablecimiento de contraseña."
-    />
+    <meta name="description" content="Gestioná la verificación de email o el restablecimiento de contraseña." />
     <meta name="robots" content="noindex, nofollow" />
     <link rel="stylesheet" href="/styles.css" />
     <link rel="stylesheet" href="/auth.css" />
     <link rel="preload" href="/placeholder.png" as="image" />
     <link rel="icon" href="/favicon.ico" type="image/x-icon" />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
-    />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Lato&family=Merriweather&display=swap"
-      rel="stylesheet"
-    />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Lato&family=Merriweather&display=swap" rel="stylesheet" />
   </head>
   <body>
     <div id="navbar" data-current="ACCIONES DE CUENTA"></div>
 
     <div class="auth-container">
       <h1 class="auth-title">Procesando tu solicitud</h1>
-      <p class="auth-subtitle">
-        Estamos validando tu enlace. Esto puede tardar unos segundos.
-      </p>
+      <p class="auth-subtitle">Estamos validando tu enlace. Esto puede tardar unos segundos.</p>
 
-      <div
-        id="action-message"
-        class="auth-message"
-        role="alert"
-        aria-live="polite"
-      ></div>
+      <div id="action-message" class="auth-message" role="alert" aria-live="polite"></div>
 
-      <div id="verify-section" style="display: none">
+      <div id="verify-section" style="display: none;">
         <div id="verify-loading" class="auth-spinner" aria-hidden="true"></div>
-        <p class="auth-subtitle" style="margin-top: 12px">
-          Verificando tu email...
-        </p>
+        <p class="auth-subtitle" style="margin-top: 12px;">Verificando tu email...</p>
       </div>
 
-      <div id="reset-password-section" style="display: none">
+      <div id="reset-password-section" style="display: none;">
         <p class="auth-subtitle">
-          Restablecé la contraseña para
-          <strong id="reset-email-display"></strong>
+          Restablecé la contraseña para <strong id="reset-email-display"></strong>
         </p>
 
-        <form
-          id="reset-password-form"
-          class="auth-form"
-          method="POST"
-          action="#"
-          novalidate
-        >
+        <form id="reset-password-form" class="auth-form" method="POST" action="#" novalidate>
           <div class="auth-field">
             <label for="action-reset-password">Nueva contraseña</label>
             <input
@@ -90,9 +62,7 @@
               placeholder="Repetí tu contraseña"
               required
             />
-            <span class="field-error" id="action-reset-confirm-error"
-              >Las contraseñas no coinciden.</span
-            >
+            <span class="field-error" id="action-reset-confirm-error">Las contraseñas no coinciden.</span>
           </div>
 
           <button type="submit" id="action-reset-submit" class="auth-submit">
@@ -102,7 +72,7 @@
         </form>
       </div>
 
-      <div class="auth-links" style="margin-top: 16px">
+      <div class="auth-links" style="margin-top: 16px;">
         <a href="/login.html">Volver a iniciar sesión</a>
       </div>
     </div>
@@ -110,11 +80,7 @@
     <div class="footer">
       <p>
         Contacto:
-        <a
-          href="https://www.instagram.com/morfemalibreria"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
+        <a href="https://www.instagram.com/morfemalibreria" target="_blank" rel="noopener noreferrer">
           <i class="fab fa-instagram"></i> Instagram
         </a>
       </p>

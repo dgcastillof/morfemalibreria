@@ -4,57 +4,30 @@
     <meta charset="UTF-8" />
     <script src="/load-gtm.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta
-      http-equiv="Cache-Control"
-      content="no-cache, no-store, must-revalidate"
-    />
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
     <meta http-equiv="Pragma" content="no-cache" />
     <meta http-equiv="Expires" content="0" />
     <title>Verificar email - Morfema</title>
-    <meta
-      name="description"
-      content="Verificá tu email para completar tu registro en Morfema Librería"
-    />
+    <meta name="description" content="Verificá tu email para completar tu registro en Morfema Librería" />
     <meta name="robots" content="noindex, nofollow" />
     <meta property="og:title" content="Verificar email - Morfema" />
-    <meta
-      property="og:description"
-      content="Verificá tu email para completar tu registro en Morfema Librería"
-    />
-    <meta
-      property="og:image"
-      content="https://morfemalibreria.com.ar/logo400x400fondo.png"
-    />
-    <meta
-      property="og:url"
-      content="https://morfemalibreria.com.ar/verifica-email.html"
-    />
+    <meta property="og:description" content="Verificá tu email para completar tu registro en Morfema Librería" />
+    <meta property="og:image" content="https://morfemalibreria.com.ar/logo400x400fondo.png" />
+    <meta property="og:url" content="https://morfemalibreria.com.ar/verifica-email.html" />
     <meta property="og:type" content="website" />
     <meta property="og:locale" content="es_AR" />
     <meta property="og:site_name" content="Morfema Librería" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="Verificar email - Morfema" />
-    <meta
-      name="twitter:description"
-      content="Verificá tu email para completar tu registro en Morfema Librería"
-    />
-    <meta
-      name="twitter:image"
-      content="https://morfemalibreria.com.ar/logo400x400fondo.png"
-    />
+    <meta name="twitter:description" content="Verificá tu email para completar tu registro en Morfema Librería" />
+    <meta name="twitter:image" content="https://morfemalibreria.com.ar/logo400x400fondo.png" />
     <link rel="canonical" href="/verifica-email.html" />
     <link rel="stylesheet" href="/styles.css" />
     <link rel="stylesheet" href="/auth.css" />
     <link rel="preload" href="/placeholder.png" as="image" />
     <link rel="icon" href="/favicon.ico" type="image/x-icon" />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
-    />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Lato&family=Merriweather&display=swap"
-      rel="stylesheet"
-    />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Lato&family=Merriweather&display=swap" rel="stylesheet" />
   </head>
   <body>
     <div id="navbar" data-current="VERIFICAR EMAIL"></div>
@@ -66,15 +39,10 @@
 
       <h1 class="auth-title">Verificá tu email</h1>
 
-      <div
-        id="verify-message"
-        class="auth-message"
-        role="alert"
-        aria-live="polite"
-      ></div>
+      <div id="verify-message" class="auth-message" role="alert" aria-live="polite"></div>
 
       <!-- Shown when user is not logged in -->
-      <div id="not-logged-in-message" style="display: none">
+      <div id="not-logged-in-message" style="display: none;">
         <p class="auth-verification-text">
           Para verificar tu email, primero debes iniciar sesión.
         </p>
@@ -86,10 +54,8 @@
       <!-- Shown when user is logged in -->
       <div id="verification-content">
         <p class="auth-verification-text">
-          Te enviamos un email de verificación a
-          <strong id="user-email-display"></strong>.<br />
-          Por favor, revisá tu bandeja de entrada (y la carpeta de spam) y hacé
-          clic en el enlace para activar tu cuenta.
+          Te enviamos un email de verificación a <strong id="user-email-display"></strong>.<br />
+          Por favor, revisá tu bandeja de entrada (y la carpeta de spam) y hacé clic en el enlace para activar tu cuenta.
         </p>
 
         <button type="button" id="resend-button" class="auth-secondary-button">
@@ -97,12 +63,7 @@
           <span class="auth-submit-text">Reenviar email de verificación</span>
         </button>
 
-        <button
-          type="button"
-          id="check-verification-button"
-          class="auth-submit"
-          style="margin-top: 12px"
-        >
+        <button type="button" id="check-verification-button" class="auth-submit" style="margin-top: 12px;">
           <span class="auth-spinner"></span>
           <span class="auth-submit-text">Ya verifiqué mi email</span>
         </button>
@@ -120,11 +81,7 @@
     <div class="footer">
       <p>
         Contacto:
-        <a
-          href="https://www.instagram.com/morfemalibreria"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
+        <a href="https://www.instagram.com/morfemalibreria" target="_blank" rel="noopener noreferrer">
           <i class="fab fa-instagram"></i> Instagram
         </a>
       </p>

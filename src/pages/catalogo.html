@@ -4,10 +4,7 @@
     <meta charset="UTF-8" />
     <script src="/load-gtm.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta
-      http-equiv="Cache-Control"
-      content="no-cache, no-store, must-revalidate"
-    />
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
     <meta http-equiv="Pragma" content="no-cache" />
     <meta http-equiv="Expires" content="0" />
     <title>Morfema - Librería</title>
@@ -46,7 +43,6 @@
     />
     <link rel="canonical" href="/catalogo.html" />
     <link rel="stylesheet" href="/styles.css" />
-    <link rel="preload" href="/navbar.html" as="fetch" crossorigin />
     <link rel="preload" href="/placeholder.png" as="image" />
     <link rel="icon" href="/favicon.ico" type="image/x-icon" />
     <link
@@ -76,8 +72,7 @@
       const cardSizes = '(max-width: 800px) 45vw, 220px';
 
       function getCoverSources(book) {
-        const mainLarge =
-          book.imagen || book.imagenSmall || book.imagenFallback;
+        const mainLarge = book.imagen || book.imagenSmall || book.imagenFallback;
         const mainSmall = book.imagenSmall || mainLarge;
         const fallbackLarge = book.imagenFallback || mainLarge;
         const fallbackSmall = book.imagenFallbackSmall || fallbackLarge;
@@ -344,10 +339,7 @@
       <div class="logo-container">
         <img src="/logo.png" alt="Morfema" class="logo" />
       </div>
-      <section
-        class="promo-banner"
-        aria-label="Promoción escalonada en libros usados"
-      >
+      <section class="promo-banner" aria-label="Promoción escalonada en libros usados">
         <p class="promo-banner__title">Beneficios por cantidad</p>
         <ul class="promo-banner__list">
           <li class="promo-banner__item">
