@@ -82,7 +82,6 @@ async function handleVerifyEmail(oobCode) {
 async function prepareResetPassword(oobCode) {
   const emailLabel = qs('#reset-email-display');
   const submitButton = qs('#action-reset-submit');
-  const formSection = qs('#reset-password-section');
 
   try {
     const info = await getActionCodeInfo(oobCode);
