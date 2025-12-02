@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="es-AR">
+  <head>
+    <meta charset="UTF-8" />
+    <script src="/load-gtm.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      http-equiv="Cache-Control"
+      content="no-cache, no-store, must-revalidate"
+    />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+    <title>Morfema - Libro</title>
+    <meta
+      name="description"
+      content="Detalles del libro disponible en Morfema Librería"
+    />
+    <meta
+      name="keywords"
+      content="libros usados,librería,comprar libros,Morfema"
+    />
+    <meta name="author" content="Morfema Librería" />
+    <meta name="robots" content="index, follow" />
+    <meta property="og:title" content="Morfema - Libro" />
+    <meta
+      property="og:description"
+      content="Detalles del libro disponible en Morfema Librería"
+    />
+    <meta
+      property="og:image"
+      content="https://morfemalibreria.com.ar/logo400x400fondo.png"
+    />
+    <meta
+      property="og:url"
+      content="https://morfemalibreria.com.ar/libro.html"
+    />
+    <meta property="og:type" content="book" />
+    <meta property="og:locale" content="es_AR" />
+    <meta property="og:site_name" content="Morfema Librería" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Morfema - Libro" />
+    <meta
+      name="twitter:description"
+      content="Detalles del libro disponible en Morfema Librería"
+    />
+    <meta
+      name="twitter:image"
+      content="https://morfemalibreria.com.ar/logo400x400fondo.png"
+    />
+    <link rel="canonical" href="/libro.html" />
+    <link rel="stylesheet" href="/styles.css" />
+    <link rel="preload" href="/placeholder.png" as="image" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lato&family=Merriweather&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="icon" href="/favicon.ico" type="image/x-icon" />
+    <script type="application/ld+json" id="book-schema"></script>
+    <script>
+      const detailSizes = '(max-width: 900px) 80vw, 350px';
+
+      function getCoverSources(book) {
+        const mainLarge =
+          book.imagen || book.imagenSmall || book.imagenFallback;
+        const mainSmall = book.imagenSmall || mainLarge;
+        const fallbackLarge = book.imagenFallback || mainLarge;
+        const fallbackSmall = book.imagenFallbackSmall || fallbackLarge;
+
+        return { mainLarge, mainSmall, fallbackLarge, fallbackSmall };
+      }
+
+      function buildDetailPicture(book) {
+        const { mainLarge, mainSmall, fallbackLarge, fallbackSmall } =
+          getCoverSources(book);
+
+        return `
+                        <picture class="book-cover">
+                            <source srcset="/${mainSmall} 480w, /${mainLarge} 900w" sizes="${detailSizes}" type="image/webp">
+                            <img src="/${fallbackLarge}" srcset="/${fallbackSmall} 480w, /${fallbackLarge} 900w" sizes="${detailSizes}" alt="${book.titulo}" class="lazy-img" loading="lazy" width="600" height="800">
+                        </picture>`;
+      }
+
+      function markImageLoaded(imgElem) {
+        if (!imgElem) return;
+        if (imgElem.complete) {
+          imgElem.classList.add('loaded');
+        } else {
+          imgElem.addEventListener(
+            'load',
+            () => imgElem.classList.add('loaded'),
+            { once: true },
+          );
+        }
+      }
+
+      async function fetchBook() {
+        try {
+          const response = await fetch('/books.json');
+          if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+          }
+          const books = await response.json();
+          const params = new URLSearchParams(window.location.search);
+          const idParam = params.get('id');
+          let book;
+          if (idParam) {
+            book = books.find((b) => String(b.id) === idParam);
+          }
+          if (!book) {
+            const titleParam = params.get('titulo');
+            if (titleParam) {
+              book = books.find((b) => b.titulo === titleParam);
+            }
+          }
+          if (book) {
+            renderBook(book);
+            const url = `${window.location.origin}/libro.html?id=${book.id}&titulo=${encodeURIComponent(book.titulo)}`;
+            const canonical = document.querySelector('link[rel="canonical"]');
+            if (canonical) canonical.setAttribute('href', url);
+            const ogUrl = document.querySelector('meta[property="og:url"]');
+            if (ogUrl) ogUrl.setAttribute('content', url);
+            const ld = {
+              '@context': 'https://schema.org',
+              '@type': 'Book',
+              name: book.titulo,
+              author: book.autor,
+              image: book.imagen,
+              url: url,
+            };
+            const ldScript = document.getElementById('book-schema');
+            if (ldScript) ldScript.textContent = JSON.stringify(ld);
+          } else {
+            document.getElementById('bookContainer').textContent =
+              'Libro no encontrado.';
+          }
+        } catch (error) {
+          console.error('Error cargando los datos del libro:', error);
+        }
+      }
+
+      function renderBook(book) {
+        const container = document.getElementById('bookContainer');
+        container.innerHTML = `
+                <div class="book-detail">
+                    <div class="book-img-wrapper">
+                        ${buildDetailPicture(book)}
+                        ${book.novedad ? '<span class="new-badge">NOVEDAD</span>' : ''}
+                        ${book.reservado ? '<span class="reserved-badge">RESERVADO</span>' : ''}
+                        ${book.vendido ? '<span class="sold-badge">VENDIDO</span>' : ''}
+                    </div>
+                    <h3>${book.titulo}</h3>
+                    <p><strong>Autor:</strong> ${book.autor}</p>
+                    <p><strong>Idioma:</strong> ${book.idioma}</p>
+                    <p><strong>Estado:</strong> ${book.estado}</p>
+                    <p><strong>Precio:</strong> ${book.precio}</p>
+                </div>`;
+        const imgElem = container.querySelector('img.lazy-img');
+        markImageLoaded(imgElem);
+      }
+
+      document.addEventListener('DOMContentLoaded', fetchBook);
+    </script>
+    <!-- Google tag (gtag.js) -->
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=G-4WKGMKCLQH"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag('js', new Date());
+
+      gtag('config', 'G-4WKGMKCLQH');
+    </script>
+  </head>
+  <body>
+    <div id="navbar" data-current="CATÁLOGO USADOS"></div>
+    <div class="container" id="bookContainer"></div>
+    <div class="footer">
+      <p>
+        Contacto:
+        <a
+          href="https://www.instagram.com/morfemalibreria"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <i class="fab fa-instagram"></i> Instagram
+        </a>
+      </p>
+    </div>
+    <script src="/navbar.js"></script>
+    <script type="module" src="/session-listener.js"></script>
+  </body>
+</html>

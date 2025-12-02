@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="es-AR">
+  <head>
+    <meta charset="UTF-8" />
+    <script src="/load-gtm.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      http-equiv="Cache-Control"
+      content="no-cache, no-store, must-revalidate"
+    />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+    <title>Panel de Analytics - Morfema</title>
+    <link rel="stylesheet" href="/styles.css" />
+    <style>
+      .analytics-grid {
+        display: grid;
+        gap: 20px;
+      }
+      .analytics-card {
+        background: white;
+        border-radius: 8px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        padding: 16px;
+      }
+      .analytics-card h2 {
+        margin-top: 0;
+        margin-bottom: 12px;
+        font-size: 20px;
+      }
+      .analytics-table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+      .analytics-table th,
+      .analytics-table td {
+        padding: 8px;
+        border-bottom: 1px solid #e0e0e0;
+        text-align: left;
+      }
+      .analytics-table th {
+        background: #112a4a;
+        color: white;
+      }
+      .analytics-controls {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+        margin-bottom: 10px;
+      }
+      .analytics-subtitle {
+        color: #555;
+        font-size: 14px;
+        margin-top: -6px;
+        margin-bottom: 12px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="navbar" data-current="ANALYTICS"></div>
+    <main class="container">
+      <h1>Panel de Analytics</h1>
+      <p class="analytics-subtitle">
+        Datos resumidos de visitas diarias y semanales, páginas más vistas y
+        flujos de navegación.
+      </p>
+      <div class="analytics-grid">
+        <section class="analytics-card">
+          <h2>Visitas diarias</h2>
+          <div id="daily-visits">Cargando...</div>
+        </section>
+        <section class="analytics-card">
+          <h2>Visitas semanales</h2>
+          <div id="weekly-visits">Cargando...</div>
+        </section>
+        <section class="analytics-card">
+          <div class="analytics-controls">
+            <h2 style="margin: 0">Páginas más vistas</h2>
+            <label for="route-range" style="font-weight: bold">Rango:</label>
+            <select id="route-range">
+              <option value="daily">Últimos 7 días</option>
+              <option value="weekly">Últimas semanas</option>
+            </select>
+          </div>
+          <div id="route-views">Cargando...</div>
+        </section>
+        <section class="analytics-card">
+          <h2>Navegación</h2>
+          <p class="analytics-subtitle">
+            Transiciones más comunes de los últimos 7 días.
+          </p>
+          <div id="navigation-views">Cargando...</div>
+        </section>
+      </div>
+    </main>
+    <script type="module" src="/analytics-dashboard.js"></script>
+    <script src="/navbar.js"></script>
+  </body>
+</html>

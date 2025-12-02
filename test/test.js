@@ -100,7 +100,7 @@ function checkRequiredFiles() {
 function validateBooksJson() {
   console.log('Validating books.json...');
 
-  const schemaPath = path.join(__dirname, '..', 'books.schema.json');
+  const schemaPath = path.join(__dirname, '..', 'config', 'books.schema.json');
   const schema = JSON.parse(fs.readFileSync(schemaPath, 'utf8'));
   const ajv = new Ajv();
   const validate = ajv.compile(schema);

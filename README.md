@@ -2,6 +2,88 @@
 
 Sitio web estático de la librería Morfema en Buenos Aires. El proyecto contiene los archivos que se publican en Firebase Hosting. Puedes visitarlo en [https://morfemalibreria.com.ar/](https://morfemalibreria.com.ar/).
 
+## Estructura del Proyecto
+
+```
+morfema/
+├── config/                 # Archivos de configuración
+│   ├── books.schema.json   # Esquema JSON para validación de libros
+│   ├── firestore.indexes.json
+│   └── firestore.rules     # Reglas de seguridad de Firestore
+├── public/                 # Archivos estáticos
+│   ├── books.json          # Catálogo de libros
+│   ├── robots.txt          # Configuración para crawlers
+│   ├── sitemap.xml         # Mapa del sitio
+│   └── images/             # Imágenes y assets
+│       ├── fotos/          # Portadas de libros
+│       ├── favicon.ico
+│       ├── logo.png
+│       └── ...
+├── scripts/                # Scripts de build y utilidades
+│   ├── build.js            # Script principal de compilación
+│   └── generate-sitemap.js # Generador de sitemap
+├── src/                    # Código fuente
+│   ├── pages/              # Páginas HTML principales
+│   │   ├── index.html      # Página de inicio
+│   │   ├── catalogo.html   # Catálogo de libros
+│   │   ├── libro.html      # Detalle de libro
+│   │   ├── login.html      # Inicio de sesión
+│   │   ├── registro.html   # Registro de usuario
+│   │   └── ...
+│   ├── components/         # Componentes compartidos
+│   │   ├── navbar.html     # Barra de navegación
+│   │   ├── navbar.js       # Lógica del navbar
+│   │   └── gtm.html        # Google Tag Manager
+│   ├── content/            # Contenido editorial
+│   │   └── textos-de-morfema/  # Artículos y textos
+│   ├── js/                 # Módulos JavaScript
+│   │   ├── core/           # Inicialización y config
+│   │   │   ├── firebase-app.js
+│   │   │   ├── firebase-config.js
+│   │   │   ├── load-gtm.js
+│   │   │   └── session-listener.js
+│   │   ├── auth/           # Autenticación
+│   │   │   ├── auth-esm.js
+│   │   │   ├── login-controller.js
+│   │   │   ├── registro-controller.js
+│   │   │   └── ...
+│   │   ├── features/       # Funcionalidades
+│   │   │   ├── cart.js     # Carrito de compras
+│   │   │   ├── comments-esm.js
+│   │   │   ├── analytics-esm.js
+│   │   │   └── admin.js
+│   │   └── utils/          # Utilidades compartidas
+│   ├── styles/             # Hojas de estilo
+│   │   ├── styles.css      # Estilos principales
+│   │   ├── auth.css        # Estilos de autenticación
+│   │   └── sections.css    # Estilos de secciones
+│   └── templates/          # Plantillas EJS
+│       └── layout.ejs      # Layout base
+├── test/                   # Pruebas
+│   ├── test.js             # Suite de pruebas principal
+│   ├── auth-validation.js  # Pruebas de validación
+│   └── auth-forms-dom.js   # Pruebas DOM
+├── dist/                   # Carpeta de salida (generada)
+├── firebase.json           # Configuración de Firebase Hosting
+├── package.json            # Dependencias y scripts npm
+└── README.md
+```
+
+### Dónde agregar nuevos archivos
+
+| Tipo de archivo | Ubicación | Notas |
+|-----------------|-----------|-------|
+| Nueva página HTML | `src/pages/` | Se copia a `dist/` en el build |
+| Nuevo componente | `src/components/` | Para elementos reutilizables |
+| Módulo de autenticación | `src/js/auth/` | Controladores y lógica de auth |
+| Nueva funcionalidad | `src/js/features/` | Carrito, comentarios, etc. |
+| Utilidades compartidas | `src/js/utils/` | Helpers y funciones comunes |
+| Estilos CSS | `src/styles/` | Se minifica en el build |
+| Artículos/textos | `src/content/textos-de-morfema/` | Preserva la estructura |
+| Portadas de libros | `public/images/fotos/` | Se procesan con Sharp |
+| Otras imágenes | `public/images/` | Se copian a `dist/` |
+| Config de Firebase | `config/` | Reglas, índices, schemas |
+
 ## Requisitos previos
 
 - **Node.js** 18 o superior (probado con Node 20)
@@ -84,7 +166,7 @@ Este comando inicia `http-server` en la carpeta `dist`.
 
 ## Guía para portadas de libros
 
-- Sube las portadas originales a `public/fotos/` en formato PNG o JPG. Con un ancho de ~1200px o menos es suficiente para generar todas las variantes.
+- Sube las portadas originales a `public/images/fotos/` en formato PNG o JPG. Con un ancho de ~1200px o menos es suficiente para generar todas las variantes.
 - El build (`npm run build`) usa Sharp para crear automáticamente versiones WebP y JPG en 480px (para listas y tarjetas, donde las portadas no superan ~300px de ancho en pantalla) y 900px (para la vista de detalle, preparada para pantallas HiDPI).
 - WebP es el formato preferido y las versiones JPG quedan como fallback de compatibilidad; las plantillas ya referencian las versiones comprimidas mediante `<picture>` y `srcset`.
 
@@ -119,9 +201,9 @@ firebase use --add
 
 Luego selecciona tu proyecto y confirma la actualización de `.firebaserc`.
 
-### Credenciales de Firebase (`src/firebase-config.js`)
+### Credenciales de Firebase (`src/js/core/firebase-config.js`)
 
-La configuración de Firebase se centraliza en `src/firebase-config.js`. Este archivo exporta un objeto con las credenciales necesarias para conectar con los servicios de Firebase.
+La configuración de Firebase se centraliza en `src/js/core/firebase-config.js`. Este archivo exporta un objeto con las credenciales necesarias para conectar con los servicios de Firebase.
 
 **Valores requeridos:**
 
@@ -157,7 +239,7 @@ Para usar diferentes proyectos de Firebase (desarrollo vs producción), puedes:
    npm run build
    ```
 
-> **Nota:** El archivo `public/firebase-config.js` está obsoleto y ya no se incluye en el build. Usa exclusivamente `src/firebase-config.js`.
+> **Nota:** El archivo `public/firebase-config.js` está obsoleto y ya no se incluye en el build. Usa exclusivamente `src/js/core/firebase-config.js`.
 
 ## Sistema de comentarios
 
@@ -174,7 +256,7 @@ personalizado `admin: true` en Firebase Authentication.
 
 ## Reglas de seguridad de Firestore
 
-Las reglas están en `firestore.rules` y limitan los campos permitidos al crear
+Las reglas están en `config/firestore.rules` y limitan los campos permitidos al crear
 comentarios. Para aplicarlas ejecuta:
 
 ```bash

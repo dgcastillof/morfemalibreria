@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="es-AR">
+  <head>
+    <meta charset="UTF-8" />
+    <script src="/load-gtm.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      http-equiv="Cache-Control"
+      content="no-cache, no-store, must-revalidate"
+    />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+    <title>Moderación de comentarios</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <div id="navbar" data-current=""></div>
+    <main id="admin-container">
+      <div id="loading-state">
+        <p>Verificando acceso...</p>
+      </div>
+      <div id="access-denied" style="display: none">
+        <h1>Acceso denegado</h1>
+        <p>No tenés permisos para acceder a esta página.</p>
+        <a href="/login.html">Iniciar sesión</a>
+      </div>
+      <div id="admin-content" style="display: none">
+        <header
+          style="
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+          "
+        >
+          <h1>Comentarios pendientes</h1>
+          <button id="logout-btn" type="button">Cerrar sesión</button>
+        </header>
+        <ul id="pending-list"></ul>
+      </div>
+    </main>
+    <script type="module" src="/admin.js"></script>
+    <script src="/navbar.js"></script>
+  </body>
+</html>

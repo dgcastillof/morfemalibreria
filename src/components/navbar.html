@@ -1,0 +1,38 @@
+<nav class="navbar">
+  <div class="current-section"></div>
+  <button class="nav-toggle" aria-label="Menú">&#9776;</button>
+  <div class="nav-links">
+    <a href="/index.html">HOME</a>
+    <a href="/catalogo.html">CATÁLOGO USADOS</a>
+    <a href="/vende.html">VENDÉ TUS LIBROS CON NOSOTROS</a>
+    <a href="/lee-gratis.html">LEÉ GRATIS</a>
+    <a href="/textos-de-morfema/">TEXTOS DE MORFEMA</a>
+    <a href="/talleres.html">TALLERES</a>
+    <a href="/quienes-somos.html">QUIÉNES SOMOS</a>
+    <!-- Auth-aware links -->
+    <a href="/login.html" class="nav-login-link">MI CUENTA</a>
+    <a
+      href="/verifica-email.html"
+      class="nav-verify-warning"
+      style="display: none"
+      title="Email no verificado"
+      >⚠️ VERIFICAR EMAIL</a
+    >
+    <div class="nav-user-dropdown" style="display: none">
+      <button
+        class="nav-user-toggle"
+        type="button"
+        aria-expanded="false"
+        aria-haspopup="true"
+      >
+        <span class="nav-user-name"></span>
+        <span class="nav-dropdown-arrow">▼</span>
+      </button>
+      <div class="nav-dropdown-menu">
+        <a href="#" class="nav-logout-link" data-action="logout"
+          >CERRAR SESIÓN</a
+        >
+      </div>
+    </div>
+  </div>
+</nav>

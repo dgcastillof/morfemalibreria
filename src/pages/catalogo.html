@@ -1,0 +1,449 @@
+<!doctype html>
+<html lang="es-AR">
+  <head>
+    <meta charset="UTF-8" />
+    <script src="/load-gtm.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      http-equiv="Cache-Control"
+      content="no-cache, no-store, must-revalidate"
+    />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+    <title>Morfema - Librería</title>
+    <meta
+      name="description"
+      content="Catálogo online de Morfema Librería con una gran selección de libros usados."
+    />
+    <meta
+      name="keywords"
+      content="libros usados,librería,comprar libros,Morfema"
+    />
+    <meta name="author" content="Morfema Librería" />
+    <meta name="robots" content="index, follow" />
+    <meta property="og:title" content="Morfema - Librería" />
+    <meta
+      property="og:description"
+      content="Explorá el catálogo de libros usados de Morfema."
+    />
+    <meta
+      property="og:image"
+      content="https://morfemalibreria.com.ar/logo400x400fondo.png"
+    />
+    <meta property="og:url" content="https://morfemalibreria.com.ar/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="es_AR" />
+    <meta property="og:site_name" content="Morfema Librería" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Morfema - Librería" />
+    <meta
+      name="twitter:description"
+      content="Explorá el catálogo de libros usados de Morfema."
+    />
+    <meta
+      name="twitter:image"
+      content="https://morfemalibreria.com.ar/logo400x400fondo.png"
+    />
+    <link rel="canonical" href="/catalogo.html" />
+    <link rel="stylesheet" href="/styles.css" />
+    <link rel="preload" href="/navbar.html" as="fetch" crossorigin />
+    <link rel="preload" href="/placeholder.png" as="image" />
+    <link rel="icon" href="/favicon.ico" type="image/x-icon" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lato&family=Merriweather&display=swap"
+      rel="stylesheet"
+    />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "CollectionPage",
+        "name": "Catálogo Morfema",
+        "url": "https://morfemalibreria.com.ar/catalogo.html"
+      }
+    </script>
+
+    <script>
+      let currentPage = 1;
+      const booksPerPage = 24;
+      let books = [];
+      let filteredBooks = [];
+      let currentSort = 'title-asc';
+
+      const cardSizes = '(max-width: 800px) 45vw, 220px';
+
+      function getCoverSources(book) {
+        const mainLarge =
+          book.imagen || book.imagenSmall || book.imagenFallback;
+        const mainSmall = book.imagenSmall || mainLarge;
+        const fallbackLarge = book.imagenFallback || mainLarge;
+        const fallbackSmall = book.imagenFallbackSmall || fallbackLarge;
+
+        return { mainLarge, mainSmall, fallbackLarge, fallbackSmall };
+      }
+
+      function buildCoverPicture(book) {
+        const { mainLarge, mainSmall, fallbackLarge, fallbackSmall } =
+          getCoverSources(book);
+
+        return `
+                    <picture class="book-cover">
+                        <source srcset="/${mainSmall} 480w, /${mainLarge} 900w" sizes="${cardSizes}" type="image/webp">
+                        <img src="/${fallbackLarge}" srcset="/${fallbackSmall} 480w, /${fallbackLarge} 900w" sizes="${cardSizes}" alt="${book.titulo}" class="lazy-img" loading="lazy" width="600" height="800">
+                    </picture>`;
+      }
+
+      function markImageLoaded(imgElem) {
+        if (!imgElem) return;
+        if (imgElem.complete) {
+          imgElem.classList.add('loaded');
+        } else {
+          imgElem.addEventListener(
+            'load',
+            () => imgElem.classList.add('loaded'),
+            { once: true },
+          );
+        }
+      }
+
+      const parsePrice = (price) => {
+        const numericValue = parseFloat(
+          price.toString().replace(/[^0-9.-]/g, ''),
+        );
+        return Number.isNaN(numericValue) ? 0 : numericValue;
+      };
+
+      // Centralized sorter to keep ordering consistent across fetches and filters
+      function sortBooks(list, criterion = currentSort) {
+        const sorted = [...list];
+
+        sorted.sort((a, b) => {
+          switch (criterion) {
+            case 'price-asc':
+              return parsePrice(a.precio) - parsePrice(b.precio);
+            case 'price-desc':
+              return parsePrice(b.precio) - parsePrice(a.precio);
+            case 'author-asc':
+              return a.autor.localeCompare(b.autor);
+            case 'title-asc':
+            default:
+              return a.titulo.localeCompare(b.titulo);
+          }
+        });
+
+        return sorted;
+      }
+
+      async function fetchBooks() {
+        try {
+          const response = await fetch('/books.json');
+          if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+          }
+          books = await response.json();
+          filteredBooks = sortBooks(books);
+          showPage(1);
+        } catch (error) {
+          console.error('Error cargando el archivo books.json:', error);
+        }
+      }
+
+      function showPage(page) {
+        const booksContainer = document.querySelector('.books');
+        booksContainer.innerHTML = '';
+
+        if (filteredBooks.length === 0) {
+          booksContainer.innerHTML = '<p>No hay libros disponibles.</p>';
+          document.getElementById('pageNumbers').innerHTML = '';
+          document.getElementById('prevPage').disabled = true;
+          document.getElementById('nextPage').disabled = true;
+          return;
+        }
+
+        const start = (page - 1) * booksPerPage;
+        const end = start + booksPerPage;
+        const totalPages = Math.ceil(filteredBooks.length / booksPerPage);
+
+        filteredBooks.slice(start, end).forEach((book) => {
+          const bookCard = document.createElement('div');
+          bookCard.className = `book-card ${book.vendido ? 'sold' : ''} ${
+            book.reservado ? 'reserved' : ''
+          }`; // Agregar clases si está vendido o reservado
+
+          const link = document.createElement('a');
+          const titleParam = encodeURIComponent(book.titulo);
+          link.href = `libro.html?id=${book.id}&titulo=${titleParam}`;
+          link.className = 'book-link';
+
+          link.innerHTML = `
+                    <div class="book-img-wrapper">
+                        ${buildCoverPicture(book)}
+                        ${book.novedad ? '<span class="new-badge">NOVEDAD</span>' : ''}
+                        ${book.reservado ? '<span class="reserved-badge">RESERVADO</span>' : ''}
+                        ${book.vendido ? '<span class="sold-badge">VENDIDO</span>' : ''}
+                    </div>
+                    <h3>${book.titulo}</h3>
+                    <p><strong>Autor:</strong> ${book.autor}</p>
+                    <p><strong>Idioma:</strong> ${book.idioma}</p>
+                    <p><strong>Estado:</strong> ${book.estado}</p>
+                    <p><strong>Precio:</strong> ${book.precio}</p>
+                `;
+
+          bookCard.appendChild(link);
+          const addToCartButton = document.createElement('button');
+          const unavailable = book.vendido || book.reservado;
+          addToCartButton.type = 'button';
+          addToCartButton.className = 'add-to-cart-button';
+          addToCartButton.textContent = unavailable
+            ? 'No disponible'
+            : 'Agregar al carrito';
+          addToCartButton.disabled = unavailable;
+          addToCartButton.addEventListener('click', (event) => {
+            event.preventDefault();
+            event.stopPropagation();
+            window.cartManager?.addItem({
+              id: book.id,
+              titulo: book.titulo,
+              autor: book.autor,
+              precio: book.precio,
+            });
+          });
+
+          bookCard.appendChild(addToCartButton);
+          booksContainer.appendChild(bookCard);
+          const imgElem = link.querySelector('img.lazy-img');
+          markImageLoaded(imgElem);
+        });
+
+        const pageNumbersContainer = document.getElementById('pageNumbers');
+        pageNumbersContainer.innerHTML = '';
+        for (let i = 1; i <= totalPages; i++) {
+          const btn = document.createElement('button');
+          btn.textContent = i;
+          btn.className = 'page-number';
+          if (i === page) {
+            btn.classList.add('active');
+          }
+          btn.addEventListener('click', () => showPage(i));
+          pageNumbersContainer.appendChild(btn);
+        }
+
+        document.getElementById('prevPage').disabled = page === 1;
+        document.getElementById('nextPage').disabled = page === totalPages;
+        currentPage = page;
+
+        setTimeout(() => {
+          window.scrollTo({
+            top: 0,
+            behavior: 'smooth',
+          });
+        }, 100);
+      }
+
+      function populateFilters() {
+        const idiomas = new Set();
+        const autores = new Set();
+
+        books.forEach((book) => {
+          idiomas.add(book.idioma);
+          autores.add(book.autor);
+        });
+
+        const idiomasArray = Array.from(idiomas);
+        idiomasArray.sort((a, b) => {
+          const order = { 'Espa\u00f1ol': 0, 'Ingl\u00e9s': 1 };
+          const idxA = order[a];
+          const idxB = order[b];
+          if (idxA !== undefined || idxB !== undefined) {
+            return (idxA ?? 99) - (idxB ?? 99);
+          }
+          return a.localeCompare(b);
+        });
+
+        const autoresArray = Array.from(autores).sort((a, b) =>
+          a.localeCompare(b),
+        );
+
+        populateDropdown('filterIdioma', idiomasArray);
+        populateDropdown('filterAutor', autoresArray);
+      }
+
+      function populateDropdown(id, values) {
+        const select = document.getElementById(id);
+        values.forEach((value) => {
+          const option = document.createElement('option');
+          option.value = value;
+          option.textContent = value;
+          select.appendChild(option);
+        });
+      }
+
+      function filterBooks() {
+        const searchTerm = document
+          .getElementById('searchInput')
+          .value.toLowerCase();
+        const selectedIdioma = document.getElementById('filterIdioma').value;
+        const selectedEstado = document.getElementById('filterEstado').value;
+        const selectedAutor = document.getElementById('filterAutor').value;
+
+        filteredBooks = books.filter(
+          (book) =>
+            (book.titulo.toLowerCase().includes(searchTerm) ||
+              book.autor.toLowerCase().includes(searchTerm)) &&
+            (selectedIdioma === '' || book.idioma === selectedIdioma) &&
+            (selectedEstado === '' || book.estado === selectedEstado) &&
+            (selectedAutor === '' || book.autor === selectedAutor),
+        );
+
+        filteredBooks = sortBooks(filteredBooks);
+        showPage(1);
+      }
+
+      function clearFilters() {
+        document.getElementById('filterIdioma').value = '';
+        document.getElementById('filterEstado').value = '';
+        document.getElementById('filterAutor').value = '';
+        document.getElementById('searchInput').value = '';
+        filterBooks();
+      }
+
+      function handleSortChange(event) {
+        currentSort = event?.target?.value || 'title-asc';
+        filteredBooks = sortBooks(filteredBooks);
+        showPage(1);
+      }
+
+      document.addEventListener('DOMContentLoaded', () => {
+        fetchBooks().then(() => {
+          populateFilters();
+        });
+      });
+    </script>
+    <!-- Google tag (gtag.js) -->
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=G-4WKGMKCLQH"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag('js', new Date());
+
+      gtag('config', 'G-4WKGMKCLQH');
+    </script>
+  </head>
+  <body>
+    <div id="navbar" data-current="CATÁLOGO USADOS"></div>
+    <div class="container">
+      <div class="header">Morfema - Librería</div>
+      <div class="logo-container">
+        <img src="/logo.png" alt="Morfema" class="logo" />
+      </div>
+      <section
+        class="promo-banner"
+        aria-label="Promoción escalonada en libros usados"
+      >
+        <p class="promo-banner__title">Beneficios por cantidad</p>
+        <ul class="promo-banner__list">
+          <li class="promo-banner__item">
+            <strong>Llevando 2</strong>
+            <span>10% OFF</span>
+          </li>
+          <li class="promo-banner__item">
+            <strong>Llevando 3</strong>
+            <span>15% OFF</span>
+          </li>
+          <li class="promo-banner__item">
+            <strong>Llevando 4</strong>
+            <span>20% OFF</span>
+          </li>
+        </ul>
+      </section>
+      <div class="filters-container-wrapper">
+        <!-- Selector de ordenamiento colocado a la izquierda de los filtros existentes -->
+        <div class="sort-container">
+          <label for="sortSelect">Ordenar por:</label>
+          <select
+            id="sortSelect"
+            class="filter-select sort-select"
+            onchange="handleSortChange(event)"
+          >
+            <option value="price-asc">Precio (menor a mayor)</option>
+            <option value="price-desc">Precio (mayor a menor)</option>
+            <option value="title-asc" selected>Título (A–Z)</option>
+            <option value="author-asc">Autor (A–Z)</option>
+          </select>
+        </div>
+        <div class="filters-container">
+          <select
+            id="filterIdioma"
+            class="filter-select"
+            onchange="filterBooks()"
+          >
+            <option value="">Todos los idiomas</option>
+          </select>
+
+          <select
+            id="filterEstado"
+            class="filter-select"
+            onchange="filterBooks()"
+          >
+            <option value="">Todos los estados</option>
+            <option value="Como nuevo">Solo como nuevos</option>
+          </select>
+
+          <select
+            id="filterAutor"
+            class="filter-select"
+            onchange="filterBooks()"
+          >
+            <option value="">Todos los autores</option>
+          </select>
+
+          <button class="filter-button" onclick="clearFilters()">
+            Limpiar filtros
+          </button>
+        </div>
+      </div>
+      <div class="search-box">
+        <input
+          type="text"
+          id="searchInput"
+          placeholder="Buscar por título o autor..."
+          oninput="filterBooks()"
+        />
+      </div>
+      <div class="books"></div>
+      <div class="pagination">
+        <button id="prevPage" onclick="showPage(currentPage - 1)">
+          Anterior
+        </button>
+        <div id="pageNumbers"></div>
+        <button id="nextPage" onclick="showPage(currentPage + 1)">
+          Siguiente
+        </button>
+      </div>
+    </div>
+
+    <div class="footer">
+      <p>
+        Contacto:
+        <a
+          href="https://www.instagram.com/morfemalibreria"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <i class="fab fa-instagram"></i> Instagram
+        </a>
+      </p>
+    </div>
+    <script src="/cart.js"></script>
+    <script src="/navbar.js"></script>
+    <script type="module" src="/session-listener.js"></script>
+  </body>
+</html>
