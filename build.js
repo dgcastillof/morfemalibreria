@@ -58,6 +58,7 @@ function processDir(srcPath, outPath) {
         'analytics-esm.js',
         'analytics-dashboard.js',
         'firebase-app.js',
+        'firebase-config.js',
         'auth-esm.js',
         'user-profile.js',
         'login-controller.js',
@@ -264,6 +265,12 @@ function updateReferences(filePath, replacements) {
 
     // Replace quoted bare relative paths (e.g., JSON values like "fotos/cover.webp")
     updated = updated.replace(new RegExp(`(['"\`])${escapedOriginal}`, 'g'), `$1${hashed}`);
+
+    // Replace unquoted url() references commonly used in CSS
+    updated = updated.replace(
+      new RegExp(`(url\\()(?!['"])${escapedOriginal}(\\))`, 'g'),
+      `$1${hashed}$2`,
+    );
   }
 
   if (ext === '.html') {
