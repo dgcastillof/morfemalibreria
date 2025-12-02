@@ -5,11 +5,12 @@
  * Uses the shared Firebase app and Firestore instance from firebase-app.js.
  *
  * Profile document schema:
- * - displayName: string (optional)
- * - email: string
+ * - displayName: string (required, min 2 chars)
  * - emailVerified: boolean
  * - createdAt: Timestamp (set once on creation)
  * - updatedAt: Timestamp (updated on every sync)
+ * 
+ * Note: email is stored in Firebase Auth, not duplicated in Firestore.
  */
 
 import {
@@ -55,10 +56,20 @@ export async function createUserProfile(user, additionalData = {}) {
 
   const docRef = doc(db, 'users', user.uid);
 
+  // Use provided displayName, or Firebase Auth displayName, or extract from email
+  let displayName = additionalData.displayName || user.displayName || '';
+  if (!displayName && user.email) {
+    // Extract username from email as fallback (e.g., "john" from "john@example.com")
+    displayName = user.email.split('@')[0];
+  }
+  // Ensure minimum length of 2 characters
+  if (displayName.length < 2) {
+    displayName = 'Usuario';
+  }
+
   const profileData = {
-    email: user.email || '',
     emailVerified: user.emailVerified || false,
-    displayName: additionalData.displayName || user.displayName || '',
+    displayName: displayName,
     createdAt: serverTimestamp(),
     updatedAt: serverTimestamp(),
   };
