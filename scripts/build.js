@@ -13,6 +13,35 @@ const distDir = path.join(rootDir, 'dist');
 const coverDir = path.join(publicDir, 'images', 'fotos');
 const version = Date.now().toString();
 
+// Cache navbar HTML for injection
+let navbarHtml = null;
+function getNavbarHtml() {
+  if (navbarHtml === null) {
+    const navbarPath = path.join(srcDir, 'components', 'navbar.html');
+    if (fs.existsSync(navbarPath)) {
+      navbarHtml = fs.readFileSync(navbarPath, 'utf8').trim();
+    } else {
+      navbarHtml = '';
+    }
+  }
+  return navbarHtml;
+}
+
+/**
+ * Inject navbar HTML into a page's navbar container
+ * Replaces <div id="navbar" data-current="..."></div> with navbar content inside
+ */
+function injectNavbar(html) {
+  const navbar = getNavbarHtml();
+  if (!navbar) return html;
+  
+  // Match <div id="navbar" ...></div> and inject content
+  return html.replace(
+    /(<div\s+id="navbar"[^>]*>)(\s*<\/div>)/gi,
+    (match, openTag, closeTag) => `${openTag}\n${navbar}\n  ${closeTag}`
+  );
+}
+
 // Image sizes for cover variants. Cards rarely exceed ~300px wide, while detail
 // pages display covers up to ~350px. We generate higher resolution assets to
 // serve crisp images on HiDPI screens without exceeding ~900px physical width.
@@ -48,10 +77,18 @@ function processFile(srcFile, outFile) {
   
   if (name.endsWith('.ejs')) {
     const template = fs.readFileSync(srcFile, 'utf8');
-    const html = ejs.render(template, {}, { filename: srcFile });
+    let html = ejs.render(template, {}, { filename: srcFile });
+    html = injectNavbar(html);
     fs.writeFileSync(outFile.replace(/\.ejs$/, '.html'), html);
   } else if (name.endsWith('.html')) {
-    fs.copyFileSync(srcFile, outFile);
+    // Inject navbar into HTML pages (skip navbar.html itself)
+    if (name !== 'navbar.html') {
+      let html = fs.readFileSync(srcFile, 'utf8');
+      html = injectNavbar(html);
+      fs.writeFileSync(outFile, html);
+    } else {
+      fs.copyFileSync(srcFile, outFile);
+    }
   } else if (name.endsWith('.js')) {
     const passthroughModules = new Set([
       'comments-esm.js',

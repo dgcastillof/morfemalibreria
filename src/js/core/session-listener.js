@@ -10,16 +10,61 @@
 import { onAuthChange, logoutUser, getCurrentUser } from './auth-esm.js';
 import { syncUserProfile, getUserProfile } from './user-profile.js';
 
+// LocalStorage key for caching user display name
+const CACHED_USER_KEY = 'morfema_cached_user';
+
 // Track if handlers are set up to avoid duplicates
 let dropdownHandlersSetup = false;
 let logoutHandlersSetup = false;
 
 /**
+ * Get cached user data from localStorage
+ */
+function getCachedUser() {
+  try {
+    const cached = localStorage.getItem(CACHED_USER_KEY);
+    return cached ? JSON.parse(cached) : null;
+  } catch {
+    return null;
+  }
+}
+
+/**
+ * Save user data to localStorage cache
+ */
+function setCachedUser(user) {
+  try {
+    if (user) {
+      localStorage.setItem(CACHED_USER_KEY, JSON.stringify({
+        displayName: user.displayName,
+        email: user.email,
+        emailVerified: user.emailVerified
+      }));
+    } else {
+      localStorage.removeItem(CACHED_USER_KEY);
+    }
+  } catch {
+    // Ignore localStorage errors
+  }
+}
+
+/**
+ * Remove auth-pending class from navbar to reveal auth elements
+ */
+function revealAuthElements() {
+  const navbar = document.querySelector('.navbar.auth-pending');
+  if (navbar) {
+    navbar.classList.remove('auth-pending');
+  }
+}
+
+/**
  * Update the navbar based on auth state
  * @param {import('firebase/auth').User | null} user - The current user
+ * @param {boolean} fromCache - Whether this update is from cached data
  */
-async function updateNavbar(user) {
-  // Find navbar elements - these may be loaded asynchronously
+async function updateNavbar(user, fromCache = false) {
+  // Find navbar elements
   const accountLink = document.querySelector('.nav-account-link');
   const loginLink = document.querySelector('.nav-login-link');
   const userDropdown = document.querySelector('.nav-user-dropdown');
@@ -27,7 +72,7 @@ async function updateNavbar(user) {
   const verifyWarning = document.querySelector('.nav-verify-warning');
 
   if (!accountLink && !loginLink && !userDropdown) {
-    // Navbar might not be loaded yet, retry after a short delay
+    // Navbar might not be loaded yet
     return;
   }
 
@@ -36,14 +81,27 @@ async function updateNavbar(user) {
     if (loginLink) loginLink.style.display = 'none';
     if (accountLink) accountLink.style.display = '';
 
-    // Get displayName from Firestore profile
+    // Get displayName - use cached value first, then fetch from Firestore
     let displayText = '';
-    try {
-      const profile = await getUserProfile(user.uid);
-      displayText = (profile?.displayName || user.displayName || user.email || '').toUpperCase();
-    } catch (error) {
-      console.error('Error getting user profile for navbar:', error);
+    
+    if (fromCache) {
+      // Use cached displayName immediately
       displayText = (user.displayName || user.email || '').toUpperCase();
+    } else {
+      // Fetch fresh displayName from Firestore
+      try {
+        const profile = await getUserProfile(user.uid);
+        displayText = (profile?.displayName || user.displayName || user.email || '').toUpperCase();
+        // Update cache with fresh data
+        setCachedUser({ 
+          displayName: profile?.displayName || user.displayName, 
+          email: user.email,
+          emailVerified: user.emailVerified 
+        });
+      } catch (error) {
+        console.error('Error getting user profile for navbar:', error);
+        displayText = (user.displayName || user.email || '').toUpperCase();
+      }
     }
 
     // Show user dropdown with display name
@@ -57,10 +115,13 @@ async function updateNavbar(user) {
       verifyWarning.style.display = user.emailVerified ? 'none' : '';
     }
 
-    // Sync profile in background
-    syncUserProfile(user).catch(console.error);
+    // Sync profile in background (only on real auth, not cache)
+    if (!fromCache) {
+      syncUserProfile(user).catch(console.error);
+    }
   } else {
-    // User is signed out
+    // User is signed out - clear cache
+    setCachedUser(null);
     if (loginLink) loginLink.style.display = '';
     if (accountLink) accountLink.style.display = 'none';
     if (userDropdown) userDropdown.style.display = 'none';
@@ -139,51 +200,34 @@ function setupDropdownToggle() {
 }
 
 /**
- * Wait for navbar to be loaded and then update it
+ * Apply cached user state immediately for instant UI feedback
  */
-function waitForNavbar() {
-  const navbar = document.getElementById('navbar');
-  if (!navbar) return;
-
-  // Use MutationObserver to detect when navbar content is loaded
-  const observer = new MutationObserver((mutations, obs) => {
-    const navLinks = navbar.querySelector('.nav-links');
-    if (navLinks) {
-      obs.disconnect();
-      // Navbar is loaded, update it with current user state
-      const user = getCurrentUser();
-      updateNavbar(user);
-      setupLogoutHandlers();
-      setupDropdownToggle();
-    }
-  });
-
-  observer.observe(navbar, { childList: true, subtree: true });
-
-  // Also check immediately in case navbar is already loaded
-  const navLinks = navbar.querySelector('.nav-links');
-  if (navLinks) {
-    observer.disconnect();
-    const user = getCurrentUser();
-    updateNavbar(user);
-    setupLogoutHandlers();
-    setupDropdownToggle();
+function applyCachedState() {
+  const cached = getCachedUser();
+  if (cached) {
+    // Show cached user state immediately
+    updateNavbar(cached, true);
   }
+  // Reveal auth elements after applying cached state (or showing login link)
+  revealAuthElements();
+  setupLogoutHandlers();
+  setupDropdownToggle();
 }
 
 /**
  * Initialize the session listener
  */
 function init() {
-  // Listen for auth state changes
+  // Navbar is now inline (injected at build time), apply cached state immediately
+  applyCachedState();
+  
+  // Listen for auth state changes - this will override cached state when Firebase responds
   onAuthChange((user) => {
-    updateNavbar(user);
+    updateNavbar(user, false);
+    revealAuthElements(); // Ensure revealed even if not already
     setupLogoutHandlers();
     setupDropdownToggle();
   });
-
-  // Wait for navbar to be loaded (it's fetched asynchronously)
-  waitForNavbar();
 }
 
 // Initialize when DOM is ready

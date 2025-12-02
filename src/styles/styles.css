@@ -58,6 +58,22 @@ body {
 }
 
 /* Navbar auth elements */
+
+/* Hide auth elements until auth state is resolved to prevent flicker */
+.navbar.auth-pending .nav-login-link,
+.navbar.auth-pending .nav-user-dropdown,
+.navbar.auth-pending .nav-verify-warning {
+  opacity: 0;
+  visibility: hidden;
+}
+
+/* Smooth transition when auth state is resolved */
+.nav-login-link,
+.nav-user-dropdown,
+.nav-verify-warning {
+  transition: opacity 0.15s ease-out;
+}
+
 .nav-user-info {
   color: #112a4a;
   font-weight: bold;
