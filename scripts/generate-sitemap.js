@@ -1,7 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 
-const publicDir = path.join(__dirname, 'dist');
+const publicDir = path.join(__dirname, '..', 'dist');
 const baseUrl = process.env.SITEMAP_BASE_URL || 'https://morfemalibreria.com.ar';
 
 const exclude = new Set(['404.html', 'navbar.html', 'gtm.html']);
