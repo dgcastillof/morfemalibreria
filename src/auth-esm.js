@@ -94,13 +94,18 @@ const ERROR_MESSAGES = {
   'auth/user-disabled': 'Esta cuenta ha sido deshabilitada.',
   'auth/user-not-found': 'No existe una cuenta con este email.',
   'auth/wrong-password': 'La contraseña es incorrecta.',
+  'auth/invalid-login-credentials': 'Email o contraseña incorrectos.',
+  'auth/invalid-credential': 'Email o contraseña incorrectos.',
   'auth/email-already-in-use': 'Ya existe una cuenta con este email.',
-  'auth/weak-password': 'La contraseña es demasiado débil. Usa al menos 6 caracteres.',
+  'auth/weak-password': 'La contraseña es demasiado débil. Usá al menos 6 caracteres.',
   'auth/operation-not-allowed': 'Esta operación no está permitida.',
-  'auth/too-many-requests': 'Demasiados intentos. Intenta de nuevo más tarde.',
-  'auth/network-request-failed': 'Error de red. Verifica tu conexión a internet.',
-  'auth/invalid-credential': 'Las credenciales proporcionadas no son válidas.',
-  'auth/requires-recent-login': 'Por seguridad, debes iniciar sesión nuevamente.',
+  'auth/too-many-requests': 'Demasiados intentos. Intentá de nuevo más tarde.',
+  'auth/network-request-failed': 'Error de red. Verificá tu conexión a internet.',
+  'auth/requires-recent-login': 'Por seguridad, debés iniciar sesión nuevamente.',
+  'auth/expired-action-code': 'El enlace ha expirado. Solicitá uno nuevo.',
+  'auth/invalid-action-code': 'El enlace no es válido o ya fue utilizado.',
+  'auth/missing-password': 'Ingresá una contraseña.',
+  'auth/missing-email': 'Ingresá un email.',
 };
 
 /**
