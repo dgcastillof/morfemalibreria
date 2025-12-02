@@ -15,5 +15,5 @@ jobs:
       - run: npm ci
       - run: npm run lint
       - run: npm test
-      - run: node generate-sitemap.js
+      - run: npm run generate:sitemap
       - run: git diff --quiet public/sitemap.xml
