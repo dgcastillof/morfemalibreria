@@ -18,11 +18,11 @@ function updateNavbar(user) {
   // Find navbar elements - these may be loaded asynchronously
   const accountLink = document.querySelector('.nav-account-link');
   const loginLink = document.querySelector('.nav-login-link');
-  const logoutLink = document.querySelector('.nav-logout-link');
-  const userInfo = document.querySelector('.nav-user-info');
+  const userDropdown = document.querySelector('.nav-user-dropdown');
+  const userName = document.querySelector('.nav-user-name');
   const verifyWarning = document.querySelector('.nav-verify-warning');
 
-  if (!accountLink && !loginLink && !logoutLink) {
+  if (!accountLink && !loginLink && !userDropdown) {
     // Navbar might not be loaded yet, retry after a short delay
     return;
   }
@@ -31,12 +31,12 @@ function updateNavbar(user) {
     // User is signed in
     if (loginLink) loginLink.style.display = 'none';
     if (accountLink) accountLink.style.display = '';
-    if (logoutLink) logoutLink.style.display = '';
 
-    // Show user info (email or display name)
-    if (userInfo) {
-      userInfo.textContent = user.displayName || user.email || '';
-      userInfo.style.display = '';
+    // Show user dropdown with display name (uppercase)
+    if (userDropdown) {
+      const displayText = (user.displayName || user.email || '').toUpperCase();
+      if (userName) userName.textContent = displayText;
+      userDropdown.style.display = '';
     }
 
     // Show verification warning if not verified
@@ -50,8 +50,7 @@ function updateNavbar(user) {
     // User is signed out
     if (loginLink) loginLink.style.display = '';
     if (accountLink) accountLink.style.display = 'none';
-    if (logoutLink) logoutLink.style.display = 'none';
-    if (userInfo) userInfo.style.display = 'none';
+    if (userDropdown) userDropdown.style.display = 'none';
     if (verifyWarning) verifyWarning.style.display = 'none';
   }
 }
@@ -85,6 +84,38 @@ function setupLogoutHandlers() {
 }
 
 /**
+ * Set up dropdown toggle for user menu
+ */
+function setupDropdownToggle() {
+  const userToggle = document.querySelector('.nav-user-toggle');
+  const userDropdown = document.querySelector('.nav-user-dropdown');
+
+  if (!userToggle || !userDropdown) return;
+
+  userToggle.addEventListener('click', (e) => {
+    e.stopPropagation();
+    const isOpen = userDropdown.classList.toggle('open');
+    userToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+  });
+
+  // Close dropdown when clicking outside
+  document.addEventListener('click', (e) => {
+    if (!userDropdown.contains(e.target)) {
+      userDropdown.classList.remove('open');
+      userToggle.setAttribute('aria-expanded', 'false');
+    }
+  });
+
+  // Close dropdown on Escape key
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && userDropdown.classList.contains('open')) {
+      userDropdown.classList.remove('open');
+      userToggle.setAttribute('aria-expanded', 'false');
+    }
+  });
+}
+
+/**
  * Wait for navbar to be loaded and then update it
  */
 function waitForNavbar() {
@@ -100,6 +131,7 @@ function waitForNavbar() {
       const user = getCurrentUser();
       updateNavbar(user);
       setupLogoutHandlers();
+      setupDropdownToggle();
     }
   });
 
@@ -112,6 +144,7 @@ function waitForNavbar() {
     const user = getCurrentUser();
     updateNavbar(user);
     setupLogoutHandlers();
+    setupDropdownToggle();
   }
 }
 
@@ -123,6 +156,7 @@ function init() {
   onAuthChange((user) => {
     updateNavbar(user);
     setupLogoutHandlers();
+    setupDropdownToggle();
   });
 
   // Wait for navbar to be loaded (it's fetched asynchronously)
