@@ -1,0 +1,219 @@
+<!doctype html>
+<html lang="es-AR">
+  <head>
+    <meta charset="UTF-8" />
+    <script src="/load-gtm.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+    <title>Talleres - Morfema</title>
+    <meta
+      name="description"
+      content="Próximos talleres y actividades culturales"
+    />
+    <meta name="robots" content="index, follow" />
+    <meta property="og:title" content="Talleres - Morfema" />
+    <meta
+      property="og:description"
+      content="Próximos talleres y actividades culturales"
+    />
+    <meta
+      property="og:image"
+      content="https://morfemalibreria.com.ar/logo400x400fondo.png"
+    />
+    <meta
+      property="og:url"
+      content="https://morfemalibreria.com.ar/talleres.html"
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="es_AR" />
+    <meta property="og:site_name" content="Morfema Librería" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Talleres - Morfema" />
+    <meta
+      name="twitter:description"
+      content="Próximos talleres y actividades culturales"
+    />
+    <meta
+      name="twitter:image"
+      content="https://morfemalibreria.com.ar/logo400x400fondo.png"
+    />
+    <link rel="stylesheet" href="/styles.css" />
+    <link rel="stylesheet" href="/sections.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lato&family=Merriweather&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="icon" href="/favicon.ico" type="image/x-icon" />
+    <link rel="canonical" href="/talleres.html" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebPage",
+        "name": "Talleres - Morfema",
+        "url": "https://morfemalibreria.com.ar/talleres.html"
+      }
+    </script>
+    <!-- Google tag (gtag.js) -->
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=G-4WKGMKCLQH"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag('js', new Date());
+
+      gtag('config', 'G-4WKGMKCLQH');
+    </script>
+  </head>
+  <body>
+    <div id="navbar" data-current="TALLERES"></div>
+    <div class="container talleres-section">
+<% if (talleresProximos.length > 0) { %>
+      <h2 class="talleres-section-title">Próximos talleres</h2>
+      <!-- Workshop alternating layout: even index = poster left, odd index = poster right -->
+<% talleresProximos.forEach((taller, index) => { %>
+      <div class="talleres-grid talleres-card <%= index % 2 === 0 ? 'talleres-row-normal' : 'talleres-row-reverse' %>">
+        <div class="talleres-banner">
+          <a
+            href="<%= taller.enlaceDetalle %>"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Ver detalles del taller en Instagram"
+          >
+            <img
+              src="/<%= taller.imagen %>-900w.webp"
+              alt="Banner del <%= taller.titulo %>"
+              loading="lazy"
+            />
+          </a>
+        </div>
+        <div class="talleres-info">
+          <p class="talleres-company">
+            <%= taller.organizador.nombre.toUpperCase() %> (
+            <a
+              class="talleres-instagram"
+              href="https://www.instagram.com/<%= taller.organizador.instagram %>"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <i class="fab fa-instagram" aria-hidden="true"></i>
+              @<%= taller.organizador.instagram %>
+            </a>
+            )
+          </p>
+          <h3 class="talleres-title">
+            <a
+              class="talleres-title-link"
+              href="<%= taller.enlaceDetalle %>"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <%= taller.titulo %>
+            </a>
+          </h3>
+          <p class="talleres-date">Comienza: <%= taller.fechaFormateada %></p>
+          <div class="talleres-countdown" data-fecha="<%= taller.fechaInicio %>" aria-live="polite"></div>
+        </div>
+      </div>
+<% }); %>
+<% } else { %>
+      <p class="talleres-empty">No hay talleres programados por el momento. ¡Volvé pronto!</p>
+<% } %>
+
+<% if (talleresPasados.length > 0) { %>
+      <h2 class="talleres-section-title talleres-section-pasados">Talleres anteriores</h2>
+<% talleresPasados.forEach((taller, index) => { %>
+      <div class="talleres-grid talleres-card talleres-pasado <%= index % 2 === 0 ? 'talleres-row-normal' : 'talleres-row-reverse' %>">
+        <div class="talleres-banner">
+          <a
+            href="<%= taller.enlaceDetalle %>"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Ver detalles del taller en Instagram"
+          >
+            <img
+              src="/<%= taller.imagen %>-900w.webp"
+              alt="Banner del <%= taller.titulo %>"
+              loading="lazy"
+            />
+          </a>
+        </div>
+        <div class="talleres-info">
+          <p class="talleres-company">
+            <%= taller.organizador.nombre.toUpperCase() %> (
+            <a
+              class="talleres-instagram"
+              href="https://www.instagram.com/<%= taller.organizador.instagram %>"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <i class="fab fa-instagram" aria-hidden="true"></i>
+              @<%= taller.organizador.instagram %>
+            </a>
+            )
+          </p>
+          <h3 class="talleres-title">
+            <a
+              class="talleres-title-link"
+              href="<%= taller.enlaceDetalle %>"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <%= taller.titulo %>
+            </a>
+          </h3>
+          <p class="talleres-date">Fue el: <%= taller.fechaFormateada %></p>
+        </div>
+      </div>
+<% }); %>
+<% } %>
+    </div>
+    <div class="footer">
+      <p>
+        Contacto:
+        <a
+          href="https://www.instagram.com/morfemalibreria"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <i class="fab fa-instagram"></i> Instagram
+        </a>
+      </p>
+    </div>
+    <script src="/navbar.js"></script>
+    <script type="module" src="/session-listener.js"></script>
+    <script>
+      (function () {
+        function formatCountdown(diffMs) {
+          if (diffMs <= 0) return '¡El taller ya comenzó!';
+          const dayInMs = 24 * 60 * 60 * 1000;
+          const remainingDays = Math.ceil(diffMs / dayInMs);
+          return `${remainingDays} día${remainingDays !== 1 ? 's' : ''} restantes`;
+        }
+
+        document.querySelectorAll('.talleres-countdown[data-fecha]').forEach(el => {
+          const fechaStr = el.dataset.fecha;
+          const startDate = new Date(fechaStr + 'T00:00:00');
+
+          function updateCountdown() {
+            const now = new Date();
+            const diff = startDate - now;
+            el.textContent = formatCountdown(diff);
+          }
+
+          updateCountdown();
+          setInterval(updateCountdown, 60000);
+        });
+      })();
+    </script>
+  </body>
+</html>

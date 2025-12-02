@@ -1,0 +1,50 @@
+[
+  {
+    "id": 1,
+    "titulo": "Taller de lectura: Matate, amor",
+    "organizador": {
+      "nombre": "Fluir de Mi",
+      "instagram": "fluirdemi"
+    },
+    "fechaInicio": "2025-12-05",
+    "imagen": "fotos/taller_1",
+    "enlaceDetalle": "https://www.instagram.com/p/DQt6joiDU0v/",
+    "activo": true
+  },
+  {
+    "id": 2,
+    "titulo": "Taller de Fluir de Mi",
+    "organizador": {
+      "nombre": "Fluir de Mi",
+      "instagram": "fluirdemi"
+    },
+    "fechaInicio": "2026-01-02",
+    "imagen": "fotos/taller_2",
+    "enlaceDetalle": "https://www.instagram.com/p/DRfmhTokW9E/",
+    "activo": true
+  },
+  {
+    "id": 3,
+    "titulo": "Taller de Poesía - Primeros versos",
+    "organizador": {
+      "nombre": "Fluir de Mi",
+      "instagram": "fluirdemi"
+    },
+    "fechaInicio": "2026-01-08",
+    "imagen": "fotos/taller_4",
+    "enlaceDetalle": "https://www.instagram.com/fluirdemi",
+    "activo": true
+  },
+  {
+    "id": 4,
+    "titulo": "Taller de Fluir de Mi",
+    "organizador": {
+      "nombre": "Fluir de Mi",
+      "instagram": "fluirdemi"
+    },
+    "fechaInicio": "2026-02-06",
+    "imagen": "fotos/taller_3",
+    "enlaceDetalle": "https://www.instagram.com/p/DRfmhTokW9E/",
+    "activo": true
+  }
+]

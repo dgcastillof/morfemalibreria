@@ -122,6 +122,41 @@
   font-size: 18px;
 }
 
+/* Talleres section titles */
+.talleres-section-title {
+  font-family: 'Merriweather', serif;
+  font-size: 1.8rem;
+  color: #333;
+  margin: 2rem 0 1.5rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid #e0e0e0;
+}
+
+.talleres-section-pasados {
+  margin-top: 3rem;
+  color: #666;
+}
+
+/* Past workshops - muted style */
+.talleres-pasado {
+  opacity: 0.6;
+  filter: grayscale(30%);
+  transition: opacity 0.3s, filter 0.3s;
+}
+
+.talleres-pasado:hover {
+  opacity: 0.85;
+  filter: grayscale(0%);
+}
+
+/* Empty state */
+.talleres-empty {
+  text-align: center;
+  padding: 3rem;
+  color: #666;
+  font-size: 1.1rem;
+}
+
 @media (max-width: 720px) {
   .talleres-grid {
     grid-template-columns: 1fr;

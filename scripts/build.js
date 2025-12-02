@@ -142,6 +142,8 @@ function processSrc() {
   const pagesDir = path.join(srcDir, 'pages');
   if (fs.existsSync(pagesDir)) {
     for (const file of fs.readdirSync(pagesDir)) {
+      // Skip talleres.ejs - it's processed separately with data
+      if (file === 'talleres.ejs') continue;
       const srcFile = path.join(pagesDir, file);
       if (fs.statSync(srcFile).isFile()) {
         const outFile = path.join(distDir, file);
@@ -435,6 +437,54 @@ function updateReferences(filePath, replacements) {
   }
 }
 
+/**
+ * Format a date string to Spanish format (e.g., "5 de diciembre")
+ */
+function formatearFechaES(fechaISO) {
+  const meses = [
+    'enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio',
+    'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'
+  ];
+  const fecha = new Date(fechaISO + 'T00:00:00');
+  const dia = fecha.getDate();
+  const mes = meses[fecha.getMonth()];
+  return `${dia} de ${mes}`;
+}
+
+/**
+ * Process talleres.ejs template with data from talleres.json
+ */
+function processTalleresTemplate() {
+  const talleresJsonPath = path.join(publicDir, 'talleres.json');
+  const talleresEjsPath = path.join(srcDir, 'pages', 'talleres.ejs');
+  
+  if (!fs.existsSync(talleresJsonPath) || !fs.existsSync(talleresEjsPath)) {
+    return;
+  }
+
+  const talleres = JSON.parse(fs.readFileSync(talleresJsonPath, 'utf8'));
+  const now = new Date();
+  now.setHours(0, 0, 0, 0);
+
+  // Add formatted date to each taller
+  const talleresConFecha = talleres
+    .filter(t => t.activo)
+    .map(t => ({
+      ...t,
+      fechaFormateada: formatearFechaES(t.fechaInicio)
+    }))
+    .sort((a, b) => new Date(a.fechaInicio) - new Date(b.fechaInicio));
+
+  // Split into upcoming and past
+  const talleresProximos = talleresConFecha.filter(t => new Date(t.fechaInicio + 'T00:00:00') >= now);
+  const talleresPasados = talleresConFecha.filter(t => new Date(t.fechaInicio + 'T00:00:00') < now);
+
+  const template = fs.readFileSync(talleresEjsPath, 'utf8');
+  let html = ejs.render(template, { talleresProximos, talleresPasados }, { filename: talleresEjsPath });
+  html = injectNavbar(html);
+  fs.writeFileSync(path.join(distDir, 'talleres.html'), html);
+}
+
 async function main() {
   fs.rmSync(distDir, { recursive: true, force: true });
   fs.mkdirSync(distDir, { recursive: true });
@@ -442,6 +492,7 @@ async function main() {
   copyPublicAssets();
   const coverVariants = await generateCoverVariants();
   processSrc();
+  processTalleresTemplate();
   await buildBooksJson(coverVariants);
 
   const replacements = hashAssets();
