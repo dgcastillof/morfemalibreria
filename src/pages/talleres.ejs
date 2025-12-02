@@ -7,16 +7,17 @@
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
     <meta http-equiv="Pragma" content="no-cache" />
     <meta http-equiv="Expires" content="0" />
-    <title>Talleres - Morfema</title>
+    <title>Talleres de Lectura y Escritura Creativa | Fluir de Mi - Morfema Librería</title>
     <meta
       name="description"
-      content="Próximos talleres y actividades culturales"
+      content="Talleres de lectura, escritura creativa y poesía en Buenos Aires. Organizados por Fluir de Mi en Morfema Librería. Próximos talleres: lectura de Matate amor, primeros versos y más."
     />
+    <meta name="keywords" content="talleres de lectura, talleres de escritura, escritura creativa, poesía, Fluir de Mi, Morfema, librería Buenos Aires, taller literario" />
     <meta name="robots" content="index, follow" />
-    <meta property="og:title" content="Talleres - Morfema" />
+    <meta property="og:title" content="Talleres de Lectura y Escritura Creativa | Fluir de Mi - Morfema" />
     <meta
       property="og:description"
-      content="Próximos talleres y actividades culturales"
+      content="Talleres de lectura, escritura creativa y poesía en Buenos Aires. Organizados por Fluir de Mi en Morfema Librería."
     />
     <meta
       property="og:image"
@@ -30,10 +31,10 @@
     <meta property="og:locale" content="es_AR" />
     <meta property="og:site_name" content="Morfema Librería" />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Talleres - Morfema" />
+    <meta name="twitter:title" content="Talleres de Lectura y Escritura Creativa | Fluir de Mi" />
     <meta
       name="twitter:description"
-      content="Próximos talleres y actividades culturales"
+      content="Talleres de lectura, escritura creativa y poesía en Buenos Aires. Organizados por Fluir de Mi en Morfema Librería."
     />
     <meta
       name="twitter:image"
@@ -50,13 +51,46 @@
       rel="stylesheet"
     />
     <link rel="icon" href="/favicon.ico" type="image/x-icon" />
-    <link rel="canonical" href="/talleres.html" />
+    <link rel="canonical" href="https://morfemalibreria.com.ar/talleres.html" />
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
-        "@type": "WebPage",
-        "name": "Talleres - Morfema",
-        "url": "https://morfemalibreria.com.ar/talleres.html"
+        "@type": "CollectionPage",
+        "name": "Talleres de Lectura y Escritura Creativa - Morfema Librería",
+        "description": "Talleres de lectura, escritura creativa y poesía organizados por Fluir de Mi en Morfema Librería, Buenos Aires.",
+        "url": "https://morfemalibreria.com.ar/talleres.html",
+        "publisher": {
+          "@type": "Organization",
+          "name": "Morfema Librería",
+          "url": "https://morfemalibreria.com.ar"
+        },
+        "mainEntity": {
+          "@type": "ItemList",
+          "name": "Próximos talleres literarios",
+          "itemListElement": [
+<% talleresProximos.forEach((taller, index) => { %>
+            {
+              "@type": "Event",
+              "position": <%= index + 1 %>,
+              "name": "<%= taller.titulo %>",
+              "startDate": "<%= taller.fechaInicio %>",
+              "organizer": {
+                "@type": "Organization",
+                "name": "<%= taller.organizador.nombre %>"
+              },
+              "location": {
+                "@type": "Place",
+                "name": "Morfema Librería",
+                "address": {
+                  "@type": "PostalAddress",
+                  "addressLocality": "Buenos Aires",
+                  "addressCountry": "AR"
+                }
+              }
+            }<%= index < talleresProximos.length - 1 ? ',' : '' %>
+<% }); %>
+          ]
+        }
       }
     </script>
     <!-- Google tag (gtag.js) -->
@@ -77,6 +111,10 @@
   <body>
     <div id="navbar" data-current="TALLERES"></div>
     <div class="container talleres-section">
+      <header class="talleres-header">
+        <h1>Talleres de Lectura y Escritura Creativa</h1>
+        <p class="talleres-intro">Descubrí los talleres organizados por <strong>Fluir de Mi</strong> en Morfema Librería. Espacios para explorar la lectura, la escritura creativa y la poesía.</p>
+      </header>
 <% if (talleresProximos.length > 0) { %>
       <h2 class="talleres-section-title">Próximos talleres</h2>
       <!-- Workshop alternating layout: even index = poster left, odd index = poster right -->
