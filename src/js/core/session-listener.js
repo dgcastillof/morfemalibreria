@@ -91,6 +91,9 @@ async function updateNavbar(user, fromCache = false) {
       // Fetch fresh displayName from Firestore
       try {
         const profile = await getUserProfile(user.uid);
+        console.log('[DEBUG] User profile from Firestore:', profile);
+        console.log('[DEBUG] user.displayName:', user.displayName);
+        console.log('[DEBUG] user.email:', user.email);
         displayText = (profile?.displayName || user.displayName || user.email || '').toUpperCase();
         // Update cache with fresh data
         setCachedUser({ 
