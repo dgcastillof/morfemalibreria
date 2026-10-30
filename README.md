@@ -1,6 +1,8 @@
 # Morfema Librería
 
-Sitio web estático de la librería Morfema en Buenos Aires. El proyecto contiene los archivos que se publican en Firebase Hosting. Puedes visitarlo en [https://morfemalibreria.com.ar/](https://morfemalibreria.com.ar/).
+> **Proyecto cerrado.** Este repo queda archivado, de solo lectura.
+
+Sitio web estático de la librería Morfema en Buenos Aires. El proyecto contiene los archivos que se publican en Firebase Hosting. Sigue en línea en [morfemalibreria-b8c79.web.app](https://morfemalibreria-b8c79.web.app/).
 
 ## Estructura del Proyecto
 
@@ -229,7 +231,7 @@ La configuración de Firebase se centraliza en `src/js/core/firebase-config.js`.
 
 Para usar diferentes proyectos de Firebase (desarrollo vs producción), puedes:
 
-1. **Desarrollo local:** Edita directamente `src/firebase-config.js` con las credenciales del proyecto de desarrollo.
+1. **Desarrollo local:** Edita directamente `src/js/core/firebase-config.js` con las credenciales del proyecto de desarrollo.
 
 2. **CI/CD con variables de entorno:** Configura las variables de entorno antes del build:
    ```bash
@@ -244,7 +246,7 @@ Para usar diferentes proyectos de Firebase (desarrollo vs producción), puedes:
 ## Sistema de comentarios
 
 Las reseñas permiten comentarios guardados en Firebase. Consulta la sección
-[Credenciales de Firebase](#credenciales-de-firebase-srcfirebase-configjs) para
+[Credenciales de Firebase](#credenciales-de-firebase-srcjscorefirebase-configjs) para
 configurar las claves de tu proyecto.
 
 Los comentarios nuevos se guardan con el estado `approved: false` y no son
