@@ -2,7 +2,7 @@
 
 > **Proyecto cerrado.** Este repo queda archivado, de solo lectura.
 
-Sitio web estático de la librería Morfema en Buenos Aires. El proyecto contiene los archivos que se publican en Firebase Hosting. Sigue en línea en [morfemalibreria-b8c79.web.app](https://morfemalibreria-b8c79.web.app/).
+Sitio web estático de la librería Morfema en Buenos Aires. El proyecto contiene los archivos que se publican en Firebase Hosting. El sitio ya no está en línea.
 
 ## Estructura del Proyecto
 
